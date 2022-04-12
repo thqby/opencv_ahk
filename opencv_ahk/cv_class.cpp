@@ -181,7 +181,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	case M___Delete: this->~GMatDesc(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::GMatDesc;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		if (3 <= aParamCount && aParamCount <= 4) {
 			bool p = false;
 			cv::Size s;
@@ -211,13 +211,13 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		return;
 	}
 	case M_asInterleaved: {
-		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC.asInterleaved();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_asPlanar: {
 		if (aParamCount == 0) {
-			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.asPlanar();
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -225,7 +225,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			int planes;
 			if (ParamIndexToVal(0, planes))
 				_o_return_result;
-			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.asPlanar(planes);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -236,7 +236,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		int ddepth;
 		if (ParamIndexToVal(0, ddepth))
 			_o_return_result;
-		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC.withDepth(ddepth);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -244,7 +244,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		cv::Size sz;
 		if (ParamIndexToVal(0, sz))
 			_o_return_result;
-		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC.withSize(sz);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -253,7 +253,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			cv::Size delta;
 			if (ParamIndexToVal(0, delta))
 				_o_return_result;
-			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.withSizeDelta(delta);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -263,7 +263,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 				_o_return_result;
 			if (ParamIndexToVal(1, dy))
 				_o_return_result;
-			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+			auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.withSizeDelta(dx, dy);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -276,7 +276,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			_o_return_result;
 		if (ParamIndexToVal(1, dchan))
 			_o_return_result;
-		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(nullptr, -1);
+		auto __retval = (GMatDesc*)GMatDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC.withType(ddepth, dchan);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -358,7 +358,7 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	case M___Delete: this->~HOGDescriptor(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::HOGDescriptor;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		if (5 <= aParamCount && aParamCount <= 12) {
 			bool _gammaCorrection = false, _signedGradient = false;
 			cv::Size _winSize, _blockSize, _blockStride, _cellSize;
@@ -1226,7 +1226,7 @@ void detail_CameraParams::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	case M___Delete: this->~detail_CameraParams(); mBase = nullptr; return;
 	case M___New: new (&mC) cv::detail::CameraParams; return;
 	case M_K: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC.K();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1277,7 +1277,7 @@ void detail_CameraParams::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 			return;
 		}
 		else {
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.R; return (void)aResultToken.SetValue(__retval);
 		}
 	}
@@ -1288,7 +1288,7 @@ void detail_CameraParams::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 			return;
 		}
 		else {
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.t; return (void)aResultToken.SetValue(__retval);
 		}
 	}
@@ -1342,7 +1342,7 @@ void detail_ImageFeatures::Invoke(ResultToken& aResultToken, int aID, int aFlags
 			return;
 		}
 		else {
-			auto __retval = (UMat*)UMat::sPrototype->New(nullptr, -1);
+			auto __retval = (UMat*)UMat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.descriptors; return (void)aResultToken.SetValue(__retval);
 		}
 	}
@@ -1400,7 +1400,7 @@ void detail_MatchesInfo::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 			return;
 		}
 		else {
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.H; return (void)aResultToken.SetValue(__retval);
 		}
 	}
@@ -1517,7 +1517,7 @@ void dnn_DictValue::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	case M___Delete: this->~dnn_DictValue(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::dnn::DictValue;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		if (!MatchTypes("i")) {
 			int i;
 			if (ParamIndexToVal(0, i))
@@ -1585,7 +1585,7 @@ void gapi_GNetPackage::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	case M___Delete: this->~gapi_GNetPackage(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::gapi::GNetPackage;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		std::vector<cv::gapi::GNetParam> nets;
 		if (ParamIndexToVal(0, nets))
 			_o_return_result;
@@ -1611,7 +1611,7 @@ void gapi_streaming_queue_capacity::Invoke(ResultToken& aResultToken, int aID, i
 	case M___Delete: this->~gapi_streaming_queue_capacity(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::gapi::streaming::queue_capacity;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		size_t cap = 1;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], (intptr_t&)cap, true);
@@ -1638,7 +1638,7 @@ void gapi_wip_draw_Circle::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	case M___Delete: this->~gapi_wip_draw_Circle(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Circle;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		cv::Point center_;
 		cv::Scalar color_;
 		int radius_, thick_ = 1, lt_ = 8, shift_ = 0;
@@ -1727,7 +1727,7 @@ void gapi_wip_draw_Image::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	case M___Delete: this->~gapi_wip_draw_Image(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Image;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		cv::Mat img_, alpha_;
 		cv::Point org_;
 		if (ParamIndexToVal(0, org_))
@@ -1756,7 +1756,7 @@ void gapi_wip_draw_Image::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 			return;
 		}
 		else {
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.img; return (void)aResultToken.SetValue(__retval);
 		}
 	}
@@ -1767,7 +1767,7 @@ void gapi_wip_draw_Image::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 			return;
 		}
 		else {
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC.alpha; return (void)aResultToken.SetValue(__retval);
 		}
 	}
@@ -1781,7 +1781,7 @@ void gapi_wip_draw_Line::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	case M___Delete: this->~gapi_wip_draw_Line(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Line;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		cv::Point pt1_, pt2_;
 		cv::Scalar color_;
 		int thick_ = 1, lt_ = 8, shift_ = 0;
@@ -1909,7 +1909,7 @@ void gapi_wip_draw_Poly::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	case M___Delete: this->~gapi_wip_draw_Poly(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Poly;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		cv::Scalar color_;
 		int thick_ = 1, lt_ = 8, shift_ = 0;
 		std::vector<cv::Point> points_;
@@ -2045,7 +2045,7 @@ void gapi_wip_draw_Text::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	case M___Delete: this->~gapi_wip_draw_Text(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Text;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		bool bottom_left_origin_ = false;
 		cv::Point org_;
 		cv::Scalar color_;
@@ -2494,7 +2494,7 @@ void AKAZE::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 	case M___Delete: this->~AKAZE(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AKAZE>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		float threshold = 0.001f;
 		int descriptor_type = cv::AKAZE::DESCRIPTOR_MLDB, descriptor_size = 0, descriptor_channels = 3, nOctaves = 4, nOctaveLayers = 4, diffusivity = cv::KAZE::DIFF_PM_G2;
 		if (aParamCount > 0)
@@ -2605,7 +2605,7 @@ void AffineFeature::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	case M___Delete: this->~AffineFeature(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AffineFeature>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::Ptr<cv::Feature2D> backend;
 		float tiltStep = 1.4142135623730951f, rotateStepBase = 72;
 		int maxTilt = 5, minTilt = 0;
@@ -2654,7 +2654,7 @@ void AgastFeatureDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	case M___Delete: this->~AgastFeatureDetector(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AgastFeatureDetector>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool nonmaxSuppression = true;
 		int threshold = 10, type = cv::AgastFeatureDetector::OAST_9_16;
 		if (aParamCount > 0)
@@ -2882,7 +2882,7 @@ void AsyncArray::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	case M___Delete: this->~AsyncArray(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AsyncArray>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::AsyncArray();
 		return;
 	}
@@ -2932,7 +2932,7 @@ void BFMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	case M___Delete: this->~BFMatcher(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BFMatcher>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool crossCheck = false;
 		int normType = cv::NORM_L2;
 		if (aParamCount > 0)
@@ -2952,7 +2952,7 @@ void BOWImgDescriptorExtractor::Invoke(ResultToken& aResultToken, int aID, int a
 	case M___Delete: this->~BOWImgDescriptorExtractor(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BOWImgDescriptorExtractor>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::Ptr<cv::DescriptorExtractor> dextractor;
 		cv::Ptr<cv::DescriptorMatcher> dmatcher;
 		if (ParamIndexToVal(0, dextractor))
@@ -2987,7 +2987,7 @@ void BOWImgDescriptorExtractor::Invoke(ResultToken& aResultToken, int aID, int a
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getVocabulary: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getVocabulary();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3008,7 +3008,7 @@ void BOWKMeansTrainer::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	case M___Delete: this->~BOWKMeansTrainer(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BOWKMeansTrainer>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (1 <= aParamCount && aParamCount <= 4) {
 			cv::TermCriteria termcrit = cv::TermCriteria();
 			;
@@ -3029,7 +3029,7 @@ void BOWKMeansTrainer::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	}
 	case M_cluster: {
 		if (aParamCount == 0) {
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC->cluster();
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3037,7 +3037,7 @@ void BOWKMeansTrainer::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			cv::Mat descriptors;
 			if (ParamIndexToVal(0, descriptors))
 				_o_return_result;
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC->cluster(descriptors);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3065,7 +3065,7 @@ void BOWTrainer::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	}
 	case M_cluster: {
 		if (aParamCount == 0) {
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC->cluster();
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3073,7 +3073,7 @@ void BOWTrainer::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 			cv::Mat descriptors;
 			if (ParamIndexToVal(0, descriptors))
 				_o_return_result;
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC->cluster(descriptors);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3098,7 +3098,7 @@ void BRISK::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 	case M___Delete: this->~BRISK(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BRISK>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("i?if")) {
 			float patternScale = 1.0f;
 			int thresh = 30, octaves = 3;
@@ -3572,7 +3572,7 @@ void CalibrateRobertson::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getRadiance: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getRadiance();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3604,7 +3604,7 @@ void CascadeClassifier::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	case M___Delete: this->~CascadeClassifier(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::CascadeClassifier>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::CascadeClassifier();
 			return;
@@ -3777,7 +3777,7 @@ void DISOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	case M___Delete: this->~DISOpticalFlow(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::DISOpticalFlow>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int preset = cv::DISOpticalFlow::PRESET_FAST;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], preset, true);
@@ -3904,7 +3904,7 @@ void DMatch::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 	case M___Delete: this->~DMatch(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::DMatch>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::DMatch();
 			return;
@@ -4008,13 +4008,13 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 		bool emptyTrainData = false;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], (char&)emptyTrainData, true);
-		auto __retval = (DescriptorMatcher*)DescriptorMatcher::sPrototype->New(nullptr, -1);
+		auto __retval = (DescriptorMatcher*)DescriptorMatcher::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->clone(emptyTrainData);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M___New: {
 		new (&mC) cv::Ptr<cv::DescriptorMatcher>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("s")) {
 			cv::String descriptorMatcherType;
 			if (ParamIndexToVal(0, descriptorMatcherType))
@@ -4235,7 +4235,7 @@ void FaceDetectorYN::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	case M___Delete: this->~FaceDetectorYN(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FaceDetectorYN>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::Size input_size;
 		cv::String model, config;
 		float score_threshold = 0.9f, nms_threshold = 0.3f;
@@ -4335,7 +4335,7 @@ void FaceRecognizerSF::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	}
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FaceRecognizerSF>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::String model, config;
 		int backend_id = 0, target_id = 0;
 		if (ParamIndexToVal(0, model))
@@ -4381,7 +4381,7 @@ void FarnebackOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	case M___Delete: this->~FarnebackOpticalFlow(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FarnebackOpticalFlow>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool fastPyramids = false;
 		double pyrScale = 0.5, polySigma = 1.1;
 		int numLevels = 5, winSize = 13, numIters = 10, polyN = 5, flags = 0;
@@ -4502,7 +4502,7 @@ void FastFeatureDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	case M___Delete: this->~FastFeatureDetector(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FastFeatureDetector>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool nonmaxSuppression = true;
 		int threshold = 10, type = cv::FastFeatureDetector::TYPE_9_16;
 		if (aParamCount > 0)
@@ -4685,7 +4685,7 @@ void FileNode::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	case M___Delete: this->~FileNode(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FileNode>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::FileNode();
 		return;
 	}
@@ -4726,7 +4726,7 @@ void FileNode::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		return ValToResult(__retval, aResultToken);
 	}
 	case M_mat: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->mat();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4739,7 +4739,7 @@ void FileNode::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			cv::String nodename;
 			if (ParamIndexToVal(0, nodename))
 				_o_return_result;
-			auto __retval = (FileNode*)FileNode::sPrototype->New(nullptr, -1);
+			auto __retval = (FileNode*)FileNode::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::FileNode>((*mC)[nodename]);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -4747,7 +4747,7 @@ void FileNode::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			int i;
 			if (ParamIndexToVal(0, i))
 				_o_return_result;
-			auto __retval = (FileNode*)FileNode::sPrototype->New(nullptr, -1);
+			auto __retval = (FileNode*)FileNode::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::FileNode>((*mC)[i]);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -4784,7 +4784,7 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	case M___Delete: this->~FileStorage(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FileStorage>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::FileStorage();
 			return;
@@ -4809,7 +4809,7 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		return;
 	}
 	case M_getFirstTopLevelNode: {
-		auto __retval = (FileNode*)FileNode::sPrototype->New(nullptr, -1);
+		auto __retval = (FileNode*)FileNode::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::FileNode>(mC->getFirstTopLevelNode());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4837,7 +4837,7 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		cv::String nodename;
 		if (ParamIndexToVal(0, nodename))
 			_o_return_result;
-		auto __retval = (FileNode*)FileNode::sPrototype->New(nullptr, -1);
+		auto __retval = (FileNode*)FileNode::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::FileNode>((*mC)[nodename]);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4853,7 +4853,7 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		int streamidx = 0;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], streamidx, true);
-		auto __retval = (FileNode*)FileNode::sPrototype->New(nullptr, -1);
+		auto __retval = (FileNode*)FileNode::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::FileNode>(mC->root(streamidx));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4941,7 +4941,7 @@ void FlannBasedMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	case M___Delete: this->~FlannBasedMatcher(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FlannBasedMatcher>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::FlannBasedMatcher::create();
 		return;
 	}
@@ -4955,7 +4955,7 @@ void GFTTDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	case M___Delete: this->~GFTTDetector(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GFTTDetector>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (0 <= aParamCount && aParamCount <= 6) {
 			bool useHarrisDetector = false;
 			double qualityLevel = 0.01, minDistance = 1, k = 0.04;
@@ -5079,7 +5079,7 @@ void GFrame::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 	case M___Delete: this->~GFrame(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GFrame>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::GFrame();
 		return;
 	}
@@ -5093,7 +5093,7 @@ void GMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	case M___Delete: this->~GMat(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GMat>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::GMat();
 		return;
 	}
@@ -5107,7 +5107,7 @@ void GScalar::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	case M___Delete: this->~GScalar(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GScalar>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::GScalar();
 		return;
 	}
@@ -5121,7 +5121,7 @@ void GStreamingCompiled::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	case M___Delete: this->~GStreamingCompiled(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GStreamingCompiled>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::GStreamingCompiled();
 		return;
 	}
@@ -5440,7 +5440,7 @@ void KAZE::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	case M___Delete: this->~KAZE(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::KAZE>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool extended = false, upright = false;
 		float threshold = 0.001f;
 		int nOctaves = 4, nOctaveLayers = 4, diffusivity = cv::KAZE::DIFF_PM_G2;
@@ -5539,7 +5539,7 @@ void KalmanFilter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	case M___Delete: this->~KalmanFilter(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::KalmanFilter>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::KalmanFilter();
 			return;
@@ -5564,7 +5564,7 @@ void KalmanFilter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		cv::Mat measurement;
 		if (ParamIndexToVal(0, measurement))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->correct(measurement);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -5572,7 +5572,7 @@ void KalmanFilter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		cv::Mat control = cv::Mat();
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], control, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->predict(control);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -5586,7 +5586,7 @@ void KeyPoint::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	case M___Delete: this->~KeyPoint(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::KeyPoint>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::KeyPoint();
 			return;
@@ -5727,7 +5727,7 @@ void MSER::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	case M___Delete: this->~MSER(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::MSER>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		double max_variation = 0.25, min_diversity = .2, area_threshold = 1.01, min_margin = 0.003;
 		int delta = 5, min_area = 60, max_area = 14400, max_evolution = 200, edge_blur_size = 5;
 		if (aParamCount > 0)
@@ -5997,7 +5997,7 @@ void Moments::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	case M___Delete: this->~Moments(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Moments>; 
-		if (aParamCount < 0) return;
+		if (aParamCount == 1 && aParam[0] == g_invalid) return;
 		if (aParamCount == 0)
 			mC = cv::makePtr<cv::Moments>();
 		else if (aParamCount == 10) {
@@ -6060,7 +6060,7 @@ void ORB::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	case M___Delete: this->~ORB(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ORB>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		float scaleFactor = 1.2f;
 		int nfeatures = 500, nlevels = 8, edgeThreshold = 31, firstLevel = 0, WTA_K = 2, scoreType = cv::ORB::HARRIS_SCORE, patchSize = 31, fastThreshold = 20;
 		if (aParamCount > 0)
@@ -6197,7 +6197,7 @@ void PyRotationWarper::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	case M___Delete: this->~PyRotationWarper(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::PyRotationWarper>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 2) {
 			cv::String type;
 			float scale;
@@ -6334,7 +6334,7 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	case M___Delete: this->~QRCodeDetector(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::QRCodeDetector>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::QRCodeDetector();
 		return;
 	}
@@ -6468,7 +6468,7 @@ void QRCodeEncoder::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	case M___Delete: this->~QRCodeEncoder(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::QRCodeEncoder>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::QRCodeEncoder::Params parameters = cv::QRCodeEncoder::Params();
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], parameters, true);
@@ -6505,7 +6505,7 @@ void SIFT::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	case M___Delete: this->~SIFT(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::SIFT>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (0 <= aParamCount && aParamCount <= 5) {
 			double contrastThreshold = 0.04, edgeThreshold = 10, sigma = 1.6;
 			int nfeatures = 0, nOctaveLayers = 3;
@@ -6557,7 +6557,7 @@ void SimpleBlobDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	case M___Delete: this->~SimpleBlobDetector(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::SimpleBlobDetector>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::SimpleBlobDetector::Params parameters = cv::SimpleBlobDetector::Params();
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], parameters, true);
@@ -6605,7 +6605,7 @@ void SparsePyrLKOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFla
 	case M___Delete: this->~SparsePyrLKOpticalFlow(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::SparsePyrLKOpticalFlow>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (0 <= aParamCount && aParamCount <= 5) {
 			cv::Size winSize = cv::Size(21, 21);
 			cv::TermCriteria crit = cv::TermCriteria(cv::TermCriteria::COUNT + cv::TermCriteria::EPS, 30, 0.01);
@@ -6693,7 +6693,7 @@ void StereoBM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	case M___Delete: this->~StereoBM(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::StereoBM>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int numDisparities = 0, blockSize = 21;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], numDisparities, true);
@@ -6886,7 +6886,7 @@ void StereoSGBM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	case M___Delete: this->~StereoSGBM(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::StereoSGBM>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int minDisparity = 0, numDisparities = 16, blockSize = 3, P1 = 0, P2 = 0, disp12MaxDiff = 0, preFilterCap = 0, uniquenessRatio = 0, speckleWindowSize = 0, speckleRange = 0, mode = cv::StereoSGBM::MODE_SGBM;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], minDisparity, true);
@@ -7003,7 +7003,7 @@ void Stitcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	}
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Stitcher>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int mode = cv::Stitcher::PANORAMA;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], mode, true);
@@ -7121,7 +7121,7 @@ void Subdiv2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	case M___Delete: this->~Subdiv2D(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Subdiv2D>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::Subdiv2D();
 			return;
@@ -7350,7 +7350,7 @@ void TickMeter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	case M___Delete: this->~TickMeter(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TickMeter>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::TickMeter();
 		return;
 	}
@@ -7570,7 +7570,7 @@ void TrackerDaSiamRPN::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	case M___Delete: this->~TrackerDaSiamRPN(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TrackerDaSiamRPN>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::TrackerDaSiamRPN::Params parameters = cv::TrackerDaSiamRPN::Params();
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], parameters, true);
@@ -7591,7 +7591,7 @@ void TrackerGOTURN::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	case M___Delete: this->~TrackerGOTURN(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TrackerGOTURN>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::TrackerGOTURN::Params parameters = cv::TrackerGOTURN::Params();
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], parameters, true);
@@ -7608,7 +7608,7 @@ void TrackerMIL::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	case M___Delete: this->~TrackerMIL(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TrackerMIL>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::TrackerMIL::Params parameters = cv::TrackerMIL::Params();
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], parameters, true);
@@ -7639,7 +7639,7 @@ void VariationalRefinement::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	}
 	case M___New: {
 		new (&mC) cv::Ptr<cv::VariationalRefinement>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::VariationalRefinement::create();
 		return;
 	}
@@ -7719,7 +7719,7 @@ void VideoCapture::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	case M___Delete: this->~VideoCapture(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::VideoCapture>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::VideoCapture();
 			return;
@@ -7890,7 +7890,7 @@ void VideoWriter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	case M___Delete: this->~VideoWriter(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::VideoWriter>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::VideoWriter();
 			return;
@@ -8129,7 +8129,7 @@ void cuda_BufferPool::Invoke(ResultToken& aResultToken, int aID, int aFlags, Exp
 	switch (aID) {
 	case M___Delete: this->~cuda_BufferPool(); mBase = nullptr; return;
 	case M_getAllocator: {
-		auto __retval = (cuda_GpuMat_Allocator*)cuda_GpuMat_Allocator::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_GpuMat_Allocator*)cuda_GpuMat_Allocator::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getAllocator();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8142,7 +8142,7 @@ void cuda_BufferPool::Invoke(ResultToken& aResultToken, int aID, int aFlags, Exp
 				_o_return_result;
 			if (ParamIndexToVal(2, type))
 				_o_return_result;
-			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->getBuffer(rows, cols, type));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8153,7 +8153,7 @@ void cuda_BufferPool::Invoke(ResultToken& aResultToken, int aID, int aFlags, Exp
 				_o_return_result;
 			if (ParamIndexToVal(1, type))
 				_o_return_result;
-			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->getBuffer(size, type));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8174,7 +8174,7 @@ void cuda_DeviceInfo::Invoke(ResultToken& aResultToken, int aID, int aFlags, Exp
 	}
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::DeviceInfo>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::cuda::DeviceInfo();
 			return;
@@ -8424,7 +8424,7 @@ void cuda_Event::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	case M___Delete: this->~cuda_Event(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::Event>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int flags = cv::cuda::Event::CreateFlags::DEFAULT;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], flags, true);
@@ -8465,7 +8465,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	case M___Delete: this->~cuda_GpuMat(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::GpuMat>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o?")) {
 			cv::cuda::GpuMat::Allocator* allocator = cv::cuda::GpuMat::defaultAllocator();
 			if (aParamCount > 0)
@@ -8605,7 +8605,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_clone: {
-		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->clone());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8613,7 +8613,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		int x;
 		if (ParamIndexToVal(0, x))
 			_o_return_result;
-		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->col(x));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8624,7 +8624,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(1, endcol))
 				_o_return_result;
-			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->colRange(startcol, endcol));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8632,7 +8632,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			cv::Range r;
 			if (ParamIndexToVal(0, r))
 				_o_return_result;
-			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->colRange(r));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8784,7 +8784,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		return (void)aResultToken.SetValue(__retval);
 	}
 	case M_defaultAllocator: {
-		auto __retval = (cuda_GpuMat_Allocator*)cuda_GpuMat_Allocator::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_GpuMat_Allocator*)cuda_GpuMat_Allocator::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->defaultAllocator();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8845,7 +8845,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], rows, true);
-		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->reshape(cn, rows));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8853,7 +8853,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		int y;
 		if (ParamIndexToVal(0, y))
 			_o_return_result;
-		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->row(y));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8864,7 +8864,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(1, endrow))
 				_o_return_result;
-			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->rowRange(startrow, endrow));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8872,7 +8872,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			cv::Range r;
 			if (ParamIndexToVal(0, r))
 				_o_return_result;
-			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(nullptr, -1);
+			auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::cuda::GpuMat>(mC->rowRange(r));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -9003,7 +9003,7 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	case M___Delete: this->~cuda_HostMem(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::HostMem>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o?")) {
 			int alloc_type = cv::cuda::HostMem::AllocType::PAGE_LOCKED;
 			if (aParamCount > 0)
@@ -9054,7 +9054,7 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_clone: {
-		auto __retval = (cuda_HostMem*)cuda_HostMem::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_HostMem*)cuda_HostMem::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::cuda::HostMem>(mC->clone());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -9070,7 +9070,7 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return;
 	}
 	case M_createMatHeader: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->createMatHeader();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -9100,7 +9100,7 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], rows, true);
-		auto __retval = (cuda_HostMem*)cuda_HostMem::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_HostMem*)cuda_HostMem::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::cuda::HostMem>(mC->reshape(cn, rows));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -9132,13 +9132,13 @@ void cuda_Stream::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	switch (aID) {
 	case M___Delete: this->~cuda_Stream(); mBase = nullptr; return;
 	case M_Null: {
-		auto __retval = (cuda_Stream*)cuda_Stream::sPrototype->New(nullptr, -1);
+		auto __retval = (cuda_Stream*)cuda_Stream::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::cuda::Stream>(cv::cuda::Stream::Null());
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::Stream>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::cuda::Stream();
 			return;
@@ -9260,7 +9260,7 @@ void detail_AffineBasedEstimator::Invoke(ResultToken& aResultToken, int aID, int
 	case M___Delete: this->~detail_AffineBasedEstimator(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::AffineBasedEstimator>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::detail::AffineBasedEstimator();
 		return;
 	}
@@ -9274,7 +9274,7 @@ void detail_AffineBestOf2NearestMatcher::Invoke(ResultToken& aResultToken, int a
 	case M___Delete: this->~detail_AffineBestOf2NearestMatcher(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::AffineBestOf2NearestMatcher>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool full_affine = false, try_use_gpu = false;
 		float match_conf = 0.3f;
 		int num_matches_thresh1 = 6;
@@ -9299,7 +9299,7 @@ void detail_BestOf2NearestMatcher::Invoke(ResultToken& aResultToken, int aID, in
 	case M___Delete: this->~detail_BestOf2NearestMatcher(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BestOf2NearestMatcher>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool try_use_gpu = false;
 		float match_conf = 0.3f;
 		int num_matches_thresh1 = 6, num_matches_thresh2 = 6;
@@ -9328,7 +9328,7 @@ void detail_BestOf2NearestRangeMatcher::Invoke(ResultToken& aResultToken, int aI
 	case M___Delete: this->~detail_BestOf2NearestRangeMatcher(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BestOf2NearestRangeMatcher>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool try_use_gpu = false;
 		float match_conf = 0.3f;
 		int range_width = 5, num_matches_thresh1 = 6, num_matches_thresh2 = 6;
@@ -9381,7 +9381,7 @@ void detail_Blender::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], (char&)try_gpu, true);
-		auto __retval = (detail_Blender*)detail_Blender::sPrototype->New(nullptr, -1);
+		auto __retval = (detail_Blender*)detail_Blender::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->createDefault(type, try_gpu);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -9428,7 +9428,7 @@ void detail_BlocksChannelsCompensator::Invoke(ResultToken& aResultToken, int aID
 	case M___Delete: this->~detail_BlocksChannelsCompensator(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BlocksChannelsCompensator>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int bl_width = 32, bl_height = 32, nr_feeds = 1;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], bl_width, true);
@@ -9548,7 +9548,7 @@ void detail_BlocksGainCompensator::Invoke(ResultToken& aResultToken, int aID, in
 	case M___Delete: this->~detail_BlocksGainCompensator(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BlocksGainCompensator>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (0 <= aParamCount && aParamCount <= 2) {
 			int bl_width = 32, bl_height = 32;
 			if (aParamCount > 0)
@@ -9616,7 +9616,7 @@ void detail_BundleAdjusterAffine::Invoke(ResultToken& aResultToken, int aID, int
 	case M___Delete: this->~detail_BundleAdjusterAffine(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterAffine>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::detail::BundleAdjusterAffine();
 		return;
 	}
@@ -9630,7 +9630,7 @@ void detail_BundleAdjusterAffinePartial::Invoke(ResultToken& aResultToken, int a
 	case M___Delete: this->~detail_BundleAdjusterAffinePartial(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterAffinePartial>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::detail::BundleAdjusterAffinePartial();
 		return;
 	}
@@ -9647,7 +9647,7 @@ void detail_BundleAdjusterBase::Invoke(ResultToken& aResultToken, int aID, int a
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_refinementMask: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->refinementMask();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -9686,7 +9686,7 @@ void detail_BundleAdjusterRay::Invoke(ResultToken& aResultToken, int aID, int aF
 	case M___Delete: this->~detail_BundleAdjusterRay(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterRay>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::detail::BundleAdjusterRay();
 		return;
 	}
@@ -9700,7 +9700,7 @@ void detail_BundleAdjusterReproj::Invoke(ResultToken& aResultToken, int aID, int
 	case M___Delete: this->~detail_BundleAdjusterReproj(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterReproj>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::detail::BundleAdjusterReproj();
 		return;
 	}
@@ -9714,7 +9714,7 @@ void detail_ChannelsCompensator::Invoke(ResultToken& aResultToken, int aID, int 
 	case M___Delete: this->~detail_ChannelsCompensator(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::ChannelsCompensator>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int nr_feeds = 1;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], nr_feeds, true);
@@ -9787,7 +9787,7 @@ void detail_DpSeamFinder::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	case M___Delete: this->~detail_DpSeamFinder(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::DpSeamFinder>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::String costFunc;
 		if (ParamIndexToVal(0, costFunc))
 			_o_return_result;
@@ -9856,7 +9856,7 @@ void detail_ExposureCompensator::Invoke(ResultToken& aResultToken, int aID, int 
 		int type;
 		if (ParamIndexToVal(0, type))
 			_o_return_result;
-		auto __retval = (detail_ExposureCompensator*)detail_ExposureCompensator::sPrototype->New(nullptr, -1);
+		auto __retval = (detail_ExposureCompensator*)detail_ExposureCompensator::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->createDefault(type);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -9911,7 +9911,7 @@ void detail_FeatherBlender::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	case M___Delete: this->~detail_FeatherBlender(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::FeatherBlender>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		float sharpness = 0.02f;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], sharpness, true);
@@ -10038,7 +10038,7 @@ void detail_GainCompensator::Invoke(ResultToken& aResultToken, int aID, int aFla
 	case M___Delete: this->~detail_GainCompensator(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::GainCompensator>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::detail::GainCompensator();
 			return;
@@ -10119,7 +10119,7 @@ void detail_GraphCutSeamFinder::Invoke(ResultToken& aResultToken, int aID, int a
 	case M___Delete: this->~detail_GraphCutSeamFinder(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::GraphCutSeamFinder>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::String cost_type;
 		float terminal_cost = 10000.f, bad_region_penalty = 1000.f;
 		if (ParamIndexToVal(0, cost_type))
@@ -10153,7 +10153,7 @@ void detail_HomographyBasedEstimator::Invoke(ResultToken& aResultToken, int aID,
 	case M___Delete: this->~detail_HomographyBasedEstimator(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::HomographyBasedEstimator>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool is_focals_estimated = false;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], (char&)is_focals_estimated, true);
@@ -10170,7 +10170,7 @@ void detail_MultiBandBlender::Invoke(ResultToken& aResultToken, int aID, int aFl
 	case M___Delete: this->~detail_MultiBandBlender(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::MultiBandBlender>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int try_gpu = false, num_bands = 5, weight_type = CV_32F;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], try_gpu, true);
@@ -10242,7 +10242,7 @@ void detail_NoBundleAdjuster::Invoke(ResultToken& aResultToken, int aID, int aFl
 	case M___Delete: this->~detail_NoBundleAdjuster(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::NoBundleAdjuster>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::detail::NoBundleAdjuster();
 		return;
 	}
@@ -10352,7 +10352,7 @@ void detail_SeamFinder::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 		int type;
 		if (ParamIndexToVal(0, type))
 			_o_return_result;
-		auto __retval = (detail_SeamFinder*)detail_SeamFinder::sPrototype->New(nullptr, -1);
+		auto __retval = (detail_SeamFinder*)detail_SeamFinder::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->createDefault(type);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -10386,12 +10386,12 @@ void detail_Timelapser::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 		int type;
 		if (ParamIndexToVal(0, type))
 			_o_return_result;
-		auto __retval = (detail_Timelapser*)detail_Timelapser::sPrototype->New(nullptr, -1);
+		auto __retval = (detail_Timelapser*)detail_Timelapser::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->createDefault(type);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getDst: {
-		auto __retval = (UMat*)UMat::sPrototype->New(nullptr, -1);
+		auto __retval = (UMat*)UMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getDst();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -10462,7 +10462,7 @@ void dnn_ClassificationModel::Invoke(ResultToken& aResultToken, int aID, int aFl
 	case M___Delete: this->~dnn_ClassificationModel(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::ClassificationModel>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("ss?")) {
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
@@ -10509,7 +10509,7 @@ void dnn_DetectionModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	case M___Delete: this->~dnn_DetectionModel(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::DetectionModel>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("ss?")) {
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
@@ -10585,7 +10585,7 @@ void dnn_KeypointsModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	case M___Delete: this->~dnn_KeypointsModel(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::KeypointsModel>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("ss?")) {
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
@@ -10650,7 +10650,7 @@ void dnn_Model::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	case M___Delete: this->~dnn_Model(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::Model>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("ss?")) {
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
@@ -10786,7 +10786,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	case M___Delete: this->~dnn_Net(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::Net>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::dnn::Net();
 		return;
 	}
@@ -10826,7 +10826,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 			cv::String outputName = cv::String();
 			if (aParamCount > 0)
 				TokenToVal(*aParam[0], outputName, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC->forward(outputName);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -10870,7 +10870,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 		cv::String outputName = cv::String();
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], outputName, true);
-		auto __retval = (AsyncArray*)AsyncArray::sPrototype->New(nullptr, -1);
+		auto __retval = (AsyncArray*)AsyncArray::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::AsyncArray>(mC->forwardAsync(outputName));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -10940,7 +10940,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 		cv::dnn::Net::LayerId layerId;
 		if (ParamIndexToVal(0, layerId))
 			_o_return_result;
-		auto __retval = (dnn_Layer*)dnn_Layer::sPrototype->New(nullptr, -1);
+		auto __retval = (dnn_Layer*)dnn_Layer::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getLayer(layerId);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11116,7 +11116,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], numParam, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getParam(layer, numParam);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11148,7 +11148,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 			_o_return_result;
 		if (ParamIndexToVal(2, outputsDtype))
 			_o_return_result;
-		auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+		auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::dnn::Net>(mC->quantize(calibData, inputsDtype, outputsDtype));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11159,7 +11159,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 				_o_return_result;
 			if (ParamIndexToVal(1, bin))
 				_o_return_result;
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::Net::readFromModelOptimizer(xml, bin));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -11169,7 +11169,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 				_o_return_result;
 			if (ParamIndexToVal(1, bufferWeights))
 				_o_return_result;
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::Net::readFromModelOptimizer(bufferModelConfig, bufferWeights));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -11253,7 +11253,7 @@ void dnn_SegmentationModel::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	case M___Delete: this->~dnn_SegmentationModel(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::SegmentationModel>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("ss?")) {
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
@@ -11379,7 +11379,7 @@ void dnn_TextDetectionModel_DB::Invoke(ResultToken& aResultToken, int aID, int a
 	case M___Delete: this->~dnn_TextDetectionModel_DB(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::TextDetectionModel_DB>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o")) {
 			cv::dnn::Net* network;
 			if (ParamIndexToVal(0, network))
@@ -11461,7 +11461,7 @@ void dnn_TextDetectionModel_EAST::Invoke(ResultToken& aResultToken, int aID, int
 	case M___Delete: this->~dnn_TextDetectionModel_EAST(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::TextDetectionModel_EAST>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o")) {
 			cv::dnn::Net* network;
 			if (ParamIndexToVal(0, network))
@@ -11517,7 +11517,7 @@ void dnn_TextRecognitionModel::Invoke(ResultToken& aResultToken, int aID, int aF
 	case M___Delete: this->~dnn_TextRecognitionModel(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::TextRecognitionModel>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o")) {
 			cv::dnn::Net* network;
 			if (ParamIndexToVal(0, network))
@@ -11611,7 +11611,7 @@ void flann_Index::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	case M___Delete: this->~flann_Index(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::flann::Index>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::flann::Index();
 			return;
@@ -11732,7 +11732,7 @@ void gapi_ie_PyParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	case M___Delete: this->~gapi_ie_PyParams(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::gapi::ie::PyParams>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (aParamCount == 0) {
 			mC = new cv::gapi::ie::PyParams();
 			return;
@@ -11768,7 +11768,7 @@ void gapi_ie_PyParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 		size_t size;
 		if (ParamIndexToVal(0, (intptr_t&)size))
 			_o_return_result;
-		auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(nullptr, -1);
+		auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::ie::PyParams>(mC->cfgBatchSize(size));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11776,7 +11776,7 @@ void gapi_ie_PyParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 		size_t nireq;
 		if (ParamIndexToVal(0, (intptr_t&)nireq))
 			_o_return_result;
-		auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(nullptr, -1);
+		auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::ie::PyParams>(mC->cfgNumRequests(nireq));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11790,7 +11790,7 @@ void gapi_ie_PyParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			_o_return_result;
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], hint, true);
-		auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(nullptr, -1);
+		auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::ie::PyParams>(mC->constInput(layer_name, data, (cv::gapi::ie::TraitAs)hint));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11804,7 +11804,7 @@ void ml_ANN_MLP::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	case M___Delete: this->~ml_ANN_MLP(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::ANN_MLP>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::ANN_MLP::create();
 		return;
 	}
@@ -11833,7 +11833,7 @@ void ml_ANN_MLP::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getLayerSizes: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getLayerSizes();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11869,7 +11869,7 @@ void ml_ANN_MLP::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		int layerIdx;
 		if (ParamIndexToVal(0, layerIdx))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getWeights(layerIdx);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -11877,7 +11877,7 @@ void ml_ANN_MLP::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		cv::String filepath;
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		auto __retval = (ml_ANN_MLP*)ml_ANN_MLP::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_ANN_MLP*)ml_ANN_MLP::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12006,7 +12006,7 @@ void ml_Boost::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	case M___Delete: this->~ml_Boost(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::Boost>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::Boost::create();
 		return;
 	}
@@ -12028,7 +12028,7 @@ void ml_Boost::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], nodeName, true);
-		auto __retval = (ml_Boost*)ml_Boost::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_Boost*)ml_Boost::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12063,7 +12063,7 @@ void ml_DTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	case M___Delete: this->~ml_DTrees(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::DTrees>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::DTrees::create();
 		return;
 	}
@@ -12084,7 +12084,7 @@ void ml_DTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getPriors: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getPriors();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12110,7 +12110,7 @@ void ml_DTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], nodeName, true);
-		auto __retval = (ml_DTrees*)ml_DTrees::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_DTrees*)ml_DTrees::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12187,7 +12187,7 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 	case M___Delete: this->~ml_EM(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::EM>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::EM::create();
 		return;
 	}
@@ -12211,7 +12211,7 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 		return;
 	}
 	case M_getMeans: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getMeans();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12220,7 +12220,7 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 		return ValToResult(__retval, aResultToken);
 	}
 	case M_getWeights: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getWeights();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12230,7 +12230,7 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], nodeName, true);
-		auto __retval = (ml_EM*)ml_EM::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_EM*)ml_EM::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12338,7 +12338,7 @@ void ml_KNearest::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	case M___Delete: this->~ml_KNearest(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::KNearest>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::KNearest::create();
 		return;
 	}
@@ -12379,7 +12379,7 @@ void ml_KNearest::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		cv::String filepath;
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		auto __retval = (ml_KNearest*)ml_KNearest::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_KNearest*)ml_KNearest::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12421,7 +12421,7 @@ void ml_LogisticRegression::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	case M___Delete: this->~ml_LogisticRegression(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::LogisticRegression>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::LogisticRegression::create();
 		return;
 	}
@@ -12450,7 +12450,7 @@ void ml_LogisticRegression::Invoke(ResultToken& aResultToken, int aID, int aFlag
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_get_learnt_thetas: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->get_learnt_thetas();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12460,7 +12460,7 @@ void ml_LogisticRegression::Invoke(ResultToken& aResultToken, int aID, int aFlag
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], nodeName, true);
-		auto __retval = (ml_LogisticRegression*)ml_LogisticRegression::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_LogisticRegression*)ml_LogisticRegression::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12529,7 +12529,7 @@ void ml_NormalBayesClassifier::Invoke(ResultToken& aResultToken, int aID, int aF
 	case M___Delete: this->~ml_NormalBayesClassifier(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::NormalBayesClassifier>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::NormalBayesClassifier::create();
 		return;
 	}
@@ -12539,7 +12539,7 @@ void ml_NormalBayesClassifier::Invoke(ResultToken& aResultToken, int aID, int aF
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], nodeName, true);
-		auto __retval = (ml_NormalBayesClassifier*)ml_NormalBayesClassifier::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_NormalBayesClassifier*)ml_NormalBayesClassifier::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12568,7 +12568,7 @@ void ml_ParamGrid::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	case M___Delete: this->~ml_ParamGrid(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::ParamGrid>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		double minVal = 0., maxVal = 0., logstep = 1.;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], minVal, true);
@@ -12589,7 +12589,7 @@ void ml_RTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	case M___Delete: this->~ml_RTrees(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::RTrees>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::RTrees::create();
 		return;
 	}
@@ -12610,7 +12610,7 @@ void ml_RTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		return ValToResult(__retval, aResultToken);
 	}
 	case M_getVarImportance: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getVarImportance();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12633,7 +12633,7 @@ void ml_RTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], nodeName, true);
-		auto __retval = (ml_RTrees*)ml_RTrees::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_RTrees*)ml_RTrees::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12668,7 +12668,7 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 	case M___Delete: this->~ml_SVM(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::SVM>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::SVM::create();
 		return;
 	}
@@ -12677,7 +12677,7 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getClassWeights: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getClassWeights();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12701,7 +12701,7 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 		int param_id;
 		if (ParamIndexToVal(0, param_id))
 			_o_return_result;
-		auto __retval = (ml_ParamGrid*)ml_ParamGrid::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_ParamGrid*)ml_ParamGrid::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getDefaultGridPtr(param_id);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12726,7 +12726,7 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getSupportVectors: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getSupportVectors();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12739,7 +12739,7 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getUncompressedSupportVectors: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getUncompressedSupportVectors();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12747,7 +12747,7 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 		cv::String filepath;
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		auto __retval = (ml_SVM*)ml_SVM::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_SVM*)ml_SVM::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12861,7 +12861,7 @@ void ml_SVMSGD::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	case M___Delete: this->~ml_SVMSGD(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::SVMSGD>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = cv::ml::SVMSGD::create();
 		return;
 	}
@@ -12894,7 +12894,7 @@ void ml_SVMSGD::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		return ValToResult(__retval, aResultToken);
 	}
 	case M_getWeights: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getWeights();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12904,7 +12904,7 @@ void ml_SVMSGD::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], nodeName, true);
-		auto __retval = (ml_SVMSGD*)ml_SVMSGD::sPrototype->New(nullptr, -1);
+		auto __retval = (ml_SVMSGD*)ml_SVMSGD::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13045,7 +13045,7 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	case M___Delete: this->~ml_TrainData(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::TrainData>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::_InputArray samples, responses, varIdx = cv::noArray(), sampleIdx = cv::noArray(), sampleWeights = cv::noArray(), varType = cv::noArray();
 		int layout;
 		if (ParamIndexToVal(0, samples))
@@ -13073,22 +13073,22 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getCatMap: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getCatMap();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getCatOfs: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getCatOfs();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getClassLabels: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getClassLabels();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getDefaultSubstValues: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getDefaultSubstValues();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13097,7 +13097,7 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getMissing: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getMissing();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13129,7 +13129,7 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return;
 	}
 	case M_getNormCatResponses: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getNormCatResponses();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13138,7 +13138,7 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getResponses: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getResponses();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13158,12 +13158,12 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return;
 	}
 	case M_getSampleWeights: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getSampleWeights();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getSamples: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getSamples();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13176,7 +13176,7 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			_o_return_result;
 		if (ParamIndexToVal(2, layout))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getSubMatrix(matrix, idx, layout);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13186,52 +13186,52 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			_o_return_result;
 		if (ParamIndexToVal(1, idx))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getSubVector(vec, idx);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTestNormCatResponses: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTestNormCatResponses();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTestResponses: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTestResponses();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTestSampleIdx: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTestSampleIdx();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTestSampleWeights: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTestSampleWeights();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTestSamples: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTestSamples();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTrainNormCatResponses: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTrainNormCatResponses();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTrainResponses: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTrainResponses();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTrainSampleIdx: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTrainSampleIdx();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getTrainSampleWeights: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTrainSampleWeights();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13244,7 +13244,7 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			TokenToVal(*aParam[1], (char&)compressSamples, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], (char&)compressVars, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTrainSamples(layout, compressSamples, compressVars);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13264,17 +13264,17 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		return;
 	}
 	case M_getVarIdx: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getVarIdx();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getVarSymbolFlags: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getVarSymbolFlags();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getVarType: {
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getVarType();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13320,7 +13320,7 @@ void ocl_Device::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	}
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ocl::Device>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::ocl::Device();
 		return;
 	}
@@ -13369,7 +13369,7 @@ void ocl_Device::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		return ValToResult(__retval, aResultToken);
 	}
 	case M_getDefault: {
-		auto __retval = (ocl_Device*)ocl_Device::sPrototype->New(nullptr, -1);
+		auto __retval = (ocl_Device*)ocl_Device::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::ocl::Device>(cv::ocl::Device::getDefault());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13623,7 +13623,7 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 	case M___Delete: this->~segmentation_IntelligentScissorsMB(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::segmentation::IntelligentScissorsMB>;
-		if (aParamCount < 0)return;
+		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		mC = new cv::segmentation::IntelligentScissorsMB();
 		return;
 	}
@@ -13646,7 +13646,7 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 			_o_return_result;
 		if (aParamCount > 3)
 			TokenToVal(*aParam[3], image, true);
-		auto __retval = (segmentation_IntelligentScissorsMB*)segmentation_IntelligentScissorsMB::sPrototype->New(nullptr, -1);
+		auto __retval = (segmentation_IntelligentScissorsMB*)segmentation_IntelligentScissorsMB::sPrototype->New(g_invalidparam, 1);
 		mC->applyImageFeatures(non_edge, gradient_direction, gradient_magnitude, image);
 		aResultToken.SetValue(this);
 		AddRef();
@@ -15680,7 +15680,7 @@ void RNG::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	case M___Delete: this->~RNG(); mBase = nullptr; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::RNG>;
-		if (aParamCount < 0) return;
+		if (aParamCount == 1 && aParam[0] == g_invalid) return;
 		if (!aParamCount)
 			mC = cv::makePtr<cv::RNG>();
 		else {

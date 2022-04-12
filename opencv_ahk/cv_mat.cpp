@@ -12,7 +12,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	switch (aID) {
 	case M___New: {
 		new (&mC) cv::Mat;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		if (aParamCount >= 3) {
 			__int64 _rows, _cols, _type, _data = 0;
 			size_t _step = 0;
@@ -415,7 +415,7 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	switch (aID) {
 	case M___New: {
 		new (&mC) cv::UMat;
-		if (aParamCount < 1) return;
+		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		if (aParamCount >= 3) {
 			__int64 _rows, _cols, _type, _flag = 0;
 			if (ParamIndexToVal(0, _rows) || ParamIndexToVal(1, _cols) || ParamIndexToVal(2, _type))

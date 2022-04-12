@@ -7,6 +7,8 @@
 #include "cvobj.h"
 
 IAhkApi* g_ahkapi = nullptr;
+ExprTokenType g_invalid[1] = {};
+ExprTokenType* g_invalidparam[1] = { g_invalid };
 
 FuncEntry CV_Funcs[] = {
 BIFn(CamShift, 3, 3, CV_FUNC),

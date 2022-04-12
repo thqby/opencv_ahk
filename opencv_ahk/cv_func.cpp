@@ -1862,7 +1862,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[1], exclude_range, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], (char&)cut, true);
-		auto __retval = (AlignMTB*)AlignMTB::sPrototype->New(nullptr, -1);
+		auto __retval = (AlignMTB*)AlignMTB::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createAlignMTB(max_bits, exclude_range, cut);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1876,7 +1876,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[1], dist2Threshold, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], (char&)detectShadows, true);
-		auto __retval = (BackgroundSubtractorKNN*)BackgroundSubtractorKNN::sPrototype->New(nullptr, -1);
+		auto __retval = (BackgroundSubtractorKNN*)BackgroundSubtractorKNN::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createBackgroundSubtractorKNN(history, dist2Threshold, detectShadows);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1890,7 +1890,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[1], varThreshold, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], (char&)detectShadows, true);
-		auto __retval = (BackgroundSubtractorMOG2*)BackgroundSubtractorMOG2::sPrototype->New(nullptr, -1);
+		auto __retval = (BackgroundSubtractorMOG2*)BackgroundSubtractorMOG2::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createBackgroundSubtractorMOG2(history, varThreshold, detectShadows);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1901,7 +1901,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[0], clipLimit, true);
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], tileGridSize, true);
-		auto __retval = (CLAHE*)CLAHE::sPrototype->New(nullptr, -1);
+		auto __retval = (CLAHE*)CLAHE::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createCLAHE(clipLimit, tileGridSize);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1915,7 +1915,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[1], lambda, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], (char&)random, true);
-		auto __retval = (CalibrateDebevec*)CalibrateDebevec::sPrototype->New(nullptr, -1);
+		auto __retval = (CalibrateDebevec*)CalibrateDebevec::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createCalibrateDebevec(samples, lambda, random);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1926,17 +1926,17 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[0], max_iter, true);
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], threshold, true);
-		auto __retval = (CalibrateRobertson*)CalibrateRobertson::sPrototype->New(nullptr, -1);
+		auto __retval = (CalibrateRobertson*)CalibrateRobertson::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createCalibrateRobertson(max_iter, threshold);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_createGeneralizedHoughBallard: {
-		auto __retval = (GeneralizedHoughBallard*)GeneralizedHoughBallard::sPrototype->New(nullptr, -1);
+		auto __retval = (GeneralizedHoughBallard*)GeneralizedHoughBallard::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createGeneralizedHoughBallard();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_createGeneralizedHoughGuil: {
-		auto __retval = (GeneralizedHoughGuil*)GeneralizedHoughGuil::sPrototype->New(nullptr, -1);
+		auto __retval = (GeneralizedHoughGuil*)GeneralizedHoughGuil::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createGeneralizedHoughGuil();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1972,12 +1972,12 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[6], density_th, true);
 		if (aParamCount > 7)
 			TokenToVal(*aParam[7], n_bins, true);
-		auto __retval = (LineSegmentDetector*)LineSegmentDetector::sPrototype->New(nullptr, -1);
+		auto __retval = (LineSegmentDetector*)LineSegmentDetector::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createLineSegmentDetector(refine, scale, sigma_scale, quant, ang_th, log_eps, density_th, n_bins);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_createMergeDebevec: {
-		auto __retval = (MergeDebevec*)MergeDebevec::sPrototype->New(nullptr, -1);
+		auto __retval = (MergeDebevec*)MergeDebevec::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createMergeDebevec();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1989,12 +1989,12 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[1], saturation_weight, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], exposure_weight, true);
-		auto __retval = (MergeMertens*)MergeMertens::sPrototype->New(nullptr, -1);
+		auto __retval = (MergeMertens*)MergeMertens::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createMergeMertens(contrast_weight, saturation_weight, exposure_weight);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_createMergeRobertson: {
-		auto __retval = (MergeRobertson*)MergeRobertson::sPrototype->New(nullptr, -1);
+		auto __retval = (MergeRobertson*)MergeRobertson::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createMergeRobertson();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2002,7 +2002,7 @@ BIF_DECL(CV_FUNC) {
 		float gamma = 1.0f;
 		if (aParamCount > 0)
 			TokenToVal(*aParam[0], gamma, true);
-		auto __retval = (Tonemap*)Tonemap::sPrototype->New(nullptr, -1);
+		auto __retval = (Tonemap*)Tonemap::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemap(gamma);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2014,7 +2014,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[1], saturation, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], bias, true);
-		auto __retval = (TonemapDrago*)TonemapDrago::sPrototype->New(nullptr, -1);
+		auto __retval = (TonemapDrago*)TonemapDrago::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemapDrago(gamma, saturation, bias);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2026,7 +2026,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[1], scale, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], saturation, true);
-		auto __retval = (TonemapMantiuk*)TonemapMantiuk::sPrototype->New(nullptr, -1);
+		auto __retval = (TonemapMantiuk*)TonemapMantiuk::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemapMantiuk(gamma, scale, saturation);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2040,7 +2040,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[2], light_adapt, true);
 		if (aParamCount > 3)
 			TokenToVal(*aParam[3], color_adapt, true);
-		auto __retval = (TonemapReinhard*)TonemapReinhard::sPrototype->New(nullptr, -1);
+		auto __retval = (TonemapReinhard*)TonemapReinhard::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemapReinhard(gamma, intensity, light_adapt, color_adapt);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2706,17 +2706,17 @@ BIF_DECL(CV_FUNC) {
 		return;
 	}
 	case FID_empty_array_desc: {
-		auto __retval = (GArrayDesc*)GArrayDesc::sPrototype->New(nullptr, -1);
+		auto __retval = (GArrayDesc*)GArrayDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::empty_array_desc();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_empty_gopaque_desc: {
-		auto __retval = (GOpaqueDesc*)GOpaqueDesc::sPrototype->New(nullptr, -1);
+		auto __retval = (GOpaqueDesc*)GOpaqueDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::empty_gopaque_desc();
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_empty_scalar_desc: {
-		auto __retval = (GScalarDesc*)GScalarDesc::sPrototype->New(nullptr, -1);
+		auto __retval = (GScalarDesc*)GScalarDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::empty_scalar_desc();
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2776,7 +2776,7 @@ BIF_DECL(CV_FUNC) {
 				TokenToVal(*aParam[6], confidence, true);
 			if (aParamCount > 7)
 				TokenToVal(*aParam[7], (intptr_t&)refineIters, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::estimateAffine2D(from, to, inliers, method, ransacReprojThreshold, maxIters, confidence, refineIters);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -2792,7 +2792,7 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, params))
 				_o_return_result;
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::estimateAffine2D(pts1, pts2, inliers, params);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -2833,7 +2833,7 @@ BIF_DECL(CV_FUNC) {
 			}
 			if (aParamCount > 3)
 				TokenToVal(*aParam[3], (char&)force_rotation, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::estimateAffine3D(src, dst, &scale, force_rotation);
 			if (var_scale) g_ahkapi->VarAssign(var_scale, ExprTokenType((double)scale));
 			return (void)(aResultToken.SetValue(__retval));
@@ -2863,7 +2863,7 @@ BIF_DECL(CV_FUNC) {
 			TokenToVal(*aParam[6], confidence, true);
 		if (aParamCount > 7)
 			TokenToVal(*aParam[7], (intptr_t&)refineIters, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::estimateAffinePartial2D(from, to, inliers, method, ransacReprojThreshold, maxIters, confidence, refineIters);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3326,7 +3326,7 @@ BIF_DECL(CV_FUNC) {
 				TokenToVal(*aParam[6], maxIters, true);
 			if (aParamCount > 7)
 				TokenToVal(*aParam[7], mask, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findEssentialMat(points1, points2, cameraMatrix, method, prob, threshold, maxIters, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3354,7 +3354,7 @@ BIF_DECL(CV_FUNC) {
 				TokenToVal(*aParam[7], maxIters, true);
 			if (aParamCount > 8)
 				TokenToVal(*aParam[8], mask, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findEssentialMat(points1, points2, focal, pp, method, prob, threshold, maxIters, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3383,7 +3383,7 @@ BIF_DECL(CV_FUNC) {
 				TokenToVal(*aParam[8], threshold, true);
 			if (aParamCount > 9)
 				TokenToVal(*aParam[9], mask, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findEssentialMat(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, method, prob, threshold, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3407,7 +3407,7 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(7, params))
 				_o_return_result;
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findEssentialMat(points1, points2, cameraMatrix1, cameraMatrix2, dist_coeff1, dist_coeff2, mask, params);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3434,7 +3434,7 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (aParamCount > 6)
 				TokenToVal(*aParam[6], mask, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findFundamentalMat(points1, points2, method, ransacReprojThreshold, confidence, maxIters, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3455,7 +3455,7 @@ BIF_DECL(CV_FUNC) {
 				TokenToVal(*aParam[4], confidence, true);
 			if (aParamCount > 5)
 				TokenToVal(*aParam[5], mask, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findFundamentalMat(points1, points2, method, ransacReprojThreshold, confidence, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3471,7 +3471,7 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, params))
 				_o_return_result;
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findFundamentalMat(points1, points2, mask, params);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3498,7 +3498,7 @@ BIF_DECL(CV_FUNC) {
 				TokenToVal(*aParam[5], maxIters, true);
 			if (aParamCount > 6)
 				TokenToVal(*aParam[6], confidence, true);
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findHomography(srcPoints, dstPoints, method, ransacReprojThreshold, mask, maxIters, confidence);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3514,7 +3514,7 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, params))
 				_o_return_result;
-			auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findHomography(srcPoints, dstPoints, mask, params);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3699,7 +3699,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getAffineTransform(src, dst);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3725,7 +3725,7 @@ BIF_DECL(CV_FUNC2) {
 			TokenToVal(*aParam[1], imgsize, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], (char&)centerPrincipalPoint, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getDefaultNewCameraMatrix(cameraMatrix, imgsize, centerPrincipalPoint);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3779,7 +3779,7 @@ BIF_DECL(CV_FUNC2) {
 			TokenToVal(*aParam[5], psi, true);
 		if (aParamCount > 6)
 			TokenToVal(*aParam[6], ktype, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getGaborKernel(ksize, sigma, theta, lambd, gamma, psi, ktype);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3792,7 +3792,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], ktype, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getGaussianKernel(ksize, sigma, ktype);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3844,7 +3844,7 @@ BIF_DECL(CV_FUNC2) {
 		}
 		if (aParamCount > 6)
 			TokenToVal(*aParam[6], (char&)centerPrincipalPoint, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imageSize, alpha, newImgSize, &validPixROI, centerPrincipalPoint);
 		if (var_validPixROI) {
 			ValToResult(validPixROI, aResultToken);
@@ -3862,7 +3862,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], solveMethod, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getPerspectiveTransform(src, dst, solveMethod);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3894,7 +3894,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, scale))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getRotationMatrix2D(center, angle, scale);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3908,7 +3908,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], anchor, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getStructuringElement(shape, ksize, anchor);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4230,7 +4230,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, flags))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::imdecode(buf, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4261,7 +4261,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], flags, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::imread(filename, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4369,7 +4369,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (aParamCount > 3)
 			TokenToVal(*aParam[3], aspectRatio, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::initCameraMatrix2D(objectPoints, imagePoints, imageSize, aspectRatio);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4888,7 +4888,7 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], (char&)binaryImage, true);
-		auto __retval = (Moments*)Moments::sPrototype->New(nullptr, -1);
+		auto __retval = (Moments*)Moments::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::Moments>(cv::moments(array, binaryImage));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -5353,7 +5353,7 @@ BIF_DECL(CV_FUNC2) {
 		cv::String path;
 		if (ParamIndexToVal(0, path))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::readOpticalFlow(path);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7317,7 +7317,7 @@ BIF_DECL(CV_DNN_FUNC) {
 			TokenToVal(*aParam[5], (char&)crop, true);
 		if (aParamCount > 6)
 			TokenToVal(*aParam[6], ddepth, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::dnn::blobFromImage(image, scalefactor, size, mean, swapRB, crop, ddepth);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7342,7 +7342,7 @@ BIF_DECL(CV_DNN_FUNC) {
 			TokenToVal(*aParam[5], (char&)crop, true);
 		if (aParamCount > 6)
 			TokenToVal(*aParam[6], ddepth, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::dnn::blobFromImages(images, scalefactor, size, mean, swapRB, crop, ddepth);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7372,7 +7372,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				TokenToVal(*aParam[1], config, true);
 			if (aParamCount > 2)
 				TokenToVal(*aParam[2], framework, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNet(model, config, framework));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7385,7 +7385,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (aParamCount > 2)
 				TokenToVal(*aParam[2], bufferConfig, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNet(framework, bufferModel, bufferConfig));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7399,7 +7399,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (aParamCount > 1)
 				TokenToVal(*aParam[1], caffeModel, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromCaffe(prototxt, caffeModel));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7409,7 +7409,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (aParamCount > 1)
 				TokenToVal(*aParam[1], bufferModel, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromCaffe(bufferProto, bufferModel));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7423,7 +7423,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (aParamCount > 1)
 				TokenToVal(*aParam[1], darknetModel, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromDarknet(cfgFile, darknetModel));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7433,7 +7433,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (aParamCount > 1)
 				TokenToVal(*aParam[1], bufferModel, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromDarknet(bufferCfg, bufferModel));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7447,7 +7447,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, bin))
 				_o_return_result;
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromModelOptimizer(xml, bin));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7457,7 +7457,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, bufferWeights))
 				_o_return_result;
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromModelOptimizer(bufferModelConfig, bufferWeights));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7469,7 +7469,7 @@ BIF_DECL(CV_DNN_FUNC) {
 			cv::String onnxFile;
 			if (ParamIndexToVal(0, onnxFile))
 				_o_return_result;
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromONNX(onnxFile));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7477,7 +7477,7 @@ BIF_DECL(CV_DNN_FUNC) {
 			std::vector<uchar> buffer;
 			if (ParamIndexToVal(0, buffer))
 				_o_return_result;
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromONNX(buffer));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7491,7 +7491,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (aParamCount > 1)
 				TokenToVal(*aParam[1], config, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromTensorflow(model, config));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7501,7 +7501,7 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (aParamCount > 1)
 				TokenToVal(*aParam[1], bufferConfig, true);
-			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromTensorflow(bufferModel, bufferConfig));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7517,7 +7517,7 @@ BIF_DECL(CV_DNN_FUNC) {
 			TokenToVal(*aParam[1], (char&)isBinary, true);
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], (char&)evaluate, true);
-		auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(nullptr, -1);
+		auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromTorch(model, isBinary, evaluate));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7525,7 +7525,7 @@ BIF_DECL(CV_DNN_FUNC) {
 		cv::String path;
 		if (ParamIndexToVal(0, path))
 			_o_return_result;
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::dnn::readTensorFromONNX(path);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7536,7 +7536,7 @@ BIF_DECL(CV_DNN_FUNC) {
 			_o_return_result;
 		if (aParamCount > 1)
 			TokenToVal(*aParam[1], (char&)isBinary, true);
-		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, -1);
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::dnn::readTorchBlob(filename, isBinary);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7847,7 +7847,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 		cv::GMat* src;
 		if (ParamIndexToVal(0, src))
 			_o_return_result;
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::BGR2RGB(*src));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7855,7 +7855,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 		cv::GMat* src;
 		if (ParamIndexToVal(0, src))
 			_o_return_result;
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::RGB2Gray(*src));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7868,7 +7868,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], ddepth, true);
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::add(*src1, *src2, ddepth));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7882,7 +7882,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (aParamCount > 2)
 			TokenToVal(*aParam[2], ddepth, true);
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::addC(*src1, *c, ddepth));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7892,7 +7892,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 			//cv::GArray<cv::Point2i> src;
 			if (ParamIndexToVal(0, src))
 				_o_return_result;
-			auto __retval = (GOpaque_Rect*)GOpaque_Size::sPrototype->New(nullptr, -1);
+			auto __retval = (GOpaque_Rect*)GOpaque_Size::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::gapi::boundingRect(cv::GArray<cv::Point2i>(src));
 			return (void)aResultToken.SetValue(__retval);
 		}
@@ -7900,7 +7900,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 			cv::GMat* src;
 			if (ParamIndexToVal(0, src))
 				_o_return_result;
-			auto __retval = (GOpaque_Rect*)GOpaque_Size::sPrototype->New(nullptr, -1);
+			auto __retval = (GOpaque_Rect*)GOpaque_Size::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::gapi::boundingRect(*src);
 			return (void)aResultToken.SetValue(__retval);
 		}
@@ -7909,7 +7909,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 		cv::GMat* in;
 		if (ParamIndexToVal(0, in))
 			_o_return_result;
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::copy(*in));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7986,7 +7986,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 		cv::GMat* src;
 		if (ParamIndexToVal(0, src))
 			_o_return_result;
-		auto __retval = (GScalar*)GScalar::sPrototype->New(nullptr, -1);
+		auto __retval = (GScalar*)GScalar::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GScalar>(cv::gapi::mean(*src));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7997,7 +7997,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, ksize))
 			_o_return_result;
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::medianBlur(*src, ksize));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8075,7 +8075,7 @@ BIF_DECL(CV_GAPI_FUNC) {
 			TokenToVal(*aParam[3], fy, true);
 		if (aParamCount > 4)
 			TokenToVal(*aParam[4], interpolation, true);
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::resize(*src, dsize, fx, fy, interpolation));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8108,7 +8108,7 @@ BIF_DECL(CV_GAPI_CORE_CPU_FUNC) {
 	UNREFERENCED_PARAMETER(__result);
 	switch (aResultToken.func->mFID) {
 	case FID_kernels: {
-		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(nullptr, -1);
+		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::GKernelPackage>(cv::gapi::core::cpu::kernels());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8121,7 +8121,7 @@ BIF_DECL(CV_GAPI_CORE_FLUID_FUNC) {
 	UNREFERENCED_PARAMETER(__result);
 	switch (aResultToken.func->mFID) {
 	case FID_fluid_kernels: {
-		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(nullptr, -1);
+		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::GKernelPackage>(cv::gapi::core::fluid::kernels());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8134,7 +8134,7 @@ BIF_DECL(CV_GAPI_CORE_OCL_FUNC) {
 	UNREFERENCED_PARAMETER(__result);
 	switch (aResultToken.func->mFID) {
 	case FID_ocl_kernels: {
-		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(nullptr, -1);
+		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::GKernelPackage>(cv::gapi::core::ocl::kernels());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8157,7 +8157,7 @@ BIF_DECL(CV_GAPI_IE_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, device))
 				_o_return_result;
-			auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(nullptr, -1);
+			auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::gapi::ie::PyParams>(cv::gapi::ie::params(tag, model, weights, device));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8169,7 +8169,7 @@ BIF_DECL(CV_GAPI_IE_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, device))
 				_o_return_result;
-			auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(nullptr, -1);
+			auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::gapi::ie::PyParams>(cv::gapi::ie::params(tag, model, device));
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8185,7 +8185,7 @@ BIF_DECL(CV_GAPI_RENDER_OCV_FUNC) {
 	UNREFERENCED_PARAMETER(__result);
 	switch (aResultToken.func->mFID) {
 	case FID_ocv_kernels: {
-		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(nullptr, -1);
+		auto __retval = (gapi_GKernelPackage*)gapi_GKernelPackage::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::GKernelPackage>(cv::gapi::render::ocv::kernels());
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8203,7 +8203,7 @@ BIF_DECL(CV_GAPI_STREAMING_FUNC) {
 			cv::GOpaque<cv::Rect>* r;
 			if (ParamIndexToVal(0, r))
 				_o_return_result;
-			auto __retval = (GOpaque_Size*)GOpaque_Size::sPrototype->New(nullptr, -1);
+			auto __retval = (GOpaque_Size*)GOpaque_Size::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::gapi::streaming::size(*r);
 			return (void)aResultToken.SetValue(__retval);
 		}
@@ -8211,7 +8211,7 @@ BIF_DECL(CV_GAPI_STREAMING_FUNC) {
 			cv::GMat* src;
 			if (ParamIndexToVal(0, src))
 				_o_return_result;
-			auto __retval = (GOpaque_Size*)GOpaque_Size::sPrototype->New(nullptr, -1);
+			auto __retval = (GOpaque_Size*)GOpaque_Size::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::gapi::streaming::size(*src);
 			return (void)aResultToken.SetValue(__retval);
 		}
@@ -8228,7 +8228,7 @@ BIF_DECL(CV_GAPI_WIP_FUNC) {
 		cv::String path;
 		if (ParamIndexToVal(0, path))
 			_o_return_result;
-		auto __retval = (IStreamSource*)IStreamSource::sPrototype->New(nullptr, -1);
+		auto __retval = (IStreamSource*)IStreamSource::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::gapi::wip::make_capture_src(path);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8278,7 +8278,7 @@ BIF_DECL(CV_GAPI_WIP_DRAW_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, prims))
 			_o_return_result;
-		auto __retval = (GMat*)GMat::sPrototype->New(nullptr, -1);
+		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::wip::draw::render3ch(*src, prims));
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8613,12 +8613,12 @@ BIF_DECL(CV_UTILS_FUNC) {
 		cv::_InputArray argument;
 		if (ParamIndexToVal(0, argument))
 			_o_return_result;
-		auto __retval = (AsyncArray*)AsyncArray::sPrototype->New(nullptr, -1);
+		auto __retval = (AsyncArray*)AsyncArray::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::AsyncArray>(cv::utils::testAsyncArray(argument));
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_testAsyncException: {
-		auto __retval = (AsyncArray*)AsyncArray::sPrototype->New(nullptr, -1);
+		auto __retval = (AsyncArray*)AsyncArray::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::AsyncArray>(cv::utils::testAsyncException());
 		return (void)(aResultToken.SetValue(__retval));
 	}

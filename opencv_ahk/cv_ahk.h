@@ -17,3 +17,5 @@
 #include <ahkapi.h>
 
 extern IAhkApi* g_ahkapi;
+extern ExprTokenType g_invalid[1];
+extern ExprTokenType* g_invalidparam[1];
