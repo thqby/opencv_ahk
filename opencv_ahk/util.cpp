@@ -164,7 +164,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::String& str, char ignore) {
 	auto s = g_ahkapi->TokenToString(token, buf, &len);
 #ifdef _UNICODE
 	auto l = WideCharToMultiByte(CP_ACP, 0, s, (int)len, 0, 0, 0, 0);
-	str.resize(l + 1);
+	str.resize(l);
 	WideCharToMultiByte(CP_ACP, 0, s, (int)len, (char*)str.data(), l, 0, 0);
 #else
 	str = s;
