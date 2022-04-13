@@ -16,6 +16,9 @@ ResultType TokenToVal(ExprTokenType& token, cv::Mat& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::UMat& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::_InputArray& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::_OutputArray& val, char ignore = false);
+ResultType TokenToVal(ExprTokenType& token, cv::Vec4i& val, char ignore = false);
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4i>& val, char ignore = false);
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::Vec4i>>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::Scalar& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::Rect& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::Rect2d& val, char ignore = false);
@@ -55,6 +58,7 @@ ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Rect>& val, char ign
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Rect2d>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::RotatedRect>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Point>& val, char ignore = false);
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::Point>>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Point2f>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Mat>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::UMat>& val, char ignore = false);
@@ -210,8 +214,10 @@ void ValToResult(cv::Vec2d& val, ResultToken& result);
 void ValToResult(cv::Vec3d& val, ResultToken& result);
 void ValToResult(cv::Vec3i& val, ResultToken& result);
 void ValToResult(cv::Vec4f& val, ResultToken& result);
+void ValToResult(cv::Vec4i& val, ResultToken& result);
 void ValToResult(std::vector<cv::Vec4f>& val, ResultToken& result);
 void ValToResult(cv::Vec6f& val, ResultToken& result);
+void ValToResult(std::vector<cv::Vec4i>& val, ResultToken& result);
 void ValToResult(std::vector<cv::Vec6f>& val, ResultToken& result);
 void ValToResult(std::vector<cv::Point>& val, ResultToken& result);
 void ValToResult(std::vector<std::vector<cv::Point>>& val, ResultToken& result);
@@ -233,5 +239,6 @@ void ValToResult(cv::gapi::core::GMatScalar& val, ResultToken& result);
 
 #define MatchTypes(types) MatchParamTypes(aParam, aParamCount, types)
 #define _o_return_result return (void)(aResultToken.result = __result)
+#define _o_invalid_param return (void)(aResultToken.result = g_ahkapi->Error(_T("invalid param count or type")));
 #define ParamIndexToVal(i, val, ...) (__result = TokenToVal(*aParam[i], val, __VA_ARGS__)) != CONDITION_TRUE
 

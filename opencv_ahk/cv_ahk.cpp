@@ -5,6 +5,7 @@
 #include "cv_class.h"
 #include <ahkapi.h>
 #include "cvobj.h"
+#include "Vector.h"
 
 IAhkApi* g_ahkapi = nullptr;
 ExprTokenType g_invalid[1] = {};
@@ -602,6 +603,10 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 #define ADDCLASS(cls, ...) o.SetValue(g_ahkapi->Class_New(_T(#cls), sizeof(cls), cls::sMember, cls::sMemberCount, cls::sPrototype, __VA_ARGS__));\
 	g_ahkapi->Object_SetProp(_cv, _T(#cls), o, true), o.object->Release();\
 	cls::sPrototype->OnDispose = []() { cls::sPrototype = nullptr; };
+	
+#define ADDCLASS2(name, cls, ...) o.SetValue(g_ahkapi->Class_New(_T(name), sizeof(cls), cls::sMember, cls::sMemberCount, cls::sPrototype, __VA_ARGS__));\
+	g_ahkapi->Object_SetProp(_cv, _T(name), o, true), o.object->Release();\
+	cls::sPrototype->OnDispose = []() { cls::sPrototype = nullptr; };
 
 	if (g_ahkapi = api) {
 		Object* t = g_ahkapi->Class_New(_T("cv"), sizeof(cvahk), nullptr, 0, cvahk::sPrototype);
@@ -615,6 +620,8 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 
 		// init classes
 		{
+			ADDCLASS2("Vector_Vector_Point", Vector<std::vector<cv::Point>>);
+			ADDCLASS2("Vector_Vec4i", Vector<cv::Vec4i>);
 			ADDCLASS(Mat);
 			ADDCLASS(UMat);
 			ADDCLASS(Algorithm);

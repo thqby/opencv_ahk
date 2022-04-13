@@ -664,6 +664,7 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 
 
 ObjectMember Mat::sMember[] = {
+	Object_Method(__New, 0, NA),
 	Object_Method(__Delete, 0, 0),
 	Object_Method(adjustROI, 4, 4),
 	Object_Method(assignTo, 1, 2),
@@ -705,12 +706,12 @@ ObjectMember Mat::sMember[] = {
 	Object_Property_get(rows),
 	Object_Property_get(total),
 	Object_Property_get(type),
-	Object_Method(__New, 0, NA),
 };
 
 int Mat::sMemberCount = _countof(sMember);
 
 ObjectMember UMat::sMember[] = {
+	Object_Method(__New, 0, NA),
 	Object_Method(__Delete, 0, 0),
 	Object_Method(adjustROI, 4, 4),
 	Object_Method(assignTo, 1, 2),
@@ -749,7 +750,6 @@ ObjectMember UMat::sMember[] = {
 	Object_Property_get(rows),
 	Object_Property_get(total),
 	Object_Property_get(type),
-	Object_Method(__New, 0, NA),
 };
 
 int UMat::sMemberCount = _countof(sMember);
