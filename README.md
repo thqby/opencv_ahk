@@ -31,4 +31,4 @@ MsgBox
 - `vector<xx>`, use `Vector_xx`(if the class exists) or `Array` objects.
 - the classes and structs of opencv, use class instances of the corresponding type(if the class exists), or `Array`(if the class does not exist).
 - When overloaded functions have integer, float and string type parameters at the same time, the corresponding types shall be strictly used.
-- Parameters of the `CV_OUT` macro tag that the type is not `(Input)OutputArray`, use `VarRef`.
+- Parameters of the `CV_OUT` macro tag that the type is not `(Input)OutputArray`, use `VarRef`, and the initial value needs to be provided when there is a `CV_IN` macro tag.
