@@ -3293,15 +3293,26 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, contours))
 			_o_return_result;
-		if (ParamIndexToVal(2, hierarchy))
-			_o_return_result;
-		if (ParamIndexToVal(3, mode))
-			_o_return_result;
-		if (ParamIndexToVal(4, method))
-			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], offset, true);
-		cv::findContours(image, contours, hierarchy, mode, method, offset);
+		if (aParamCount > 4 && TokenToObject(*aParam[2])) {
+			if (ParamIndexToVal(2, hierarchy))
+				_o_return_result;
+			if (ParamIndexToVal(3, mode))
+				_o_return_result;
+			if (ParamIndexToVal(4, method))
+				_o_return_result;
+			if (aParamCount > 5)
+				TokenToVal(*aParam[5], offset, true);
+			cv::findContours(image, contours, hierarchy, mode, method, offset);
+		}
+		else {
+			if (ParamIndexToVal(2, mode))
+				_o_return_result;
+			if (ParamIndexToVal(3, method))
+				_o_return_result;
+			if (aParamCount > 4)
+				TokenToVal(*aParam[4], offset, true);
+			cv::findContours(image, contours, mode, method, offset);
+		}
 		return;
 	}
 	case FID_findEssentialMat: {
