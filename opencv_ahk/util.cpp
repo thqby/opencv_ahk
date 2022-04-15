@@ -328,7 +328,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::Vec8i& val, char ignore) { retur
 
 ResultType TokenToVal(ExprTokenType& token, cv::Scalar& val, char ignore) {
 	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (arr)return ArrayToBin(arr, (char*)&val, "ffff", ignore);
+	if (arr)return ArrayToBin(arr, (char*)&val, "dddd", ignore);
 	else return ignore ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
 }
 
@@ -472,12 +472,6 @@ ResultType TokenToVal(ExprTokenType& token, cv::detail::MatchesInfo& val, char i
 	else if (!ignore)
 		return g_ahkapi->TypeError(_T("detail::MatchesInfo"), token);
 	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, cv::Ptr<cv::flann::IndexParams>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (arr)return ArrayToBin(arr, (char*)&val, "fffTfcCcffcffcffcff", ignore);
-	else return ignore ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
 }
 
 ResultType TokenToVal(ExprTokenType& token, cv::dnn::DictValue& val, char ignore) {
