@@ -6253,13 +6253,9 @@ void PyRotationWarper::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			_o_return_result;
 		if (ParamIndexToVal(4, border_mode))
 			_o_return_result;
-		VarRef* var_dst = nullptr;
-		if (ParamIndexToVal(5, var_dst))
+		if (ParamIndexToVal(5, dst))
 			_o_return_result;
 		auto __retval = mC->warp(src, K, R, interp_mode, border_mode, dst);
-		ValToResult(dst, aResultToken);
-		g_ahkapi->VarAssign(var_dst, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
 		return ValToResult(__retval, aResultToken);
 	}
 	case M_warpBackward: {
@@ -6279,13 +6275,9 @@ void PyRotationWarper::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			_o_return_result;
 		if (ParamIndexToVal(5, dst_size))
 			_o_return_result;
-		VarRef* var_dst = nullptr;
-		if (ParamIndexToVal(6, var_dst))
+		if (ParamIndexToVal(6, dst))
 			_o_return_result;
 		mC->warpBackward(src, K, R, interp_mode, border_mode, dst_size, dst);
-		ValToResult(dst, aResultToken);
-		g_ahkapi->VarAssign(var_dst, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
 		return;
 	}
 	case M_warpPoint: {
@@ -9355,23 +9347,11 @@ void detail_Blender::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	case M___Delete: this->~detail_Blender(); mBase = nullptr; return;
 	case M_blend: {
 		cv::_InputOutputArray dst, dst_mask;
-		VarRef* var_dst = nullptr;
-		if (ParamIndexToVal(0, var_dst))
+		if (ParamIndexToVal(0, dst))
 			_o_return_result;
-		if (TokenToVal(VarRefToToken(var_dst), dst) != CONDITION_TRUE)
-			_o_return_result;
-		VarRef* var_dst_mask = nullptr;
-		if (ParamIndexToVal(1, var_dst_mask))
-			_o_return_result;
-		if (TokenToVal(VarRefToToken(var_dst_mask), dst_mask) != CONDITION_TRUE)
+		if (ParamIndexToVal(1, dst_mask))
 			_o_return_result;
 		mC->blend(dst, dst_mask);
-		ValToResult(dst, aResultToken);
-		g_ahkapi->VarAssign(var_dst, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
-		ValToResult(dst_mask, aResultToken);
-		g_ahkapi->VarAssign(var_dst_mask, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
 		return;
 	}
 	case M_createDefault: {
@@ -10183,23 +10163,11 @@ void detail_MultiBandBlender::Invoke(ResultToken& aResultToken, int aID, int aFl
 	}
 	case M_blend: {
 		cv::_InputOutputArray dst, dst_mask;
-		VarRef* var_dst = nullptr;
-		if (ParamIndexToVal(0, var_dst))
+		if (ParamIndexToVal(0, dst))
 			_o_return_result;
-		if (TokenToVal(VarRefToToken(var_dst), dst) != CONDITION_TRUE)
-			_o_return_result;
-		VarRef* var_dst_mask = nullptr;
-		if (ParamIndexToVal(1, var_dst_mask))
-			_o_return_result;
-		if (TokenToVal(VarRefToToken(var_dst_mask), dst_mask) != CONDITION_TRUE)
+		if (ParamIndexToVal(1, dst_mask))
 			_o_return_result;
 		mC->blend(dst, dst_mask);
-		ValToResult(dst, aResultToken);
-		g_ahkapi->VarAssign(var_dst, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
-		ValToResult(dst_mask, aResultToken);
-		g_ahkapi->VarAssign(var_dst_mask, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
 		return;
 	}
 	case M_feed: {

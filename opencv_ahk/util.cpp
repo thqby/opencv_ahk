@@ -4,6 +4,7 @@
 #include "cv_class.h"
 #include "Vector.h"
 
+
 int MatchParamTypes(ExprTokenType* aParam[], int aParamCount, char* def) {
 	static const char typeindex[] = { 's','i','f','?','v','o' };
 	ExprTokenType tmp, *p;
@@ -103,6 +104,8 @@ ResultType TokenToVal(ExprTokenType& token, char& val, char ignore) {
 	return CONDITION_TRUE;
 }
 
+ResultType TokenToVal(ExprTokenType& token, uchar& val, char ignore) { return TokenToVal(token, (char&)val, ignore); }
+
 ResultType TokenToVal(ExprTokenType& token, int& val, char ignore) {
 	ExprTokenType vt;
 	if (g_ahkapi->TokenToNumber(token, vt))
@@ -201,20 +204,15 @@ ResultType TokenToVal(ExprTokenType& token, cv::_InputArray& val, char ignore) {
 			val = ((UMat*)obj)->mC;
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
 			val = *((cuda_GpuMat*)obj)->mC;
-		else {
-			if (false) {}
-#define TEST(type) else if (obj->mBase == Vector<type>::sPrototype) val = ((Vector<type>*)obj)->mC
-			TEST(cv::Point);
-			TEST(std::vector<cv::Point>);
-			TEST(cv::Vec4i);
-			TEST(std::vector<cv::Vec4i>);
-			TEST(cv::cuda::GpuMat);
-#undef TEST
-else obj = nullptr;
+		else if (obj->IsOfType(VectorBase::sPrototype)) {
+			int flags = ((VectorBase*)obj)->Flags & ~cv::ACCESS_WRITE;
+			void* vec = ((void**)&((VectorBase*)obj)->Flags) + 1;
+			val = cv::_InputArray(flags, vec);
 		}
+		else obj = nullptr;
 	}
 	if (!obj && !ignore)
-		return g_ahkapi->TypeError(_T("Mat or UMat"), token);
+		return g_ahkapi->TypeError(_T("Mat or UMat or GpuMat or Vector"), token);
 	return CONDITION_TRUE;
 }
 
@@ -227,246 +225,44 @@ ResultType TokenToVal(ExprTokenType& token, cv::_OutputArray& val, char ignore) 
 			val = ((UMat*)obj)->mC;
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
 			val = *((cuda_GpuMat*)obj)->mC;
-		else {
-			if (false) {}
-#define TEST(type) else if (obj->mBase == Vector<type>::sPrototype) val = ((Vector<type>*)obj)->mC
-			TEST(cv::Point);
-			TEST(std::vector<cv::Point>);
-			TEST(cv::Vec4i);
-			TEST(std::vector<cv::Vec4i>);
-			TEST(cv::cuda::GpuMat);
-#undef TEST
-else obj = nullptr;
+		else if (obj->IsOfType(VectorBase::sPrototype)) {
+			int flags = ((VectorBase*)obj)->Flags & ~cv::ACCESS_READ;
+			void* vec = ((void**)&((VectorBase*)obj)->Flags) + 1;
+			val = cv::_OutputArray(flags, vec);
 		}
+		else obj = nullptr;
 	}
 	if (!obj && !ignore)
-		return g_ahkapi->TypeError(_T("Mat or UMat"), token);
+		return g_ahkapi->TypeError(_T("Mat or UMat or GpuMat or Vector"), token);
 	return CONDITION_TRUE;
 }
 
-ResultType TokenToVal(ExprTokenType& token, std::vector<uchar>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, (char&)val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
+ResultType TokenToVal(ExprTokenType& token, cv::_InputOutputArray& val, char ignore) {
+	Object* obj = dynamic_cast<Object*>(TokenToObject(token));
+	if (obj) {
+		if (obj->mBase == Mat::sPrototype)
+			val = ((Mat*)obj)->mC;
+		else if (obj->mBase == UMat::sPrototype)
+			val = ((UMat*)obj)->mC;
+		else if (obj->mBase == cuda_GpuMat::sPrototype)
+			val = *((cuda_GpuMat*)obj)->mC;
+		else if (obj->IsOfType(VectorBase::sPrototype)) {
+			int flags = ((VectorBase*)obj)->Flags;
+			void* vec = ((void**)&((VectorBase*)obj)->Flags) + 1;
+			val = cv::_InputOutputArray(flags, vec);
 		}
+		else obj = nullptr;
 	}
+	if (!obj && !ignore)
+		return g_ahkapi->TypeError(_T("Mat or UMat or GpuMat or Vector"), token);
 	return CONDITION_TRUE;
 }
 
-ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<char>>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, (std::vector<uchar>&)val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<int>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<int>>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4i>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<float>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<double>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::String>& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (!obj || !dynamic_cast<Array*>(obj))
-		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-	if (auto l = ((Array*)obj)->mLength) {
-		val.resize(l);
-		auto& its = ((Array*)obj)->mItem;
-		for (UINT i = 0; i < l; i++) {
-			auto& item = its[i];
-			ExprTokenType v;
-			v.symbol = item.symbol, v.value_int64 = item.n_int64;
-			auto result = TokenToVal(v, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Mat>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::UMat>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::KeyPoint>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			cv::KeyPoint* kp;
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, kp, ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-			if (kp) val[i] = *kp;
-		}
-	}
-	return CONDITION_TRUE;
+ResultType TokenToVal(ExprTokenType& token, cv::KeyPoint& val, char ignore) {
+	cv::KeyPoint* kp = nullptr;
+	auto result = TokenToVal(token, kp, ignore);
+	if (kp)val = *kp;
+	return result;
 }
 
 ResultType TokenToVal(ExprTokenType& token, cv::UsacParams& val, char ignore) {
@@ -489,242 +285,6 @@ ResultType TokenToVal(ExprTokenType& token, cv::DMatch& val, char ignore) {
 	return CONDITION_TRUE;
 }
 
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::DMatch>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::DMatch>>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::gapi::GNetParam>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			ResultType result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::KeyPoint>>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Size>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Rect>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Rect2d>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::RotatedRect>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Point>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::Point>>& val, char ignore) {
-	Object* obj = dynamic_cast<Object*>(TokenToObject(token));
-	if (obj && obj->mBase == Vector<std::vector<cv::Point>>::sPrototype) {
-		val = ((Vector<std::vector<cv::Point>>*)obj)->mC;
-		return CONDITION_TRUE;
-	}
-	Array* arr = dynamic_cast<Array*>(obj);
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Point2f>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			auto result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
 ResultType TokenToVal(ExprTokenType& token, cv::Range& val, char ignore) {
 	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
 	if (arr)return ArrayToBin(arr, (char*)&val, "ii", ignore);
@@ -743,11 +303,28 @@ ResultType TokenToVal(ExprTokenType& token, cv::Size2f& val, char ignore) {
 	else return ignore ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
 }
 
-ResultType TokenToVal(ExprTokenType& token, cv::Vec4i& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (arr)return ArrayToBin(arr, (char*)&val, "iiii", ignore);
-	else return ignore ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
-}
+ResultType TokenToVal(ExprTokenType& token, cv::Vec2b& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec2d& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec2f& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec2i& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec2s& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec2w& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec3b& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec3d& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec3f& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec3i& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec3s& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec3w& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec4b& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec4d& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec4f& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec4i& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec4s& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec4w& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec6d& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec6f& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec6i& val, char ignore) { return TokenToVec(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, cv::Vec8i& val, char ignore) { return TokenToVec(token, val, ignore); }
 
 ResultType TokenToVal(ExprTokenType& token, cv::Scalar& val, char ignore) {
 	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
@@ -877,27 +454,6 @@ ResultType TokenToVal(ExprTokenType& token, cv::detail::CameraParams& val, char 
 	return CONDITION_TRUE;
 }
 
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::CameraParams>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			ResultType result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
 ResultType TokenToVal(ExprTokenType& token, cv::detail::ImageFeatures& val, char ignore) {
 	IObject* obj;
 	TokenToObject(token, obj, nullptr);
@@ -908,27 +464,6 @@ ResultType TokenToVal(ExprTokenType& token, cv::detail::ImageFeatures& val, char
 	return CONDITION_TRUE;
 }
 
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::ImageFeatures>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			ResultType result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
-	return CONDITION_TRUE;
-}
-
 ResultType TokenToVal(ExprTokenType& token, cv::detail::MatchesInfo& val, char ignore) {
 	IObject* obj;
 	TokenToObject(token, obj, nullptr);
@@ -936,27 +471,6 @@ ResultType TokenToVal(ExprTokenType& token, cv::detail::MatchesInfo& val, char i
 		val = ((detail_MatchesInfo*)obj)->mC;
 	else if (!ignore)
 		return g_ahkapi->TypeError(_T("detail::MatchesInfo"), token);
-	return CONDITION_TRUE;
-}
-
-ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::MatchesInfo>& val, char ignore) {
-	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
-	if (!arr)
-		if (ignore && token.symbol == SYM_MISSING)
-			return CONDITION_TRUE;
-		else return g_ahkapi->TypeError(_T("Array"), token);
-	val.resize(arr->mLength);
-	if (auto l = arr->mLength) {
-		auto& its = arr->mItem;
-		ExprTokenType tk;
-		for (UINT i = 0; i < l; i++) {
-			auto& it = its[i];
-			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
-			ResultType result = TokenToVal(tk, val[i], ignore);
-			if (result != CONDITION_TRUE)
-				return result;
-		}
-	}
 	return CONDITION_TRUE;
 }
 
@@ -1274,6 +788,83 @@ TokenTo_(cuda::GpuMat::Allocator) {
 }
 
 
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<uchar>& val, char ignore) { return TokenToVector(token, (std::vector<char>&)val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<char>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<char>>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<int>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<int>>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<float>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<double>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::String>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Mat>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::UMat>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::KeyPoint>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::DMatch>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::DMatch>>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::gapi::GNetParam>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::KeyPoint>>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Size>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Rect>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Rect2d>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::RotatedRect>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Point>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::Point>>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::Point2f>>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Point2f>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::CameraParams>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::ImageFeatures>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::MatchesInfo>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec2b>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec2d>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec2f>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec2i>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec2s>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec2w>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec3b>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec3d>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec3f>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec3i>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec3s>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec3w>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4b>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4d>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4f>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4i>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4s>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec4w>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec6d>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec6f>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec6i>& val, char ignore) { return TokenToVector(token, val, ignore); }
+ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Vec8i>& val, char ignore) { return TokenToVector(token, val, ignore); }
+
+
 inline void ValToResult(int val, ResultToken& result) {
 	result.SetValue((__int64)val);
 }
@@ -1290,70 +881,65 @@ inline void ValToResult(float val, ResultToken& result) {
 	result.SetValue((double)val);
 }
 
-void ValToResult(std::vector<uchar>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
+void ValToResult(std::vector<uchar>& val, ResultToken& result) { return VectorToResult(val, result); }
 
-void ValToResult(std::vector<int>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
+void ValToResult(std::vector<int>& val, ResultToken& result) { return VectorToResult(val, result); }
 
-void ValToResult(std::vector<std::vector<int>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
+void ValToResult(std::vector<std::vector<int>>& val, ResultToken& result) { return VectorToResult(val, result); }
 
-void ValToResult(std::vector<std::vector<std::vector<int>>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
+void ValToResult(std::vector<std::vector<std::vector<int>>>& val, ResultToken& result) { return VectorToResult(val, result); }
 
-void ValToResult(std::vector<double>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
+void ValToResult(std::vector<double>& val, ResultToken& result) { return VectorToResult(val, result); }
 
-void ValToResult(std::vector<float>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
+void ValToResult(std::vector<float>& val, ResultToken& result) { return VectorToResult(val, result); }
 
-void ValToResult(cv::_OutputArray& val, ResultToken& result) {
-	if (val.isMat())
-		ValToResult(val.getMat(), result);
-}
+void ValToResult(cv::Scalar& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec2b& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec2d& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec2f& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec2i& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec2s& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec2w& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec3b& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec3d& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec3f& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec3i& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec3s& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec3w& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec4b& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec4d& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec4f& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec4i& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec4s& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec4w& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec6d& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec6f& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec6i& val, ResultToken& result) { return VecToResult(val, result); }
+void ValToResult(cv::Vec8i& val, ResultToken& result) { return VecToResult(val, result); }
+
+void ValToResult(std::vector<cv::Vec2b>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec2d>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec2f>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec2i>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec2s>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec2w>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec3b>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec3d>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec3f>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec3i>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec3s>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec3w>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec4b>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec4d>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec4f>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec4i>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec4s>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec4w>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec6d>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec6f>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec6i>& val, ResultToken& result) { return VectorToResult(val, result); }
+void ValToResult(std::vector<cv::Vec8i>& val, ResultToken& result) { return VectorToResult(val, result); }
+
 
 void ValToResult(cv::TermCriteria& val, ResultToken& result) {
 	ExprTokenType p[3], * param[3] = { p,p + 1,p + 2 };
@@ -1372,212 +958,6 @@ void ValToResult(cv::DMatch& val, ResultToken& result) {
 	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 4));
 }
 
-void ValToResult(std::vector<cv::Vec4i>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<std::vector<cv::Vec4i>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::DMatch>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<std::vector<cv::DMatch>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(cv::Scalar& val, ResultToken& result) {
-	ExprTokenType p[4], * param[4];
-	for (int i = 0; i < 4; i++)
-		p[i].SetValue((double)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 4));
-}
-
-void ValToResult(cv::Vec2i& val, ResultToken& result) {
-	ExprTokenType p[2], * param[2];
-	for (int i = 0; i < 2; i++)
-		p[i].SetValue((__int64)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 2));
-}
-
-void ValToResult(cv::Vec2d& val, ResultToken& result) {
-	ExprTokenType p[2], * param[2];
-	for (int i = 0; i < 2; i++)
-		p[i].SetValue((double)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 2));
-}
-
-void ValToResult(cv::Vec3d& val, ResultToken& result) {
-	ExprTokenType p[3], * param[3];
-	for (int i = 0; i < 3; i++)
-		p[i].SetValue((double)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 3));
-}
-
-void ValToResult(cv::Vec3i& val, ResultToken& result) {
-	ExprTokenType p[3], * param[3];
-	for (int i = 0; i < 3; i++)
-		p[i].SetValue((__int64)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 3));
-}
-
-void ValToResult(cv::Vec4i& val, ResultToken& result) {
-	ExprTokenType p[4], * param[4];
-	for (int i = 0; i < 4; i++)
-		p[i].SetValue((__int64)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 4));
-}
-
-void ValToResult(cv::Vec4f& val, ResultToken& result) {
-	ExprTokenType p[4], * param[4];
-	for (int i = 0; i < 4; i++)
-		p[i].SetValue((double)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 4));
-}
-
-void ValToResult(cv::Vec6f& val, ResultToken& result) {
-	ExprTokenType p[6], * param[6];
-	for (int i = 0; i < 6; i++)
-		p[i].SetValue((double)val.val[i]), param[i] = &p[i];
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 6));
-}
-
-void ValToResult(std::vector<cv::Vec4f>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::Vec6f>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::Rect>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::String>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		free(t.mem_to_free);
-	}
-}
-
-void ValToResult(std::vector<cv::Size>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::Point2f>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::Point>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<std::vector<cv::Point>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<std::vector<cv::Point2f>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::KeyPoint>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<std::vector<cv::KeyPoint>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
 void ValToResult(cv::Mat& val, ResultToken& result) {
 	result.SetValue(Mat::sPrototype->New(nullptr, 0));
 	((Mat*)result.object)->mC = val;
@@ -1586,36 +966,6 @@ void ValToResult(cv::Mat& val, ResultToken& result) {
 void ValToResult(cv::UMat& val, ResultToken& result) {
 	result.SetValue(UMat::sPrototype->New(nullptr, 0));
 	((UMat*)result.object)->mC = val;
-}
-
-void ValToResult(std::vector<cv::Mat>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<cv::UMat>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
-void ValToResult(std::vector<std::vector<cv::Mat>>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
 }
 
 void ValToResult(cv::FileNode& val, ResultToken& result) {
@@ -1633,29 +983,9 @@ void ValToResult(cv::detail::MatchesInfo& val, ResultToken& result) {
 	((detail_MatchesInfo*)result.object)->mC = val;
 }
 
-void ValToResult(std::vector<cv::detail::MatchesInfo>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
-}
-
 void ValToResult(cv::detail::CameraParams& val, ResultToken& result) {
 	result.SetValue(detail_CameraParams::sPrototype->New(nullptr, 0));
 	((detail_CameraParams*)result.object)->mC = val;
-}
-
-void ValToResult(std::vector<cv::detail::CameraParams>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
 }
 
 void ValToResult(cv::Point2f* val, ResultToken& result) {
@@ -1710,6 +1040,16 @@ void ValToResult(cv::Rect& val, ResultToken& result) {
 	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 4));
 }
 
+void ValToResult(cv::Rect2d& val, ResultToken& result) {
+	ExprTokenType p[4];
+	ExprTokenType* param[] = { p,p + 1,p + 2,p + 3 };
+	p[0].SetValue(val.x);
+	p[1].SetValue(val.y);
+	p[2].SetValue(val.width);
+	p[3].SetValue(val.height);
+	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 4));
+}
+
 void ValToResult(cv::String& val, ResultToken& result) {
 #ifdef _UNICODE
 	auto len = MultiByteToWideChar(CP_ACP, 0, val.data(), (int)val.size(), NULL, 0);
@@ -1725,19 +1065,8 @@ void ValToResult(cv::String& val, ResultToken& result) {
 #endif // _UNICODE
 }
 
-
 void ValToResult(cv::RotatedRect& val, ResultToken& result) {
 	result.SetValue(BinToArray((char*)&val, "fffff"));
-}
-
-void ValToResult(std::vector<cv::RotatedRect>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
 }
 
 void ValToResult(cv::detail::ImageFeatures& val, ResultToken& result) {
@@ -1754,16 +1083,6 @@ void ValToResult(cv::detail::ImageFeatures& val, ResultToken& result) {
 	ValToResult(val.descriptors, t);
 	g_ahkapi->Array_InsertItem((Array*)result.object, t);
 	t.object->Release();
-}
-
-void ValToResult(std::vector<cv::detail::ImageFeatures>& val, ResultToken& result) {
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
-	ResultToken t{};
-	for (auto& it : val) {
-		ValToResult(it, t);
-		g_ahkapi->Array_InsertItem((Array*)result.object, t);
-		t.object->Release();
-	}
 }
 
 void ValToResult(cv::gapi::core::GMat2& val, ResultToken& result) {
@@ -1796,4 +1115,147 @@ void ValToResult(cv::gapi::core::GMatScalar& val, ResultToken& result) {
 	ExprTokenType p1(m1), p2(m2);
 	ExprTokenType* param[] = { &p1,&p2 };
 	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 2));
+}
+
+void ValToResult(std::vector<std::vector<cv::Vec4i>>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::DMatch>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<std::vector<cv::DMatch>>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::Rect>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::Rect2d>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::String>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::Size>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::Point2f>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::Point>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<std::vector<cv::Point>>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<std::vector<cv::Point2f>>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::KeyPoint>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<std::vector<cv::KeyPoint>>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::Mat>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::UMat>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<std::vector<cv::Mat>>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::RotatedRect>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::detail::ImageFeatures>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::detail::MatchesInfo>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+void ValToResult(std::vector<cv::detail::CameraParams>& val, ResultToken& result) { return VectorToResult(val, result); }
+
+Object* register_vector[] = {
+	Vector<double>::sPrototype,
+	Vector<float>::sPrototype,
+	Vector<int>::sPrototype,
+	Vector<cv::Mat>::sPrototype,
+	Vector<cv::Point>::sPrototype,
+	Vector<cv::Point2f>::sPrototype,
+	Vector<cv::Rect>::sPrototype,
+	Vector<cv::Rect2d>::sPrototype,
+	Vector<cv::RotatedRect>::sPrototype,
+	Vector<cv::Size>::sPrototype,
+	Vector<uchar>::sPrototype,
+	Vector<cv::UMat>::sPrototype,
+	Vector<cv::Vec2b>::sPrototype,
+	Vector<cv::Vec2d>::sPrototype,
+	Vector<cv::Vec2f>::sPrototype,
+	Vector<cv::Vec2i>::sPrototype,
+	Vector<cv::Vec2s>::sPrototype,
+	Vector<cv::Vec2w>::sPrototype,
+	Vector<cv::Vec3b>::sPrototype,
+	Vector<cv::Vec3d>::sPrototype,
+	Vector<cv::Vec3f>::sPrototype,
+	Vector<cv::Vec3i>::sPrototype,
+	Vector<cv::Vec3s>::sPrototype,
+	Vector<cv::Vec3w>::sPrototype,
+	Vector<cv::Vec4b>::sPrototype,
+	Vector<cv::Vec4d>::sPrototype,
+	Vector<cv::Vec4f>::sPrototype,
+	Vector<cv::Vec4i>::sPrototype,
+	Vector<cv::Vec4s>::sPrototype,
+	Vector<cv::Vec4w>::sPrototype,
+	Vector<cv::Vec6d>::sPrototype,
+	Vector<cv::Vec6f>::sPrototype,
+	Vector<cv::Vec6i>::sPrototype,
+	Vector<cv::Vec8i>::sPrototype,
+	Vector<std::vector<int>>::sPrototype,
+	Vector<std::vector<cv::Point>>::sPrototype,
+	Vector<std::vector<cv::Point2f>>::sPrototype,
+};
+
+template<typename T>
+inline ResultType TokenToVector(ExprTokenType& token, std::vector<T>& val, char ignore) {
+	IObject* obj;
+	Array* arr = dynamic_cast<Array*>(obj = TokenToObject(token));
+	if (!arr) {
+		if (ignore && token.symbol == SYM_MISSING)
+			return CONDITION_TRUE;
+		__if_exists(Vector<T>) {
+			if (dynamic_cast<Object*>(obj)) {
+				if (((Object*)obj)->mBase == Vector<T>::sPrototype) {
+					val = ((Vector<T>*)obj)->mC;
+					return CONDITION_TRUE;
+				}
+				TCHAR name[256]{};
+				int i = 0;
+				for (auto t = typeid(val).name(); t[i]; i++)name[i] = t[i];
+				return g_ahkapi->TypeError(name, token);
+			}
+		}
+		return g_ahkapi->TypeError(_T("Array"), token);
+	}
+	val.resize(arr->mLength);
+	if (auto l = arr->mLength) {
+		auto& its = arr->mItem;
+		ExprTokenType tk;
+		for (UINT i = 0; i < l; i++) {
+			auto& it = its[i];
+			tk.symbol = it.symbol, tk.value_int64 = it.n_int64;
+			ResultType result = TokenToVal(tk, val[i], ignore);
+			if (result != CONDITION_TRUE)
+				return result;
+		}
+	}
+	return CONDITION_TRUE;
+}
+
+template<typename T>
+inline void VectorToResult(std::vector<T>& val, ResultToken& result) {
+	__if_exists(Vector<T>::sPrototype) {
+		if (Vector<T>::sPrototype) {
+			auto obj = (Vector<T>*)Vector<T>::sPrototype->New(g_invalidparam, 1);
+			obj->mC.swap(val);
+			aResultToken.SetValue(obj);
+			return;
+		}
+	}
+	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, nullptr, 0));
+	Array* arr = (Array*)result.object;
+	ResultToken t{};
+	auto size = val.size();
+	if (!size)return;
+	else if (size > 1)
+		g_ahkapi->Object_SetProp(arr, _T("Capacity"), ExprTokenType((__int64)val.size()));
+	for (auto& it : val) {
+		ValToResult(it, t);
+		g_ahkapi->Array_InsertItem(arr, t);
+		if (t.symbol == SYM_OBJECT)
+			t.object->Release();
+		else if (t.symbol == SYM_STRING)
+			free(t.mem_to_free);
+	}	
 }

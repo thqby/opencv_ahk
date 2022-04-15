@@ -4821,13 +4821,9 @@ BIF_DECL(CV_FUNC2) {
 		cv::_OutputArray triangle;
 		if (ParamIndexToVal(0, points))
 			_o_return_result;
-		VarRef* var_triangle = nullptr;
-		if (ParamIndexToVal(1, var_triangle))
+		if (ParamIndexToVal(1, triangle))
 			_o_return_result;
 		auto __retval = cv::minEnclosingTriangle(points, triangle);
-		ValToResult(triangle, aResultToken);
-		g_ahkapi->VarAssign(var_triangle, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_minMaxLoc: {
@@ -7050,15 +7046,9 @@ BIF_DECL(CV_DETAIL_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, sharpness))
 			_o_return_result;
-		VarRef* var_weight = nullptr;
-		if (ParamIndexToVal(2, var_weight))
-			_o_return_result;
-		if (TokenToVal(VarRefToToken(var_weight), weight) != CONDITION_TRUE)
+		if (ParamIndexToVal(2, weight))
 			_o_return_result;
 		cv::detail::createWeightMap(mask, sharpness, weight);
-		ValToResult(weight, aResultToken);
-		g_ahkapi->VarAssign(var_weight, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
 		return;
 	}
 	case FID_focalsFromHomography: {
@@ -7109,15 +7099,9 @@ BIF_DECL(CV_DETAIL_FUNC) {
 		cv::_InputOutputArray src;
 		if (ParamIndexToVal(0, weight))
 			_o_return_result;
-		VarRef* var_src = nullptr;
-		if (ParamIndexToVal(1, var_src))
-			_o_return_result;
-		if (TokenToVal(VarRefToToken(var_src), src) != CONDITION_TRUE)
+		if (ParamIndexToVal(1, src))
 			_o_return_result;
 		cv::detail::normalizeUsingWeightMap(weight, src);
-		ValToResult(src, aResultToken);
-		g_ahkapi->VarAssign(var_src, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
 		return;
 	}
 	case FID_overlapRoi: {

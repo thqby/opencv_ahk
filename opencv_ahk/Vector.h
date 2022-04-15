@@ -3,8 +3,15 @@
 #include <vector>
 #include "util.h"
 
+class VectorBase : public Object
+{
+public:
+	int Flags;
+	thread_local static IAhkApi::Prototype* sPrototype;
+};
+
 template<typename T>
-class Vector : public Object
+class Vector : public VectorBase
 {
 	~Vector() {}
 	enum MemBerID {
@@ -27,6 +34,7 @@ public:
 		case M___Delete: this->~Vector(); mBase = nullptr; return;
 		case M___New: {
 			new (&mC) std::vector<T>;
+			Flags = cv::_InputOutputArray(mC).getFlags();
 			if (aParamCount == 0 || aParam[0] == g_invalid)return;
 			if (aParamCount == 1) {
 				if (ParamIndexToVal(0, mC))
@@ -130,3 +138,5 @@ ObjectMember Vec<T, n>::sMember[] = {
 
 template<typename T, int n>
 int Vec<T, n>::sMemberCount = _countof(sMember);
+
+

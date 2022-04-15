@@ -620,8 +620,46 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 
 		// init classes
 		{
-			ADDCLASS2("Vector_Vector_Point", Vector<std::vector<cv::Point>>);
-			ADDCLASS2("Vector_Vec4i", Vector<cv::Vec4i>);
+			Object* t = g_ahkapi->Class_New(_T("Vector"), sizeof(VectorBase), nullptr, 0, VectorBase::sPrototype);
+			ADDCLASS2("Vector_double", Vector<double>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_float", Vector<float>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_int", Vector<int>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Mat", Vector<cv::Mat>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Point", Vector<cv::Point>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Point2f", Vector<cv::Point2f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Rect", Vector<cv::Rect>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Rect2d", Vector<cv::Rect2d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_RotatedRect", Vector<cv::RotatedRect>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Size", Vector<cv::Size>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_uchar", Vector<uchar>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_UMat", Vector<cv::UMat>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2b", Vector<cv::Vec2b>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2d", Vector<cv::Vec2d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2f", Vector<cv::Vec2f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2i", Vector<cv::Vec2i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2s", Vector<cv::Vec2s>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2w", Vector<cv::Vec2w>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3b", Vector<cv::Vec3b>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3d", Vector<cv::Vec3d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3f", Vector<cv::Vec3f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3i", Vector<cv::Vec3i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3s", Vector<cv::Vec3s>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3w", Vector<cv::Vec3w>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4b", Vector<cv::Vec4b>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4d", Vector<cv::Vec4d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4f", Vector<cv::Vec4f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4i", Vector<cv::Vec4i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4s", Vector<cv::Vec4s>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4w", Vector<cv::Vec4w>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec6d", Vector<cv::Vec6d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec6f", Vector<cv::Vec6f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec6i", Vector<cv::Vec6i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec8i", Vector<cv::Vec8i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vector_int", Vector<std::vector<int>>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vector_Point", Vector<std::vector<cv::Point>>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vector_Point2f", Vector<std::vector<cv::Point2f>>, VectorBase::sPrototype);
+			t->Release();
+
 			ADDCLASS(Mat);
 			ADDCLASS(UMat);
 			ADDCLASS(Algorithm);
