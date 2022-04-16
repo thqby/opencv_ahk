@@ -15680,7 +15680,7 @@ void RNG::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 			_o_return_result;
 		if (ParamIndexToVal(3, b))
 			_o_return_result;
-		if (aParamCount > 4 && ParamIndexToVal(4, saturateRange))
+		if (aParamCount > 4 && ParamIndexToVal(4, saturateRange, 2))
 			_o_return_result;
 		mC->fill(mat, distType, a, b, saturateRange);
 		return;

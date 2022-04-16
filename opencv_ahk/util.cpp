@@ -61,17 +61,17 @@ ExprTokenType VarRefToToken(VarRef* var) {
 }
 
 __int64 TokenToInt64(ExprTokenType& token) {
-	__int64 val;
+	__int64 val = 0;
 	TokenToVal(token, val, true);
 	return val;
 }
 double TokenToDouble(ExprTokenType& token) {
-	double val;
+	double val = 0.0;
 	TokenToVal(token, val, true);
 	return val;
 }
 IObject* TokenToObject(ExprTokenType& token) {
-	IObject* val;
+	IObject* val = nullptr;
 	TokenToObject(token, val, nullptr);
 	return val;
 }
@@ -86,8 +86,7 @@ ResultType TokenToVal(ExprTokenType& token, __int64& val, char ignore) {
 	ExprTokenType vt;
 	if (g_ahkapi->TokenToNumber(token, vt))
 		val = vt.symbol == SYM_INTEGER ? vt.value_int64 : (__int64)vt.value_double;
-	else if (ignore)
-		val = 0;
+	else if (ignore == 1 || ignore == 2 && token.symbol == SYM_MISSING) {}
 	else
 		return g_ahkapi->TypeError(_T("Integer"), token);
 	return CONDITION_TRUE;
@@ -97,8 +96,7 @@ ResultType TokenToVal(ExprTokenType& token, char& val, char ignore) {
 	ExprTokenType vt;
 	if (g_ahkapi->TokenToNumber(token, vt))
 		val = (char)(vt.symbol == SYM_INTEGER ? vt.value_int64 : (__int64)vt.value_double);
-	else if (ignore)
-		val = 0;
+	else if (ignore == 1 || ignore == 2 && token.symbol == SYM_MISSING) {}
 	else
 		return g_ahkapi->TypeError(_T("Integer"), token);
 	return CONDITION_TRUE;
@@ -110,8 +108,7 @@ ResultType TokenToVal(ExprTokenType& token, int& val, char ignore) {
 	ExprTokenType vt;
 	if (g_ahkapi->TokenToNumber(token, vt))
 		val = (int)(vt.symbol == SYM_INTEGER ? vt.value_int64 : (__int64)vt.value_double);
-	else if (ignore)
-		val = 0;
+	else if (ignore == 1 || ignore == 2 && token.symbol == SYM_MISSING) {}
 	else
 		return g_ahkapi->TypeError(_T("Integer"), token);
 	return CONDITION_TRUE;
@@ -121,8 +118,7 @@ ResultType TokenToVal(ExprTokenType& token, float& val, char ignore) {
 	ExprTokenType vt;
 	if (g_ahkapi->TokenToNumber(token, vt))
 		val = vt.symbol == SYM_INTEGER ? (float)vt.value_int64 : (float)vt.value_double;
-	else if (ignore)
-		val = 0.0;
+	else if (ignore == 1 || ignore == 2 && token.symbol == SYM_MISSING) {}
 	else
 		return g_ahkapi->TypeError(_T("Float"), token);
 	return CONDITION_TRUE;
@@ -132,8 +128,7 @@ ResultType TokenToVal(ExprTokenType& token, double& val, char ignore) {
 	ExprTokenType vt;
 	if (g_ahkapi->TokenToNumber(token, vt))
 		val = vt.symbol == SYM_INTEGER ? (double)vt.value_int64 : vt.value_double;
-	else if (ignore)
-		val = 0.0;
+	else if (ignore == 1 || ignore == 2 && token.symbol == SYM_MISSING) {}
 	else
 		return g_ahkapi->TypeError(_T("Float"), token);
 	return CONDITION_TRUE;
@@ -164,6 +159,8 @@ ResultType TokenToVal(ExprTokenType& token, VarRef*& val, char ignore) {
 ResultType TokenToVal(ExprTokenType& token, cv::String& str, char ignore) {
 	TCHAR buf[256];
 	size_t len;
+	if (token.symbol == SYM_MISSING)
+		return CONDITION_TRUE;
 	auto s = g_ahkapi->TokenToString(token, buf, &len);
 #ifdef _UNICODE
 	auto l = WideCharToMultiByte(CP_ACP, 0, s, (int)len, 0, 0, 0, 0);

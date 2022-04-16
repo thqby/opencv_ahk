@@ -6,6 +6,7 @@
 #include <ahkapi.h>
 #include "cvobj.h"
 #include "Vector.h"
+#include "TextDraw.h"
 
 IAhkApi* g_ahkapi = nullptr;
 ExprTokenType g_invalid[1] = {};
@@ -660,6 +661,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS2("Vector_Vector_Point2f", Vector<std::vector<cv::Point2f>>, VectorBase::sPrototype);
 			t->Release();
 
+			ADDCLASS(TextDraw);
 			ADDCLASS(Mat);
 			ADDCLASS(UMat);
 			ADDCLASS(Algorithm);

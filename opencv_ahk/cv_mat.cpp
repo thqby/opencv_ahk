@@ -229,7 +229,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		return;
 	case M_getUMat: {
 		__int64 acc, flag = 0;
-		if (ParamIndexToVal(0, acc) || (aParamCount > 1 && ParamIndexToVal(1, flag)))
+		if (ParamIndexToVal(0, acc) || (aParamCount > 1 && ParamIndexToVal(1, flag, 2)))
 			_o_return_result;
 		auto mat = (UMat*)UMat::sPrototype->New(nullptr, 0);
 		mat->mC = mC.getUMat((cv::AccessFlag)acc, (cv::UMatUsageFlags)flag);
@@ -373,8 +373,8 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	case M_ptr: {
 		__int64 p1 = 0, p2 = 0, p3 = 0;
 		uchar* p;
-		if ((aParamCount && ParamIndexToVal(0, p1)) || (aParamCount > 1 && ParamIndexToVal(1, p2)) ||
-			(aParamCount > 2 && ParamIndexToVal(2, p3)))
+		if ((aParamCount && ParamIndexToVal(0, p1, 2)) || (aParamCount > 1 && ParamIndexToVal(1, p2, 2)) ||
+			(aParamCount > 2 && ParamIndexToVal(2, p3, 2)))
 			_o_return_result;
 		if (aParamCount > 2)
 			p = mC.ptr((int)p1, (int)p2, (int)p3);
@@ -391,7 +391,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		if (ParamIndexToVal(0, p1) || ParamIndexToVal(1, p2) || ParamIndexToVal(2, p3))
 			_o_return_result;
 		if (aID == M_ones) {
-			if (aParamCount > 3 && ParamIndexToVal(3, p4))
+			if (aParamCount > 3 && ParamIndexToVal(3, p4, 2))
 				_o_return_result;
 			mC = cv::Mat::ones((int)p1, (int)p2, (int)p3) * (p4 ? (double)p4 : 1);
 		}
@@ -435,7 +435,7 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 						else __result = g_ahkapi->TypeError(_T("Array"), *aParam[3]);
 						_o_return_result;
 					}
-					if (aParamCount > 4 && ParamIndexToVal(4, _flag))
+					if (aParamCount > 4 && ParamIndexToVal(4, _flag, 2))
 						_o_return_result;
 				}
 				else if (ParamIndexToVal(3, _flag))
