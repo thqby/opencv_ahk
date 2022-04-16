@@ -34,7 +34,7 @@ void TextDraw::putText(cv::InputOutputArray img, LPTSTR text, cv::Point org, cv:
 		return;
 	int strw, strh, rowh, left, top, right, bottom;
 	getTextSize(text, strw, strh, rowh);
-	if (bottomLeftOrigin)
+	if (!bottomLeftOrigin)
 		org.y -= strh;
 	if (org.x > dst.cols || org.y > dst.rows)
 		return;
@@ -77,9 +77,12 @@ void TextDraw::putText(cv::InputOutputArray img, LPTSTR text, cv::Point org, cv:
 
 	size_t dstStep = dst.elemSize();
 	int channels = std::min(3, dst.channels());
-	uchar* src = (uchar*)pDibData + (size_t)left * 3 + (size_t)(strh - top - 1) * strDrawLineStep;
+	uchar* src = (uchar*)pDibData + (size_t)left * 3;
 	uchar cl[3] = { (uchar)color.val[0],(uchar)color.val[1],(uchar)color.val[2] };
-
+	if (bottomLeftOrigin)
+		strDrawLineStep = -strDrawLineStep; 
+	else
+		src += ((size_t)strh - top - 1) * strDrawLineStep;
 	for (int y = top; y <= bottom; ++y, src -= strDrawLineStep) {
 		auto _src = src;
 		auto _dst = dst.ptr(org.y + y - top, org.x);
@@ -167,6 +170,8 @@ void TextDraw::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		getTextSize(text, size.width, size.height, rowh);
 		return ValToResult(size, aResultToken);
 	}
+	case P_hDC:
+		return (void)aResultToken.SetValue((__int64)mDC);
 	default:
 		break;
 	}
@@ -179,6 +184,7 @@ ObjectMember TextDraw::sMember[] = {
 	Object_Method(__Delete, 0, 0),
 	Object_Method(putText, 4, 5),
 	Object_Method(getTextSize, 1, 1),
+	Object_Property_get(hDC),
 };
 
 int TextDraw::sMemberCount = _countof(sMember);

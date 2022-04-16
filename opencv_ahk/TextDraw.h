@@ -13,6 +13,7 @@ class TextDraw : public Object
 		M___Delete,
 		M_getTextSize,
 		M_putText,
+		P_hDC,
 	};
 
 public:
