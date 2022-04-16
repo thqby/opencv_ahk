@@ -13,12 +13,12 @@ Object* cvahk::Create()
         cvahk myobj;
         auto prtti = *(void***)obj - 1;
         memcpy(&vftable, prtti, sizeof(ObjVTable));
-        *(void**)&obj->ahk_invoke = vftable.vt[7];
+        vftable.invoke = vftable.vt[7];
         // replace IObject::Invoke
         vftable.vt[7] = (*(void***)&myobj)[7];
     }
     *(void**)obj = vftable.vt;
-    
+    *(void**)&obj->ahk_invoke = vftable.invoke;
     return obj;
 }
 

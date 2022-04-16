@@ -5,6 +5,7 @@ struct ObjVTable {
 public:
 	void* rtti;
 	void* vt[14];
+	void* invoke;
 };
 extern ObjVTable vftable;
 
