@@ -205,8 +205,8 @@ ResultType TokenToVal(ExprTokenType& token, cv::_InputArray& val, char ignore) {
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
 			val = *((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
-			int flags = ((VectorBase*)obj)->Flags & ~cv::ACCESS_WRITE;
-			void* vec = ((void**)&((VectorBase*)obj)->Flags) + 1;
+			int flags = ((VectorBase*)obj)->mFlags & ~cv::ACCESS_WRITE;
+			void* vec = ((VectorBase*)obj)->mPtr;
 			val = cv::_InputArray(flags, vec);
 		}
 		else obj = nullptr;
@@ -226,8 +226,8 @@ ResultType TokenToVal(ExprTokenType& token, cv::_OutputArray& val, char ignore) 
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
 			val = *((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
-			int flags = ((VectorBase*)obj)->Flags & ~cv::ACCESS_READ;
-			void* vec = ((void**)&((VectorBase*)obj)->Flags) + 1;
+			int flags = ((VectorBase*)obj)->mFlags & ~cv::ACCESS_READ;
+			void* vec = ((VectorBase*)obj)->mPtr;
 			val = cv::_OutputArray(flags, vec);
 		}
 		else obj = nullptr;
@@ -247,8 +247,8 @@ ResultType TokenToVal(ExprTokenType& token, cv::_InputOutputArray& val, char ign
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
 			val = *((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
-			int flags = ((VectorBase*)obj)->Flags;
-			void* vec = ((void**)&((VectorBase*)obj)->Flags) + 1;
+			int flags = ((VectorBase*)obj)->mFlags;
+			void* vec = ((VectorBase*)obj)->mPtr;
 			val = cv::_InputOutputArray(flags, vec);
 		}
 		else obj = nullptr;
@@ -964,7 +964,7 @@ void ValToResult(cv::UMat& val, ResultToken& result) {
 
 void ValToResult(cv::FileNode& val, ResultToken& result) {
 	result.SetValue(FileNode::sPrototype->New(nullptr, 0));
-	*((FileNode*)result.object)->mC = std::move(val);
+	*((FileNode*)result.object)->mC = val;
 }
 
 void ValToResult(cv::KeyPoint& val, ResultToken& result) {
@@ -1201,7 +1201,7 @@ inline ResultType TokenToVector(ExprTokenType& token, std::vector<T>& val, char 
 		__if_exists(Vector<T>) {
 			if (dynamic_cast<Object*>(obj)) {
 				if (((Object*)obj)->mBase == Vector<T>::sPrototype) {
-					val = ((Vector<T>*)obj)->mC;
+					val = *(std::vector<T>*)((Vector<T>*)obj)->mPtr;
 					return CONDITION_TRUE;
 				}
 				TCHAR name[256]{};
@@ -1228,12 +1228,12 @@ inline ResultType TokenToVector(ExprTokenType& token, std::vector<T>& val, char 
 }
 
 template<typename T>
-inline void VectorToResult(std::vector<T>& val, ResultToken& result) {
-	__if_exists(Vector<T>::sPrototype) {
-		if (Vector<T>::sPrototype) {
+inline void VectorToResult(std::vector<T>& val, ResultToken& result, bool toArray) {
+	__if_exists(Vector<T>) {
+		if (Vector<T>::sPrototype && !toArray) {
 			auto obj = (Vector<T>*)Vector<T>::sPrototype->New(g_invalidparam, 1);
-			obj->mC.swap(val);
-			aResultToken.SetValue(obj);
+			obj->mC = val;
+			result.SetValue(obj);
 			return;
 		}
 	}

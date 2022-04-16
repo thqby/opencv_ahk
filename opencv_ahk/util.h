@@ -199,7 +199,7 @@ template<typename T>
 inline ResultType TokenToVector(ExprTokenType& token, std::vector<T>& val, char ignore = false);
 
 template<typename T>
-inline void VectorToResult(std::vector<T>& val, ResultToken& result);
+inline void VectorToResult(std::vector<T>& val, ResultToken& result, bool toArray = false);
 
 template<typename T, int n>
 inline ResultType TokenToVec(ExprTokenType& token, cv::Vec<T, n>& val, char ignore = false) {
@@ -253,6 +253,7 @@ void ValToResult(cv::gapi::core::GMat3& val, ResultToken& result);
 void ValToResult(cv::gapi::core::GMatScalar& val, ResultToken& result);
 void ValToResult(cv::KeyPoint& val, ResultToken& result);
 void ValToResult(cv::Mat& val, ResultToken& result);
+void ValToResult(cv::UMat& val, ResultToken& result);
 void ValToResult(cv::Point& val, ResultToken& result);
 void ValToResult(cv::Point2d& val, ResultToken& result);
 void ValToResult(cv::Point2f& val, ResultToken& result);

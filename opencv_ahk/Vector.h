@@ -6,9 +6,14 @@
 class VectorBase : public Object
 {
 public:
-	int Flags;
+	int mFlags;
+	void* mPtr;
+	VectorBase* mRoot;
 	thread_local static IAhkApi::Prototype* sPrototype;
 };
+
+template<typename T> struct is_vector_type { enum { VALUE = 0 }; };
+template<typename T> struct is_vector_type<std::vector<T>> { enum { VALUE = 1 }; };
 
 template<typename T>
 class Vector : public VectorBase
@@ -19,6 +24,7 @@ class Vector : public VectorBase
 		M___Delete,
 		P_Ptr,
 		P_Size,
+		P___Item,
 		P_empty,
 		M_push,
 		M_pop,
@@ -31,10 +37,18 @@ public:
 		ResultType __result;
 		switch (aID)
 		{
-		case M___Delete: this->~Vector(); mBase = nullptr; return;
+		case M___Delete: {
+			this->~Vector(); mBase = nullptr;
+			if (mRoot) {
+				mRoot->Release();
+				mRoot = nullptr;
+			}
+			return;
+		}
 		case M___New: {
 			new (&mC) std::vector<T>;
-			Flags = cv::_InputOutputArray(mC).getFlags();
+			mFlags = cv::_InputOutputArray(mC).getFlags();
+			mPtr = &mC;
 			if (aParamCount == 0 || aParam[0] == g_invalid)return;
 			if (aParamCount == 1) {
 				if (ParamIndexToVal(0, mC))
@@ -43,19 +57,66 @@ public:
 			}
 			else _o_invalid_param;
 		}
-		case P_Ptr: return (void)aResultToken.SetValue((__int64)mC.data());
-		case P_Size: return (void)aResultToken.SetValue((__int64)mC.size());
-		case P_empty: return (void)aResultToken.SetValue((__int64)mC.empty());
+		case P_Ptr: return (void)aResultToken.SetValue((__int64)((std::vector<T>*)mPtr)->data());
+		case P_Size: {
+			if (aFlags & IT_SET) {
+				size_t sz;
+				if (ParamIndexToVal(0, (__int64&)sz))
+					_o_return_result;
+				((std::vector<T>*)mPtr)->resize(sz);
+				return;
+			}
+			else
+				return (void)aResultToken.SetValue((__int64)((std::vector<T>*)mPtr)->size());
+		}
+		case P_empty: return (void)aResultToken.SetValue((__int64)((std::vector<T>*)mPtr)->empty());
+		case P___Item: {
+			auto pvec = (std::vector<T>*)mPtr;
+			size_t index;
+			if (aFlags & IT_SET) {
+				if (ParamIndexToVal(1, (__int64&)index))
+					_o_return_result;
+				__result = TokenToVal(*aParam[0], (*pvec)[index]);
+				if (__result != CONDITION_TRUE)
+					_o_return_result;
+				return;
+			}
+			else {
+				if (ParamIndexToVal(0, (__int64&)index))
+					_o_return_result;
+				if (index >= pvec->size())
+					return (void)(aResultToken.result = g_ahkapi->Error(_T("invalid index"), nullptr, IAhkApi::ErrorType::Index));
+				if (is_vector_type<T>::VALUE) {
+					T t{};
+					ResultToken result{};
+					ValToResult(t, result);
+					if (result.symbol == SYM_OBJECT && result.object->IsOfType(VectorBase::sPrototype)) {
+						auto vec = ((VectorBase*)result.object);
+						vec->mPtr = &(*pvec)[index];
+						vec->mRoot = mRoot ? mRoot : this;
+						vec->mRoot->AddRef();
+						aResultToken.SetValue(vec);
+					}
+					else {
+						g_ahkapi->ResultTokenFree(aResultToken);
+						ValToResult((*pvec)[index], aResultToken);
+					}
+				}
+				else
+					ValToResult((*pvec)[index], aResultToken);
+				return;
+			}
+		}
 		case M_push: {
 			T val;
 			if (ParamIndexToVal(0, val))
 				_o_return_result;
-			mC.push_back(val);
+			((std::vector<T>*)mPtr)->push_back(val);
 			return;
 		}
-		case M_pop: return mC.pop_back();
-		case M_clear: return mC.clear();
-		case M_toArray: return ValToResult(mC, aResultToken);
+		case M_pop: return ((std::vector<T>*)mPtr)->pop_back();
+		case M_clear: return ((std::vector<T>*)mPtr)->clear();
+		case M_toArray: return VectorToResult((*(std::vector<T>*)mPtr), aResultToken, true);
 		default:
 			break;
 		}
@@ -73,8 +134,9 @@ ObjectMember Vector<T>::sMember[] = {
 	Object_Method(__New, 0, NA),
 	Object_Method(__Delete, 0, 0),
 	Object_Property_get(Ptr),
-	Object_Property_get(Size),
+	Object_Property_get_set(Size),
 	Object_Property_get(empty),
+	Object_Property_get_set(__Item, 1, 1),
 	Object_Method(push, 1, 1),
 	Object_Method(pop, 0, 0),
 	Object_Method(clear, 0, 0),
