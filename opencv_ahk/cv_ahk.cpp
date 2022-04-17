@@ -119,6 +119,7 @@ BIFn(createTonemap, 0, 1, CV_FUNC),
 BIFn(createTonemapDrago, 0, 3, CV_FUNC),
 BIFn(createTonemapMantiuk, 0, 3, CV_FUNC),
 BIFn(createTonemapReinhard, 0, 4, CV_FUNC),
+BIFn(createTrackbar, 3, 4, CV_FUNC),
 BIFn(cubeRoot, 1, 1, CV_FUNC),
 BIFn(cvtColor, 3, 4, CV_FUNC),
 BIFn(cvtColorTwoPlane, 4, 4, CV_FUNC),
@@ -610,14 +611,10 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 	cls::sPrototype->OnDispose = []() { cls::sPrototype = nullptr; };
 
 	if (g_ahkapi = api) {
-		Object* t = g_ahkapi->Class_New(_T("cv"), sizeof(cvahk), nullptr, 0, cvahk::sPrototype);
-		Object* _cv = cvahk::Create();
+		ExprTokenType param, * params[] = { &param };
+		param.SetValue(_T("cv"));
+		Object* _cv = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Module, params, 1);
 		ExprTokenType o{};
-		t->Release();
-		cvahk::sPrototype->OnDispose = []() {
-			cvahk::sPrototype = nullptr;
-			memset(&vftable, 0, sizeof(ObjVTable));
-		};
 
 		// init classes
 		{
@@ -856,7 +853,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 
 		{
 			Object* mmm;
-#define ADDFUNCS(func, name) o.SetValue(cvahk::Create());\
+#define ADDFUNCS(func, name) o.SetValue(g_ahkapi->Object_New());\
 			mmm = (Object*)o.object;\
 			g_ahkapi->Object_SetProp(_cv, _T(name), o, true);\
 			mmm->Release();\

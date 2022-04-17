@@ -110,6 +110,7 @@ enum CV_FUNCID : UCHAR {
 	FID_createTonemapDrago,
 	FID_createTonemapMantiuk,
 	FID_createTonemapReinhard,
+	FID_createTrackbar,
 	FID_cubeRoot,
 	FID_cvtColor,
 	FID_cvtColorTwoPlane,

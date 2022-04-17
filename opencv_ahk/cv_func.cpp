@@ -2044,6 +2044,31 @@ BIF_DECL(CV_FUNC) {
 		__retval->mC = cv::createTonemapReinhard(gamma, intensity, light_adapt, color_adapt);
 		return (void)(aResultToken.SetValue(__retval));
 	}
+	case FID_createTrackbar: {
+		static cv::TrackbarCallback onChange = [](int pos, void* userdata) {
+			ExprTokenType param(pos), * params[] = { &param };
+			IObject* obj = (IObject*)userdata;
+			ResultToken result{};
+			result.SetValue(_T(""));
+			obj->Invoke(result, IT_CALL, nullptr, ExprTokenType(obj), params, 1);
+			g_ahkapi->ResultTokenFree(result);
+		};
+		cv::String trackbarname, winname;
+		int count;
+		IObject* cb = nullptr;
+		if (ParamIndexToVal(0, trackbarname))
+			_o_return_result;
+		if (ParamIndexToVal(1, winname))
+			_o_return_result;
+		if (ParamIndexToVal(2, count))
+			_o_return_result;
+		if (aParamCount > 3)
+			TokenToObject(*aParam[3], cb, _T("Func"));
+		if (cb)
+			cv::createTrackbar(trackbarname, winname, 0, count, onChange, cb);
+		else cv::createTrackbar(trackbarname, winname, 0, count);
+		return;
+	}
 	case FID_cubeRoot: {
 		float val;
 		if (ParamIndexToVal(0, val))
