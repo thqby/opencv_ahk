@@ -138,7 +138,6 @@ enum CV_FUNCID : UCHAR {
 	FID_drawKeypoints,
 	FID_drawMarker,
 	FID_drawMatches,
-	FID_drawMatches2,
 	FID_edgePreservingFilter,
 	FID_eigen,
 	FID_eigenNonSymmetric,

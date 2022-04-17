@@ -946,7 +946,7 @@ void ValToResult(cv::DMatch& val, ResultToken& result) {
 	p[1].SetValue(val.trainIdx);
 	p[2].SetValue(val.imgIdx);
 	p[3].SetValue(val.distance);
-	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 4));
+	result.SetValue(DMatch::sPrototype->New(param, 4));
 }
 
 void ValToResult(cv::Mat& val, ResultToken& result) {

@@ -2517,8 +2517,6 @@ BIF_DECL(CV_FUNC) {
 			cv::_InputOutputArray outImg;
 			cv::Scalar matchColor = cv::Scalar::all(-1), singlePointColor = cv::Scalar::all(-1);
 			int flags = (int)cv::DrawMatchesFlags::DEFAULT;
-			std::vector<char> matchesMask = std::vector<char>();
-			std::vector<cv::DMatch> matches1to2;
 			std::vector<cv::KeyPoint> keypoints1, keypoints2;
 			if (ParamIndexToVal(0, img1))
 				_o_return_result;
@@ -2528,19 +2526,41 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, keypoints2))
 				_o_return_result;
-			if (ParamIndexToVal(4, matches1to2))
-				_o_return_result;
-			if (ParamIndexToVal(5, outImg))
-				_o_return_result;
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], matchColor, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], singlePointColor, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], (std::vector<uchar>&)matchesMask, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], flags, true);
-			cv::drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, (cv::DrawMatchesFlags)flags);
+			Array* arr = dynamic_cast<Array*>(TokenToObject(*aParam[4]));
+			if (arr && arr->mLength && arr->mItem[0].symbol == SYM_OBJECT && dynamic_cast<Array*>(arr->mItem[0].object)) {
+				std::vector<std::vector<char>> matchesMask = std::vector<std::vector<char>>();
+				std::vector<std::vector<cv::DMatch>> matches1to2;
+				if (ParamIndexToVal(4, matches1to2))
+					_o_return_result;
+				if (ParamIndexToVal(5, outImg))
+					_o_return_result;
+				if (aParamCount > 6)
+					TokenToVal(*aParam[6], matchColor, true);
+				if (aParamCount > 7)
+					TokenToVal(*aParam[7], singlePointColor, true);
+				if (aParamCount > 8)
+					TokenToVal(*aParam[8], matchesMask, true);
+				if (aParamCount > 9)
+					TokenToVal(*aParam[9], flags, true);
+				cv::drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, (cv::DrawMatchesFlags)flags);
+			}
+			else {
+				std::vector<char> matchesMask = std::vector<char>();
+				std::vector<cv::DMatch> matches1to2;
+				if (ParamIndexToVal(4, matches1to2))
+					_o_return_result;
+				if (ParamIndexToVal(5, outImg))
+					_o_return_result;
+				if (aParamCount > 6)
+					TokenToVal(*aParam[6], matchColor, true);
+				if (aParamCount > 7)
+					TokenToVal(*aParam[7], singlePointColor, true);
+				if (aParamCount > 8)
+					TokenToVal(*aParam[8], matchesMask, true);
+				if (aParamCount > 9)
+					TokenToVal(*aParam[9], flags, true);
+				cv::drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, (cv::DrawMatchesFlags)flags);
+			}
 			return;
 		}
 		else if (!MatchTypes("ooooooio?ooi")) {
@@ -2577,37 +2597,6 @@ BIF_DECL(CV_FUNC) {
 			return;
 		}
 		else aResultToken.result = g_ahkapi->Error(_T("invalid param count or type"));
-		return;
-	}
-	case FID_drawMatches2: {
-		cv::_InputArray img1, img2;
-		cv::_InputOutputArray outImg;
-		cv::Scalar matchColor = cv::Scalar::all(-1), singlePointColor = cv::Scalar::all(-1);
-		int flags = (int)cv::DrawMatchesFlags::DEFAULT;
-		std::vector<cv::KeyPoint> keypoints1, keypoints2;
-		std::vector<std::vector<char>> matchesMask = std::vector<std::vector<char>>();
-		std::vector<std::vector<cv::DMatch>> matches1to2;
-		if (ParamIndexToVal(0, img1))
-			_o_return_result;
-		if (ParamIndexToVal(1, keypoints1))
-			_o_return_result;
-		if (ParamIndexToVal(2, img2))
-			_o_return_result;
-		if (ParamIndexToVal(3, keypoints2))
-			_o_return_result;
-		if (ParamIndexToVal(4, matches1to2))
-			_o_return_result;
-		if (ParamIndexToVal(5, outImg))
-			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], matchColor, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], singlePointColor, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], matchesMask, true);
-		if (aParamCount > 9)
-			TokenToVal(*aParam[9], flags, true);
-		cv::drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, (cv::DrawMatchesFlags)flags);
 		return;
 	}
 	case FID_edgePreservingFilter: {
