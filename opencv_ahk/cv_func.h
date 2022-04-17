@@ -393,7 +393,6 @@ BIF_DECL(CV_DETAIL_FUNC);
 enum CV_DETAIL_FUNCID : UCHAR {
 	FID_calibrateRotatingCamera,
 	FID_computeImageFeatures,
-	FID_computeImageFeatures2,
 	FID_createLaplacePyr,
 	FID_createLaplacePyrGpu,
 	FID_createWeightMap,

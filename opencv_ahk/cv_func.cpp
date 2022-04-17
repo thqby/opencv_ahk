@@ -3,6 +3,7 @@
 #include "cv_mat.h"
 #include "cv_class.h"
 #include "cv_func.h"
+#include "Vector.h"
 #include <opencv2/core/bindings_utils.hpp>
 #include <opencv2/core/parallel/parallel_backend.hpp>
 #include <opencv2/dnn/dnn.hpp>
@@ -6988,41 +6989,42 @@ BIF_DECL(CV_DETAIL_FUNC) {
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_computeImageFeatures: {
-		cv::_InputArray image, mask = cv::noArray();
 		cv::Ptr<cv::Feature2D> featuresFinder;
-		cv::detail::ImageFeatures features;
 		if (ParamIndexToVal(0, featuresFinder))
 			_o_return_result;
-		if (ParamIndexToVal(1, image))
-			_o_return_result;
-		VarRef* var_features = nullptr;
-		if (ParamIndexToVal(2, var_features))
-			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
-		cv::detail::computeImageFeatures(featuresFinder, image, features, mask);
-		ValToResult(features, aResultToken);
-		g_ahkapi->VarAssign(var_features, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
-		return;
-	}
-	case FID_computeImageFeatures2: {
-		cv::_InputArray images, masks = cv::noArray();
-		cv::Ptr<cv::Feature2D> featuresFinder;
-		std::vector<cv::detail::ImageFeatures> features;
-		if (ParamIndexToVal(0, featuresFinder))
-			_o_return_result;
-		if (ParamIndexToVal(1, images))
-			_o_return_result;
-		VarRef* var_features = nullptr;
-		if (ParamIndexToVal(2, var_features))
-			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], masks, true);
-		cv::detail::computeImageFeatures(featuresFinder, images, features, masks);
-		ValToResult(features, aResultToken);
-		g_ahkapi->VarAssign(var_features, aResultToken);
-		g_ahkapi->ResultTokenFree(aResultToken);
+		IObject* obj = TokenToObject(*aParam[1]);
+		if (obj->IsOfType(VectorBase::sPrototype) || dynamic_cast<Array*>(obj)) {
+			std::vector<cv::detail::ImageFeatures> features;
+			cv::_InputArray images, masks = cv::noArray();
+			if (ParamIndexToVal(0, featuresFinder))
+				_o_return_result;
+			if (ParamIndexToVal(1, images))
+				_o_return_result;
+			VarRef* var_features = nullptr;
+			if (ParamIndexToVal(2, var_features))
+				_o_return_result;
+			if (aParamCount > 3)
+				TokenToVal(*aParam[3], masks, true);
+			cv::detail::computeImageFeatures(featuresFinder, images, features, masks);
+			ValToResult(features, aResultToken);
+			g_ahkapi->VarAssign(var_features, aResultToken);
+			g_ahkapi->ResultTokenFree(aResultToken);
+		}
+		else {
+			cv::detail::ImageFeatures features;
+			cv::_InputArray image, mask = cv::noArray();
+			if (ParamIndexToVal(1, image))
+				_o_return_result;
+			VarRef* var_features = nullptr;
+			if (ParamIndexToVal(2, var_features))
+				_o_return_result;
+			if (aParamCount > 3)
+				TokenToVal(*aParam[3], mask, true);
+			cv::detail::computeImageFeatures(featuresFinder, image, features, mask);
+			ValToResult(features, aResultToken);
+			g_ahkapi->VarAssign(var_features, aResultToken);
+			g_ahkapi->ResultTokenFree(aResultToken);
+		}
 		return;
 	}
 	case FID_createLaplacePyr: {

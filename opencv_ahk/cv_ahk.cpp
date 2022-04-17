@@ -397,7 +397,6 @@ BIFn(unregisterPageLocked, 1, 1, CV_CUDA_FUNC),
 FuncEntry CV_DETAIL_Funcs[] = {
 BIFn(calibrateRotatingCamera, 2, 2, CV_DETAIL_FUNC),
 BIFn(computeImageFeatures, 3, 4, CV_DETAIL_FUNC),
-BIFn(computeImageFeatures2, 3, 4, CV_DETAIL_FUNC),
 BIFn(createLaplacePyr, 3, 3, CV_DETAIL_FUNC),
 BIFn(createLaplacePyrGpu, 3, 3, CV_DETAIL_FUNC),
 BIFn(createWeightMap, 3, 3, CV_DETAIL_FUNC),
