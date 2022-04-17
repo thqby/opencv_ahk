@@ -722,8 +722,6 @@ class AlignExposures : public Object
 {
 	~AlignExposures() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_process,
 	};
 
@@ -840,8 +838,6 @@ class BOWTrainer : public Object
 {
 	~BOWTrainer() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_add,
 		M_clear,
 		M_cluster,
@@ -883,8 +879,6 @@ class BackgroundSubtractor : public Object
 {
 	~BackgroundSubtractor() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_apply,
 		M_getBackgroundImage,
 	};
@@ -1010,8 +1004,6 @@ class CalibrateCRF : public Object
 {
 	~CalibrateCRF() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_process,
 	};
 
@@ -1151,8 +1143,6 @@ class DenseOpticalFlow : public Object
 {
 	~DenseOpticalFlow() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_calc,
 		M_collectGarbage,
 	};
@@ -1504,8 +1494,6 @@ class GeneralizedHough : public Object
 {
 	~GeneralizedHough() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_detect,
 		M_getCannyHighThresh,
 		M_getCannyLowThresh,
@@ -1721,8 +1709,6 @@ class MergeExposures : public Object
 {
 	~MergeExposures() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_process,
 	};
 
@@ -1959,8 +1945,6 @@ class SparseOpticalFlow : public Object
 {
 	~SparseOpticalFlow() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_calc,
 	};
 
@@ -2036,8 +2020,6 @@ class StereoMatcher : public Object
 {
 	~StereoMatcher() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_compute,
 		M_getBlockSize,
 		M_getDisp12MaxDiff,
@@ -2264,8 +2246,6 @@ class Tracker : public Object
 {
 	~Tracker() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_init,
 		M_update,
 	};
@@ -2575,7 +2555,7 @@ class cuda_GpuMat : public Object
 	};
 
 public:
-	cv::Ptr<cv::cuda::GpuMat> mC;
+	cv::cuda::GpuMat mC;
 	void Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount);
 	thread_local static IAhkApi::Prototype* sPrototype;
 	static ObjectMember sMember[];
@@ -2637,7 +2617,7 @@ class cuda_HostMem : public Object
 	};
 
 public:
-	cv::Ptr<cv::cuda::HostMem> mC;
+	cv::cuda::HostMem mC;
 	void Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount);
 	thread_local static IAhkApi::Prototype* sPrototype;
 	static ObjectMember sMember[];
@@ -2761,7 +2741,6 @@ class detail_Blender : public Object
 		M___New,
 		M___Delete,
 		M_blend,
-		M_createDefault,
 		M_feed,
 		M_prepare,
 	};
@@ -2872,8 +2851,6 @@ class detail_BundleAdjusterBase : public Object
 {
 	~detail_BundleAdjusterBase() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_confThresh,
 		M_refinementMask,
 		M_setConfThresh,
@@ -2966,8 +2943,6 @@ class detail_Estimator : public Object
 {
 	~detail_Estimator() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_Call,
 	};
 
@@ -2983,8 +2958,6 @@ class detail_ExposureCompensator : public Object
 {
 	~detail_ExposureCompensator() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_apply,
 		M_createDefault,
 		M_feed,
@@ -3028,8 +3001,6 @@ class detail_FeaturesMatcher : public Object
 {
 	~detail_FeaturesMatcher() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_collectGarbage,
 		M_isThreadSafe,
 		M_Call,
@@ -3176,8 +3147,6 @@ class detail_PairwiseSeamFinder : public Object
 {
 	~detail_PairwiseSeamFinder() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_find,
 	};
 
@@ -3195,7 +3164,6 @@ class detail_SeamFinder : public Object
 	enum MemBerID {
 		M___New,
 		M___Delete,
-		M_createDefault,
 		M_find,
 	};
 
@@ -3213,7 +3181,6 @@ class detail_Timelapser : public Object
 	enum MemBerID {
 		M___New,
 		M___Delete,
-		M_createDefault,
 		M_getDst,
 		M_initialize,
 		M_process,
@@ -3424,8 +3391,6 @@ class dnn_TextDetectionModel : public Object
 {
 	~dnn_TextDetectionModel() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_detect,
 		M_detectTextRectangles,
 	};
@@ -3905,8 +3870,6 @@ class ml_StatModel : public Object
 {
 	~ml_StatModel() {}
 	enum MemBerID {
-		M___New,
-		M___Delete,
 		M_calcError,
 		M_empty,
 		M_getVarCount,

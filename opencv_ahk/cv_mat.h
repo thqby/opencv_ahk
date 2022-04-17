@@ -5,8 +5,8 @@
 class Mat : public Object
 {
 	enum MemberID {
-		M___Delete,
 		M___New,
+		M___Delete,
 		M_adjustROI,
 		M_assignTo,
 		M_Call,
@@ -61,8 +61,8 @@ public:
 class UMat : public Object
 {
 	enum MemberID {
-		M___Delete,
 		M___New,
+		M___Delete,
 		M_adjustROI,
 		M_assignTo,
 		M_Call,

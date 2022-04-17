@@ -600,14 +600,6 @@ BIFn(isBackendBuiltIn, 1, 1, CV_VIDEOIO_REGISTRY_FUNC),
 
 
 extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
-#define ADDCLASS(cls, ...) o.SetValue(g_ahkapi->Class_New(_T(#cls), sizeof(cls), cls::sMember, cls::sMemberCount, cls::sPrototype, __VA_ARGS__));\
-	g_ahkapi->Object_SetProp(_cv, _T(#cls), o, true), o.object->Release();\
-	cls::sPrototype->OnDispose = []() { cls::sPrototype = nullptr; };
-	
-#define ADDCLASS2(name, cls, ...) o.SetValue(g_ahkapi->Class_New(_T(name), sizeof(cls), cls::sMember, cls::sMemberCount, cls::sPrototype, __VA_ARGS__));\
-	g_ahkapi->Object_SetProp(_cv, _T(name), o, true), o.object->Release();\
-	cls::sPrototype->OnDispose = []() { cls::sPrototype = nullptr; };
-
 	if (g_ahkapi = api) {
 		ExprTokenType param, * params[] = { &param };
 		param.SetValue(_T("cv"));
@@ -616,45 +608,17 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 
 		// init classes
 		{
-			Object* t = g_ahkapi->Class_New(_T("Vector"), sizeof(VectorBase), nullptr, 0, VectorBase::sPrototype);
-			ADDCLASS2("Vector_double", Vector<double>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_float", Vector<float>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_int", Vector<int>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Mat", Vector<cv::Mat>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Point", Vector<cv::Point>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Point2f", Vector<cv::Point2f>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Rect", Vector<cv::Rect>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Rect2d", Vector<cv::Rect2d>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_RotatedRect", Vector<cv::RotatedRect>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Size", Vector<cv::Size>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_uchar", Vector<uchar>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_UMat", Vector<cv::UMat>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec2b", Vector<cv::Vec2b>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec2d", Vector<cv::Vec2d>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec2f", Vector<cv::Vec2f>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec2i", Vector<cv::Vec2i>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec2s", Vector<cv::Vec2s>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec2w", Vector<cv::Vec2w>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec3b", Vector<cv::Vec3b>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec3d", Vector<cv::Vec3d>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec3f", Vector<cv::Vec3f>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec3i", Vector<cv::Vec3i>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec3s", Vector<cv::Vec3s>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec3w", Vector<cv::Vec3w>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec4b", Vector<cv::Vec4b>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec4d", Vector<cv::Vec4d>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec4f", Vector<cv::Vec4f>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec4i", Vector<cv::Vec4i>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec4s", Vector<cv::Vec4s>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec4w", Vector<cv::Vec4w>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec6d", Vector<cv::Vec6d>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec6f", Vector<cv::Vec6f>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec6i", Vector<cv::Vec6i>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vec8i", Vector<cv::Vec8i>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vector_int", Vector<std::vector<int>>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vector_Point", Vector<std::vector<cv::Point>>, VectorBase::sPrototype);
-			ADDCLASS2("Vector_Vector_Point2f", Vector<std::vector<cv::Point2f>>, VectorBase::sPrototype);
-			t->Release();
+			LPTSTR cls_to_del[30]{};
+			int del_count = 0;
+#define DELLASTCLASS del_count++;
+#define ADDCLASS(cls, ...) o.SetValue(g_ahkapi->Class_New(_T(#cls), sizeof(cls), cls::sMember, cls::sMemberCount, cls::sPrototype, __VA_ARGS__));\
+	g_ahkapi->Object_SetProp(_cv, cls_to_del[del_count] = _T(#cls), o, true), o.object->Release();\
+	cls::sPrototype->OnDispose = []() { cls::sPrototype = nullptr; };
+
+#define ADDCLASS2(name, cls, ...) o.SetValue(g_ahkapi->Class_New(_T(name), sizeof(cls), cls::sMember, cls::sMemberCount, cls::sPrototype, __VA_ARGS__));\
+	g_ahkapi->Object_SetProp(_cv, _T(name), o, true), o.object->Release();\
+	cls::sPrototype->OnDispose = []() { cls::sPrototype = nullptr; };
+
 
 			ADDCLASS(TextDraw);
 			ADDCLASS(Mat);
@@ -665,24 +629,29 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(AffineFeature, Feature2D::sPrototype);
 			ADDCLASS(AgastFeatureDetector, Feature2D::sPrototype);
 			ADDCLASS(AlignExposures, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(AlignMTB, AlignExposures::sPrototype);
 			ADDCLASS(AsyncArray);
 			ADDCLASS(DescriptorMatcher, Algorithm::sPrototype);
 			ADDCLASS(BFMatcher, DescriptorMatcher::sPrototype);
 			ADDCLASS(BOWImgDescriptorExtractor);
 			ADDCLASS(BOWTrainer);
+			DELLASTCLASS;
 			ADDCLASS(BOWKMeansTrainer, BOWTrainer::sPrototype);
 			ADDCLASS(BRISK, Feature2D::sPrototype);
 			ADDCLASS(BackgroundSubtractor, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(BackgroundSubtractorKNN, BackgroundSubtractor::sPrototype);
 			ADDCLASS(BackgroundSubtractorMOG2, BackgroundSubtractor::sPrototype);
 			ADDCLASS(BaseCascadeClassifier, Algorithm::sPrototype);
 			ADDCLASS(CLAHE, Algorithm::sPrototype);
 			ADDCLASS(CalibrateCRF, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(CalibrateDebevec, CalibrateCRF::sPrototype);
 			ADDCLASS(CalibrateRobertson, CalibrateCRF::sPrototype);
 			ADDCLASS(CascadeClassifier);
 			ADDCLASS(DenseOpticalFlow, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(DISOpticalFlow, DenseOpticalFlow::sPrototype);
 			ADDCLASS(DMatch);
 			ADDCLASS(FaceDetectorYN);
@@ -698,6 +667,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(GScalar);
 			ADDCLASS(GStreamingCompiled);
 			ADDCLASS(GeneralizedHough, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(GeneralizedHoughBallard, GeneralizedHough::sPrototype);
 			ADDCLASS(GeneralizedHoughGuil, GeneralizedHough::sPrototype);
 			ADDCLASS(KAZE, Feature2D::sPrototype);
@@ -706,6 +676,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(LineSegmentDetector, Algorithm::sPrototype);
 			ADDCLASS(MSER, Feature2D::sPrototype);
 			ADDCLASS(MergeExposures, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(MergeDebevec, MergeExposures::sPrototype);
 			ADDCLASS(MergeMertens, MergeExposures::sPrototype);
 			ADDCLASS(MergeRobertson, MergeExposures::sPrototype);
@@ -717,8 +688,10 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(SIFT, Feature2D::sPrototype);
 			ADDCLASS(SimpleBlobDetector, Feature2D::sPrototype);
 			ADDCLASS(SparseOpticalFlow, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(SparsePyrLKOpticalFlow, SparseOpticalFlow::sPrototype);
 			ADDCLASS(StereoMatcher, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(StereoBM, StereoMatcher::sPrototype);
 			ADDCLASS(StereoSGBM, StereoMatcher::sPrototype);
 			ADDCLASS(Stitcher);
@@ -746,17 +719,21 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(cuda_Stream);
 			ADDCLASS(cuda_TargetArchs);
 			ADDCLASS(detail_Estimator);
+			DELLASTCLASS;
 			ADDCLASS(detail_AffineBasedEstimator, detail_Estimator::sPrototype);
 			ADDCLASS(detail_FeaturesMatcher);
+			DELLASTCLASS;
 			ADDCLASS(detail_BestOf2NearestMatcher, detail_FeaturesMatcher::sPrototype);
 			ADDCLASS(detail_AffineBestOf2NearestMatcher, detail_BestOf2NearestMatcher::sPrototype);
 			ADDCLASS(detail_BestOf2NearestRangeMatcher, detail_BestOf2NearestMatcher::sPrototype);
 			ADDCLASS(detail_Blender);
 			ADDCLASS(detail_ExposureCompensator);
+			DELLASTCLASS;
 			ADDCLASS(detail_BlocksCompensator, detail_ExposureCompensator::sPrototype);
 			ADDCLASS(detail_BlocksChannelsCompensator, detail_BlocksCompensator::sPrototype);
 			ADDCLASS(detail_BlocksGainCompensator, detail_BlocksCompensator::sPrototype);
 			ADDCLASS(detail_BundleAdjusterBase, detail_Estimator::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(detail_BundleAdjusterAffine, detail_BundleAdjusterBase::sPrototype);
 			ADDCLASS(detail_BundleAdjusterAffinePartial, detail_BundleAdjusterBase::sPrototype);
 			ADDCLASS(detail_BundleAdjusterRay, detail_BundleAdjusterBase::sPrototype);
@@ -773,6 +750,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(detail_NoExposureCompensator, detail_ExposureCompensator::sPrototype);
 			ADDCLASS(detail_NoSeamFinder, detail_SeamFinder::sPrototype);
 			ADDCLASS(detail_PairwiseSeamFinder, detail_SeamFinder::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(detail_Timelapser);
 			ADDCLASS(detail_TimelapserCrop, detail_Timelapser::sPrototype);
 			ADDCLASS(detail_VoronoiSeamFinder, detail_PairwiseSeamFinder::sPrototype);
@@ -784,6 +762,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(dnn_Net);
 			ADDCLASS(dnn_SegmentationModel, dnn_Model::sPrototype);
 			ADDCLASS(dnn_TextDetectionModel, dnn_Model::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(dnn_TextDetectionModel_DB, dnn_TextDetectionModel::sPrototype);
 			ADDCLASS(dnn_TextDetectionModel_EAST, dnn_TextDetectionModel::sPrototype);
 			ADDCLASS(dnn_TextRecognitionModel, dnn_Model::sPrototype);
@@ -791,6 +770,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(gapi_GKernelPackage);
 			ADDCLASS(gapi_ie_PyParams);
 			ADDCLASS(ml_StatModel, Algorithm::sPrototype);
+			DELLASTCLASS;
 			ADDCLASS(ml_ANN_MLP, ml_StatModel::sPrototype);
 			ADDCLASS(ml_DTrees, ml_StatModel::sPrototype);
 			ADDCLASS(ml_Boost, ml_DTrees::sPrototype);
@@ -838,6 +818,56 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(RNG);
 			ADDCLASS(GOpaque_Size);
 			ADDCLASS(GOpaque_Rect);
+
+			for (; del_count > 0;) {
+				ResultToken result;
+				--del_count;
+				if (g_ahkapi->Object_DeleteOwnProp(result, _cv, cls_to_del[del_count]))
+					result.object->Release();
+			}
+
+
+			Object* t = g_ahkapi->Class_New(_T("Vector"), sizeof(VectorBase), nullptr, 0, VectorBase::sPrototype);
+			VectorBase::sPrototype->OnDispose = []() {VectorBase::sPrototype = nullptr; };
+			ADDCLASS2("Vector_double", Vector<double>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_float", Vector<float>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_int", Vector<int>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Mat", Vector<cv::Mat>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Point", Vector<cv::Point>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Point2f", Vector<cv::Point2f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Rect", Vector<cv::Rect>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Rect2d", Vector<cv::Rect2d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_RotatedRect", Vector<cv::RotatedRect>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Size", Vector<cv::Size>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_uchar", Vector<uchar>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_UMat", Vector<cv::UMat>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2b", Vector<cv::Vec2b>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2d", Vector<cv::Vec2d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2f", Vector<cv::Vec2f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2i", Vector<cv::Vec2i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2s", Vector<cv::Vec2s>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec2w", Vector<cv::Vec2w>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3b", Vector<cv::Vec3b>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3d", Vector<cv::Vec3d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3f", Vector<cv::Vec3f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3i", Vector<cv::Vec3i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3s", Vector<cv::Vec3s>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec3w", Vector<cv::Vec3w>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4b", Vector<cv::Vec4b>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4d", Vector<cv::Vec4d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4f", Vector<cv::Vec4f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4i", Vector<cv::Vec4i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4s", Vector<cv::Vec4s>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec4w", Vector<cv::Vec4w>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec6d", Vector<cv::Vec6d>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec6f", Vector<cv::Vec6f>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec6i", Vector<cv::Vec6i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vec8i", Vector<cv::Vec8i>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vector_int", Vector<std::vector<int>>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vector_Point", Vector<std::vector<cv::Point>>, VectorBase::sPrototype);
+			ADDCLASS2("Vector_Vector_Point2f", Vector<std::vector<cv::Point2f>>, VectorBase::sPrototype);
+			t->Release();
+
 		};
 		
 

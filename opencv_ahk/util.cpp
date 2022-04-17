@@ -200,7 +200,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::_InputArray& val, char ignore) {
 		else if (obj->mBase == UMat::sPrototype)
 			val = ((UMat*)obj)->mC;
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
-			val = *((cuda_GpuMat*)obj)->mC;
+			val = ((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
 			int flags = ((VectorBase*)obj)->mFlags & ~cv::ACCESS_WRITE;
 			void* vec = ((VectorBase*)obj)->mPtr;
@@ -221,7 +221,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::_OutputArray& val, char ignore) 
 		else if (obj->mBase == UMat::sPrototype)
 			val = ((UMat*)obj)->mC;
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
-			val = *((cuda_GpuMat*)obj)->mC;
+			val = ((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
 			int flags = ((VectorBase*)obj)->mFlags & ~cv::ACCESS_READ;
 			void* vec = ((VectorBase*)obj)->mPtr;
@@ -242,7 +242,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::_InputOutputArray& val, char ign
 		else if (obj->mBase == UMat::sPrototype)
 			val = ((UMat*)obj)->mC;
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
-			val = *((cuda_GpuMat*)obj)->mC;
+			val = ((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
 			int flags = ((VectorBase*)obj)->mFlags;
 			void* vec = ((VectorBase*)obj)->mPtr;
@@ -754,7 +754,7 @@ TokenTo_(cuda::HostMem) {
 	IObject* obj;
 	TokenToObject(token, obj, nullptr);
 	if (obj && obj->IsOfType(cuda_HostMem::sPrototype))
-		val = ((cuda_HostMem*)obj)->mC.get();
+		val = &((cuda_HostMem*)obj)->mC;
 	else if (!ignore)
 		return g_ahkapi->TypeError(_T("cuda::HostMem"), token);
 	return CONDITION_TRUE;
@@ -763,7 +763,7 @@ TokenTo_(cuda::GpuMat) {
 	IObject* obj;
 	TokenToObject(token, obj, nullptr);
 	if (obj && obj->IsOfType(cuda_GpuMat::sPrototype))
-		val = ((cuda_GpuMat*)obj)->mC.get();
+		val = &((cuda_GpuMat*)obj)->mC;
 	else if (!ignore)
 		return g_ahkapi->TypeError(_T("cuda::GpuMat"), token);
 	return CONDITION_TRUE;
