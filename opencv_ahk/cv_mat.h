@@ -47,6 +47,10 @@ class Mat : public Object
 		P_rows,
 		P_total,
 		P_type,
+		M_add,
+		M_subtract,
+		M_multiply,
+		M_divide,
 	};
 public:
 	cv::Mat mC;

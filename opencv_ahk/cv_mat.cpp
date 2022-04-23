@@ -99,45 +99,47 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 			val = *aParam[0];
 			aParam++, aParamCount--;
 		}
-		if (aParamCount != mC.dims) {
+		if (aParamCount < mC.dims) {
 			aResultToken.result = g_ahkapi->Error(_T("invalid param count"));
 			return;
 		}
-		__int64 p1, p2, p3, p4;
+		__int64 p1, p2, p3;
 		if (ParamIndexToVal(0, p1) || ParamIndexToVal(1, p2))
 			_o_return_result;
 		uchar* p;
-		if (aParamCount > 2) {
-			if (ParamIndexToVal(2, p3))
-				_o_return_result;
-			p = mC.ptr((int)p1, (int)p2, (int)p3);
-		}
-		else
-			p = mC.ptr((int)p1, (int)p2);
 		auto si = mC.channels();
 		auto si1 = mC.elemSize1();
 		auto tp = mC.type() & 7;
+		if (aParamCount > 2) {
+			if (ParamIndexToVal(2, p3))
+				_o_return_result;
+			p = mC.ptr((int)p1, (int)p2) + si1 * p3;
+			si = 1;
+		}
+		else
+			p = mC.ptr((int)p1, (int)p2);
 		if (aFlags & IT_SET) {
-			double dous[8];
-			int ints[8];
+			union {
+				double* dous;
+				int* ints;
+			};
+			dous = (double*)_alloca(si * si1);
 			if (si == 1) {
 				if (!g_ahkapi->TokenToNumber(val, val)) {
 					aResultToken.result = g_ahkapi->TypeError(_T("Number"), val);
 					return;
 				}
-				if (val.symbol == SYM_INTEGER)
-					ints[0] = (int)val.value_int64, dous[0] = (double)val.value_int64;
-				else dous[0] = val.value_double, ints[0] = (int)dous[0];
+				if (tp >= CV_32F)
+					dous[0] = val.symbol == SYM_INTEGER ? (double)val.value_int64 : val.value_double;
+				else
+					ints[0] = val.symbol == SYM_INTEGER ? (int)val.value_int64 : (int)val.value_double;
 			}
 			else {
 				Array* arr = nullptr;
-				if (!(arr = dynamic_cast<Array*>(TokenToObject(val))) || !ArrayToCArr(arr, dous, si)) {
-					if (arr)
-						aResultToken.result = g_ahkapi->Error(_T("invalid param"), _T("param 1 is not an array of numbers"));
-					else aResultToken.result = g_ahkapi->TypeError(_T("Array"), val);
-					return;
-				}
-				ArrayToCArr(arr, ints, si);
+				if (!(arr = dynamic_cast<Array*>(TokenToObject(val))))
+					return (void)(aResultToken.result = g_ahkapi->TypeError(_T("Array"), val));
+				if ((tp >= CV_32F && !ArrayToCArr(arr, dous, si)) || !ArrayToCArr(arr, ints, si))
+					return (void)(aResultToken.result = g_ahkapi->Error(_T("invalid param"), _T("param 1 is not an array of numbers")));
 			}
 			switch (tp)
 			{
@@ -172,8 +174,8 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 			}
 		}
 		else {
-			ExprTokenType vals[8]{};
-			ExprTokenType* param[8];
+			ExprTokenType* vals = (ExprTokenType*)_alloca((sizeof(ExprTokenType) + sizeof(ExprTokenType*)) * si);
+			ExprTokenType** param = (ExprTokenType**)(vals + si);
 			for (int i = 0; i < si; i++, p += si1) {
 				param[i] = &vals[i];
 				switch (tp)
@@ -408,6 +410,49 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		aResultToken.SetValue(this);
 		AddRef();
 		return;
+	}
+	case M_add:
+	case M_subtract:
+	case M_multiply:
+	case M_divide: {
+		ExprTokenType val;
+		cv::MatExpr me;
+		cv::Scalar sc{};
+		bool is_invalid = true;
+		if (aParam[0]->symbol == SYM_VAR)
+			g_ahkapi->VarToToken(aParam[0]->var, val);
+		else val = *aParam[0];
+		if (val.symbol == SYM_OBJECT && val.object->Base() == Mat::sPrototype) {
+			if (aID == M_add)
+				me = mC + ((Mat*)val.object)->mC;
+			else if (aID == M_subtract)
+				me = mC - ((Mat*)val.object)->mC;
+			else if (aID == M_multiply)
+				me = mC * ((Mat*)val.object)->mC;
+			else
+				me = mC / ((Mat*)val.object)->mC;
+		}
+		else {
+			if (val.symbol == SYM_OBJECT && dynamic_cast<Array*>(val.object)) {
+				ResultType result;
+				if ((result = TokenToVal(val, sc)) != CONDITION_TRUE)
+					return (void)(aResultToken.result = result);
+			}
+			else if (g_ahkapi->TokenToNumber(val, val))
+				sc = val.symbol == SYM_INTEGER ? (double)val.value_int64 : val.value_double;
+			else return (void)(aResultToken.result = g_ahkapi->TypeError(val.symbol == SYM_OBJECT ? _T("Mat or Scalar") : _T("Number"), val));
+			if (aID == M_add)
+				me = mC + sc;
+			else if (aID == M_subtract)
+				me = mC - sc;
+			else if (aID == M_multiply)
+				me = mC * sc;
+			else
+				me = mC / sc;
+		}
+		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
+		__retval->mC = me;
+		return (void)aResultToken.SetValue(__retval);
 	}
 	}
 }
@@ -691,7 +736,7 @@ ObjectMember Mat::sMember[] = {
 	Object_Method(locateROI, 2, 2),
 	Object_Method(mul, 1, 2),
 	Object_Method(ones, 3, 4),
-	Object_Method(ptr, 1, 3),
+	Object_Method(ptr, 0, 3),
 	Object_Method(reshape, 1, 2),
 	Object_Method(row, 1, 1),
 	Object_Method(rowRange, 2, 2),
@@ -713,6 +758,10 @@ ObjectMember Mat::sMember[] = {
 	Object_Property_get(rows),
 	Object_Property_get(total),
 	Object_Property_get(type),
+	Object_Method(add, 1, 1),
+	Object_Method(subtract, 1, 1),
+	Object_Method(multiply, 1, 1),
+	Object_Method(divide, 1, 1),
 };
 
 int Mat::sMemberCount = _countof(sMember);
