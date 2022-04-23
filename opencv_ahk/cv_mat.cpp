@@ -89,6 +89,13 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	case P___Item: {
 		ExprTokenType val;
 		if (aFlags & IT_SET) {
+			if (aParamCount == 1) {
+				cv::Scalar sc{};
+				if (ParamIndexToVal(0, sc))
+					_o_return_result;
+				mC = sc;
+				return;
+			}
 			val = *aParam[0];
 			aParam++, aParamCount--;
 		}
@@ -96,7 +103,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 			aResultToken.result = g_ahkapi->Error(_T("invalid param count"));
 			return;
 		}
-		__int64 p1, p2, p3;
+		__int64 p1, p2, p3, p4;
 		if (ParamIndexToVal(0, p1) || ParamIndexToVal(1, p2))
 			_o_return_result;
 		uchar* p;
@@ -692,7 +699,7 @@ ObjectMember Mat::sMember[] = {
 	Object_Method(step1, 0, 1),
 	Object_Method(t, 0, 0),
 	Object_Method(zeros, 3, 3),
-	Object_Property_get_set(__Item, 2, 3),
+	Object_Property_get_set(__Item, 0, 3),
 	Object_Property_get(channels),
 	Object_Property_get(cols),
 	Object_Property_get(depth),

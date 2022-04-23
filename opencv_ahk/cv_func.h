@@ -266,7 +266,6 @@ enum CV_FUNC2ID : UCHAR {
 	FID_minEnclosingTriangle,
 	FID_minMaxLoc,
 	FID_mixChannels,
-	FID_moments,
 	FID_morphologyEx,
 	FID_moveWindow,
 	FID_mulSpectrums,

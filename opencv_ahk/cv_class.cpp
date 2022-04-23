@@ -6075,6 +6075,16 @@ void Moments::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 		if (aParamCount == 1 && aParam[0] == g_invalid) return;
 		if (aParamCount == 0)
 			mC = new cv::Moments;
+		else if (aParamCount > 0 && aParamCount < 3) {
+			bool binaryImage = false;
+			cv::_InputArray array;
+			if (ParamIndexToVal(0, array))
+				_o_return_result;
+			if (aParamCount > 1)
+				TokenToVal(*aParam[1], (char&)binaryImage, true);
+			mC = new cv::Moments;
+			*mC = cv::moments(array, binaryImage);
+		}
 		else if (aParamCount == 10) {
 			double  m[10];
 			for (int i = 0; i < 10; i++) {

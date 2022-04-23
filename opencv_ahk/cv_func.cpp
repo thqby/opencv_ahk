@@ -4903,17 +4903,6 @@ BIF_DECL(CV_FUNC2) {
 		cv::mixChannels(src, dst, fromTo);
 		return;
 	}
-	case FID_moments: {
-		bool binaryImage = false;
-		cv::_InputArray array;
-		if (ParamIndexToVal(0, array))
-			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)binaryImage, true);
-		auto __retval = (Moments*)Moments::sPrototype->New(g_invalidparam, 1);
-		__retval->mC = cv::makePtr<cv::Moments>(cv::moments(array, binaryImage));
-		return (void)(aResultToken.SetValue(__retval));
-	}
 	case FID_morphologyEx: {
 		cv::_InputArray src, kernel;
 		cv::_OutputArray dst;

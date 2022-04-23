@@ -272,7 +272,6 @@ BIFn(minEnclosingCircle, 3, 3, CV_FUNC2),
 BIFn(minEnclosingTriangle, 2, 2, CV_FUNC2),
 BIFn(minMaxLoc, 2, 6, CV_FUNC2),
 BIFn(mixChannels, 3, 3, CV_FUNC2),
-BIFn(moments, 1, 2, CV_FUNC2),
 BIFn(morphologyEx, 4, 8, CV_FUNC2),
 BIFn(moveWindow, 3, 3, CV_FUNC2),
 BIFn(mulSpectrums, 4, 5, CV_FUNC2),
@@ -881,7 +880,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 
 		{
 			Object* mmm;
-#define ADDFUNCS(func, name) o.SetValue(g_ahkapi->Object_New());\
+#define ADDFUNCS(func, name) o.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Module));\
 			mmm = (Object*)o.object;\
 			g_ahkapi->Object_SetProp(_cv, _T(name), o, true);\
 			mmm->Release();\
