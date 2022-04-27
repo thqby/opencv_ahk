@@ -595,7 +595,7 @@ ResultType ArrayToBin(Array* arr, char* pval, char* def, char ignore) {
 }
 
 Array* BinToArray(char* pval, char* def) {
-	ResultToken p;
+	ResultToken p{};
 	union {
 		char* pc;
 		uchar* puc;
@@ -986,8 +986,8 @@ void ValToResult(cv::Point2f* val, ResultToken& result) {
 void ValToResult(cv::Point2d& val, ResultToken& result) {
 	ExprTokenType p[2];
 	ExprTokenType* param[] = { p,p + 1 };
-	p->SetValue((double)val.x);
-	p[1].SetValue((double)val.x);
+	p->SetValue(val.x);
+	p[1].SetValue(val.y);
 	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 2));
 }
 
@@ -995,7 +995,7 @@ void ValToResult(cv::Point2f& val, ResultToken& result) {
 	ExprTokenType p[2];
 	ExprTokenType* param[] = { p,p + 1 };
 	p->SetValue((double)val.x);
-	p[1].SetValue((double)val.x);
+	p[1].SetValue((double)val.y);
 	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 2));
 }
 
@@ -1042,6 +1042,7 @@ void ValToResult(cv::Rect2d& val, ResultToken& result) {
 }
 
 void ValToResult(cv::String& val, ResultToken& result) {
+	result.symbol = SYM_STRING;
 #ifdef _UNICODE
 	auto len = MultiByteToWideChar(CP_ACP, 0, val.data(), (int)val.size(), NULL, 0);
 	result.marker_length = len;
