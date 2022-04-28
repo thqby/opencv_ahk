@@ -280,8 +280,8 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		if (aID == M_convertTo)
 			mC.convertTo(m, (int)TokenToInt64(*aParam[1]), aParamCount > 2 ? TokenToDouble(*aParam[2]) : 1.0, aParamCount > 3 ? TokenToDouble(*aParam[3]) : 0.0);
 		else {
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], mask, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], mask);
 			if (aID == M_setTo)
 				mC.setTo(m, mask);
 			else
@@ -606,8 +606,8 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 		}
 		else {
 			cv::_InputArray mask = cv::noArray();
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], mask, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], mask);
 			if (aID == M_setTo)
 				mC.setTo(m, mask);
 			else

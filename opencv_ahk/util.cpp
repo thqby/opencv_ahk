@@ -202,7 +202,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::_InputArray& val, char ignore) {
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
 			val = ((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
-			int flags = ((VectorBase*)obj)->mFlags & ~cv::ACCESS_WRITE;
+			int flags = ((VectorBase*)obj)->mFlags;
 			void* vec = ((VectorBase*)obj)->mPtr;
 			val = cv::_InputArray(flags, vec);
 		}
@@ -244,7 +244,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::_InputOutputArray& val, char ign
 		else if (obj->mBase == cuda_GpuMat::sPrototype)
 			val = ((cuda_GpuMat*)obj)->mC;
 		else if (obj->IsOfType(VectorBase::sPrototype)) {
-			int flags = ((VectorBase*)obj)->mFlags;
+			int flags = ((VectorBase*)obj)->mFlags & ~cv::ACCESS_READ;
 			void* vec = ((VectorBase*)obj)->mPtr;
 			val = cv::_InputOutputArray(flags, vec);
 		}

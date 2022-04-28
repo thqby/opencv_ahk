@@ -60,10 +60,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, threshold2))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], apertureSize, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (char&)L2gradient, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], apertureSize);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (char&)L2gradient);
 			cv::Canny(image, edges, threshold1, threshold2, apertureSize, L2gradient);
 			return;
 		}
@@ -82,8 +82,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(4, threshold2))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (char&)L2gradient, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (char&)L2gradient);
 			cv::Canny(dx, dy, edges, threshold1, threshold2, L2gradient);
 			return;
 		}
@@ -104,10 +104,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, sigmaX))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], sigmaY, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderType, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], sigmaY);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderType);
 		cv::GaussianBlur(src, dst, ksize, sigmaX, sigmaY, borderType);
 		return;
 	}
@@ -126,14 +126,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, minDist))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], param1, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], param2, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], minRadius, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], maxRadius, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], param1);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], param2);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], minRadius);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], maxRadius);
 		cv::HoughCircles(image, circles, method, dp, minDist, param1, param2, minRadius, maxRadius);
 		return;
 	}
@@ -152,14 +152,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, threshold))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], srn, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], stn, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], min_theta, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], max_theta, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], srn);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], stn);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], min_theta);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], max_theta);
 		cv::HoughLines(image, lines, rho, theta, threshold, srn, stn, min_theta, max_theta);
 		return;
 	}
@@ -178,10 +178,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, threshold))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], minLineLength, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], maxLineGap, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], minLineLength);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], maxLineGap);
 		cv::HoughLinesP(image, lines, rho, theta, threshold, minLineLength, maxLineGap);
 		return;
 	}
@@ -228,14 +228,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, threshold))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], srn, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], stn, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], min_theta, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], max_theta, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], srn);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], stn);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], min_theta);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], max_theta);
 		cv::HoughLinesWithAccumulator(image, lines, rho, theta, threshold, srn, stn, min_theta, max_theta);
 		return;
 	}
@@ -272,14 +272,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, ddepth))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], ksize, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], scale, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], delta, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderType, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], ksize);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], scale);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], delta);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderType);
 		cv::Laplacian(src, dst, ddepth, ksize, scale, delta, borderType);
 		return;
 	}
@@ -320,8 +320,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, eigenvectors))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], maxComponents, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], maxComponents);
 			cv::PCACompute(data, mean, eigenvectors, maxComponents);
 			return;
 		}
@@ -338,8 +338,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, eigenvalues))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], maxComponents, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], maxComponents);
 			cv::PCACompute(data, mean, eigenvectors, eigenvalues, maxComponents);
 			return;
 		}
@@ -401,8 +401,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, src2))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], R, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], R);
 		auto __retval = cv::PSNR(src1, src2, R);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -415,12 +415,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, mtxQ))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], Qx, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], Qy, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], Qz, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], Qx);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], Qy);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], Qz);
 		auto __retval = cv::RQDecomp3x3(src, mtxR, mtxQ, Qx, Qy, Qz);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -431,8 +431,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], jacobian, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], jacobian);
 		cv::Rodrigues(src, dst, jacobian);
 		return;
 	}
@@ -464,8 +464,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, vt))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], flags, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], flags);
 		cv::SVDecomp(src, w, u, vt, flags);
 		return;
 	}
@@ -484,12 +484,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, dy))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], scale, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], delta, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], borderType, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], scale);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], delta);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], borderType);
 		cv::Scharr(src, dst, ddepth, dx, dy, scale, delta, borderType);
 		return;
 	}
@@ -508,14 +508,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, dy))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], ksize, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], scale, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], delta, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], borderType, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], ksize);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], scale);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], delta);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], borderType);
 		cv::Sobel(src, dst, ddepth, dx, dy, ksize, scale, delta, borderType);
 		return;
 	}
@@ -538,8 +538,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], mask, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], mask);
 		cv::accumulate(src, dst, mask);
 		return;
 	}
@@ -552,8 +552,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
 		cv::accumulateProduct(src1, src2, dst, mask);
 		return;
 	}
@@ -564,8 +564,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], mask, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], mask);
 		cv::accumulateSquare(src, dst, mask);
 		return;
 	}
@@ -579,8 +579,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, alpha))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
 		cv::accumulateWeighted(src, dst, alpha, mask);
 		return;
 	}
@@ -616,10 +616,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], dtype, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], dtype);
 		cv::add(src1, src2, dst, mask, dtype);
 		return;
 	}
@@ -637,16 +637,16 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, nameFont))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], pointSize, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], color, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], weight, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], style, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], spacing, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], pointSize);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], color);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], weight);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], style);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], spacing);
 		cv::addText(img, text, org, nameFont, pointSize, color, weight, style, spacing);
 		return;
 	}
@@ -667,8 +667,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, dst))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], dtype, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], dtype);
 		cv::addWeighted(src1, alpha, src2, beta, gamma, dst, dtype);
 		return;
 	}
@@ -741,14 +741,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, color))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], thickness, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], line_type, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], shift, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], tipLength, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], thickness);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], line_type);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], shift);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], tipLength);
 		cv::arrowedLine(img, pt1, pt2, color, thickness, line_type, shift, tipLength);
 		return;
 	}
@@ -767,16 +767,16 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, nidx))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], normType, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], K, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], mask, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], update, true);
-		if (aParamCount > 9)
-			TokenToVal(*aParam[9], (char&)crosscheck, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], normType);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], K);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], mask);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], update);
+		if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[9], (char&)crosscheck);
 		cv::batchDistance(src1, src2, dist, dtype, nidx, normType, K, mask, update, crosscheck);
 		return;
 	}
@@ -795,8 +795,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, sigmaSpace))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderType, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderType);
 		cv::bilateralFilter(src, dst, d, sigmaColor, sigmaSpace, borderType);
 		return;
 	}
@@ -809,8 +809,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
 		cv::bitwise_and(src1, src2, dst, mask);
 		return;
 	}
@@ -821,8 +821,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], mask, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], mask);
 		cv::bitwise_not(src, dst, mask);
 		return;
 	}
@@ -835,8 +835,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
 		cv::bitwise_or(src1, src2, dst, mask);
 		return;
 	}
@@ -849,8 +849,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
 		cv::bitwise_xor(src1, src2, dst, mask);
 		return;
 	}
@@ -882,10 +882,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, ksize))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], anchor, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], borderType, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], anchor);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], borderType);
 		cv::blur(src, dst, ksize, anchor, borderType);
 		return;
 	}
@@ -922,23 +922,30 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, ksize))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], anchor, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], (char&)normalize, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderType, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], anchor);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], (char&)normalize);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderType);
 		cv::boxFilter(src, dst, ddepth, ksize, anchor, normalize, borderType);
 		return;
 	}
 	case FID_boxPoints: {
+		constexpr int outputarray_vector_point2f_flags = cv::_InputArray::FIXED_TYPE + cv::_InputArray::STD_VECTOR + cv::traits::Type<cv::Point2f>::value + cv::ACCESS_WRITE;
 		cv::_OutputArray points;
 		cv::RotatedRect box;
 		if (ParamIndexToVal(0, box))
 			_o_return_result;
 		if (ParamIndexToVal(1, points))
 			_o_return_result;
-		cv::boxPoints(box, points);
+		if (points.getFlags() == outputarray_vector_point2f_flags) {
+			auto& vec = *(std::vector<cv::Point2f>*)points.getObj();
+			vec.resize(4);
+			box.points(vec.data());
+		}
+		else
+			cv::boxPoints(box, points);
 		return;
 	}
 	case FID_buildOpticalFlowPyramid: {
@@ -955,14 +962,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, maxLevel))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)withDerivatives, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], pyrBorder, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], derivBorder, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], (char&)tryReuseInputImage, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)withDerivatives);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], pyrBorder);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], derivBorder);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], (char&)tryReuseInputImage);
 		auto __retval = (__int64)cv::buildOpticalFlowPyramid(img, pyramid, winSize, maxLevel, withDerivatives, pyrBorder, derivBorder, tryReuseInputImage);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1000,8 +1007,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, flags))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], ctype, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], ctype);
 		cv::calcCovarMatrix(samples, covar, mean, flags, ctype);
 		return;
 	}
@@ -1023,8 +1030,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, ranges))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], (char&)accumulate, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], (char&)accumulate);
 		cv::calcHist(images, channels, mask, hist, histSize, ranges, accumulate);
 		return;
 	}
@@ -1077,16 +1084,16 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, err))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], winSize, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], maxLevel, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], criteria, true);
-		if (aParamCount > 9)
-			TokenToVal(*aParam[9], flags, true);
-		if (aParamCount > 10)
-			TokenToVal(*aParam[10], minEigThreshold, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], winSize);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], maxLevel);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], criteria);
+		if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[9], flags);
+		if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[10], minEigThreshold);
 		cv::calcOpticalFlowPyrLK(prevImg, nextImg, prevPts, nextPts, status, err, winSize, maxLevel, criteria, flags, minEigThreshold);
 		return;
 	}
@@ -1119,10 +1126,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(9, perViewErrors))
 				_o_return_result;
-			if (aParamCount > 10)
-				TokenToVal(*aParam[10], flags, true);
-			if (aParamCount > 11)
-				TokenToVal(*aParam[11], criteria, true);
+			if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[10], flags);
+			if (aParamCount > 11 && aParam[11]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[11], criteria);
 			auto __retval = cv::calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs, stdDeviationsIntrinsics, stdDeviationsExtrinsics, perViewErrors, flags, criteria);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -1148,10 +1155,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(6, tvecs))
 				_o_return_result;
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], flags, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], criteria, true);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], flags);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], criteria);
 			auto __retval = cv::calibrateCamera(objectPoints, imagePoints, imageSize, cameraMatrix, distCoeffs, rvecs, tvecs, flags, criteria);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -1193,10 +1200,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(12, perViewErrors))
 				_o_return_result;
-			if (aParamCount > 13)
-				TokenToVal(*aParam[13], flags, true);
-			if (aParamCount > 14)
-				TokenToVal(*aParam[14], criteria, true);
+			if (aParamCount > 13 && aParam[13]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[13], flags);
+			if (aParamCount > 14 && aParam[14]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[14], criteria);
 			auto __retval = cv::calibrateCameraRO(objectPoints, imagePoints, imageSize, iFixedPoint, cameraMatrix, distCoeffs, rvecs, tvecs, newObjPoints, stdDeviationsIntrinsics, stdDeviationsExtrinsics, stdDeviationsObjPoints, perViewErrors, flags, criteria);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -1226,10 +1233,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(8, newObjPoints))
 				_o_return_result;
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], flags, true);
-			if (aParamCount > 10)
-				TokenToVal(*aParam[10], criteria, true);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], flags);
+			if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[10], criteria);
 			auto __retval = cv::calibrateCameraRO(objectPoints, imagePoints, imageSize, iFixedPoint, cameraMatrix, distCoeffs, rvecs, tvecs, newObjPoints, flags, criteria);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -1252,8 +1259,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, t_cam2gripper))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], method, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], method);
 		cv::calibrateHandEye(R_gripper2base, t_gripper2base, R_target2cam, t_target2cam, R_cam2gripper, t_cam2gripper, (cv::HandEyeCalibrationMethod)method);
 		return;
 	}
@@ -1277,8 +1284,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(7, t_gripper2cam))
 			_o_return_result;
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], method, true);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], method);
 		cv::calibrateRobotWorldHandEye(R_world2cam, t_world2cam, R_base2gripper, t_base2gripper, R_base2world, t_base2world, R_gripper2cam, t_gripper2cam, (cv::RobotWorldHandEyeCalibrationMethod)method);
 		return;
 	}
@@ -1332,8 +1339,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, angle))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)angleInDegrees, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)angleInDegrees);
 		cv::cartToPolar(x, y, magnitude, angle, angleInDegrees);
 		return;
 	}
@@ -1361,16 +1368,16 @@ BIF_DECL(CV_FUNC) {
 		double minVal = -DBL_MAX, maxVal = DBL_MAX;
 		if (ParamIndexToVal(0, a))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)quiet, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)quiet);
 		VarRef* var_pos = nullptr;
-		if (aParamCount > 2) {
-			TokenToVal(*aParam[2], var_pos, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[2], var_pos);
 		}
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], minVal, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], maxVal, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], minVal);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], maxVal);
 		auto __retval = (__int64)cv::checkRange(a, quiet, &pos, minVal, maxVal);
 		if (var_pos) {
 			ValToResult(pos, aResultToken);
@@ -1392,12 +1399,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, color))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], thickness, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], lineType, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], shift, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], thickness);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], lineType);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], shift);
 		cv::circle(img, center, radius, color, thickness, lineType, shift);
 		return;
 	}
@@ -1435,12 +1442,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], red_mul, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], green_mul, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], blue_mul, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], red_mul);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], green_mul);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], blue_mul);
 		cv::colorChange(src, mask, dst, red_mul, green_mul, blue_mul);
 		return;
 	}
@@ -1476,8 +1483,8 @@ BIF_DECL(CV_FUNC) {
 		cv::_InputOutputArray m;
 		if (ParamIndexToVal(0, m))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)lowerToUpper, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)lowerToUpper);
 		cv::completeSymm(m, lowerToUpper);
 		return;
 	}
@@ -1496,22 +1503,22 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, tvec3))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], dr3dr1, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], dr3dt1, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], dr3dr2, true);
-		if (aParamCount > 9)
-			TokenToVal(*aParam[9], dr3dt2, true);
-		if (aParamCount > 10)
-			TokenToVal(*aParam[10], dt3dr1, true);
-		if (aParamCount > 11)
-			TokenToVal(*aParam[11], dt3dt1, true);
-		if (aParamCount > 12)
-			TokenToVal(*aParam[12], dt3dr2, true);
-		if (aParamCount > 13)
-			TokenToVal(*aParam[13], dt3dt2, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], dr3dr1);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], dr3dt1);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], dr3dr2);
+		if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[9], dr3dt2);
+		if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[10], dt3dr1);
+		if (aParamCount > 11 && aParam[11]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[11], dt3dt1);
+		if (aParamCount > 12 && aParam[12]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[12], dt3dr2);
+		if (aParamCount > 13 && aParam[13]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[13], dt3dt2);
 		cv::composeRT(rvec1, tvec1, rvec2, tvec2, rvec3, tvec3, dr3dr1, dr3dt1, dr3dr2, dr3dt2, dt3dr1, dt3dt1, dt3dr2, dt3dt2);
 		return;
 	}
@@ -1536,8 +1543,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, inputImage))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], inputMask, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], inputMask);
 		auto __retval = cv::computeECC(templateImage, inputImage, inputMask);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1567,10 +1574,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, labels))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], connectivity, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], ltype, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], connectivity);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], ltype);
 			auto __retval = (__int64)cv::connectedComponents(image, labels, connectivity, ltype);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -1611,10 +1618,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, centroids))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], connectivity, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], ltype, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], connectivity);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], ltype);
 			auto __retval = (__int64)cv::connectedComponentsWithStats(image, labels, stats, centroids, connectivity, ltype);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -1626,8 +1633,8 @@ BIF_DECL(CV_FUNC) {
 		cv::_InputArray contour;
 		if (ParamIndexToVal(0, contour))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)oriented, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)oriented);
 		auto __retval = cv::contourArea(contour, oriented);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -1656,8 +1663,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, dstmap1type))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], (char&)nninterpolation, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], (char&)nninterpolation);
 		cv::convertMaps(map1, map2, dstmap1, dstmap2, dstmap1type, nninterpolation);
 		return;
 	}
@@ -1689,10 +1696,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], alpha, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], beta, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], alpha);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], beta);
 		cv::convertScaleAbs(src, dst, alpha, beta);
 		return;
 	}
@@ -1704,10 +1711,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, hull))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)clockwise, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)returnPoints, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)clockwise);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)returnPoints);
 		cv::convexHull(points, hull, clockwise, returnPoints);
 		return;
 	}
@@ -1742,8 +1749,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(6, borderType))
 			_o_return_result;
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], value, true);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], value);
 		cv::copyMakeBorder(src, dst, top, bottom, left, right, borderType, value);
 		return;
 	}
@@ -1771,8 +1778,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, ksize))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], borderType, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], borderType);
 		cv::cornerEigenValsAndVecs(src, dst, blockSize, ksize, borderType);
 		return;
 	}
@@ -1791,8 +1798,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, k))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderType, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderType);
 		cv::cornerHarris(src, dst, blockSize, ksize, k, borderType);
 		return;
 	}
@@ -1806,10 +1813,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, blockSize))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], ksize, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], borderType, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], ksize);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], borderType);
 		cv::cornerMinEigenVal(src, dst, blockSize, ksize, borderType);
 		return;
 	}
@@ -1857,12 +1864,12 @@ BIF_DECL(CV_FUNC) {
 	case FID_createAlignMTB: {
 		bool cut = true;
 		int max_bits = 6, exclude_range = 4;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], max_bits, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], exclude_range, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)cut, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], max_bits);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], exclude_range);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)cut);
 		auto __retval = (AlignMTB*)AlignMTB::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createAlignMTB(max_bits, exclude_range, cut);
 		return (void)(aResultToken.SetValue(__retval));
@@ -1871,12 +1878,12 @@ BIF_DECL(CV_FUNC) {
 		bool detectShadows = true;
 		double dist2Threshold = 400.0;
 		int history = 500;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], history, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], dist2Threshold, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)detectShadows, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], history);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], dist2Threshold);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)detectShadows);
 		auto __retval = (BackgroundSubtractorKNN*)BackgroundSubtractorKNN::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createBackgroundSubtractorKNN(history, dist2Threshold, detectShadows);
 		return (void)(aResultToken.SetValue(__retval));
@@ -1885,12 +1892,12 @@ BIF_DECL(CV_FUNC) {
 		bool detectShadows = true;
 		double varThreshold = 16;
 		int history = 500;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], history, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], varThreshold, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)detectShadows, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], history);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], varThreshold);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)detectShadows);
 		auto __retval = (BackgroundSubtractorMOG2*)BackgroundSubtractorMOG2::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createBackgroundSubtractorMOG2(history, varThreshold, detectShadows);
 		return (void)(aResultToken.SetValue(__retval));
@@ -1898,10 +1905,10 @@ BIF_DECL(CV_FUNC) {
 	case FID_createCLAHE: {
 		cv::Size tileGridSize = cv::Size(8, 8);
 		double clipLimit = 40.0;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], clipLimit, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], tileGridSize, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], clipLimit);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], tileGridSize);
 		auto __retval = (CLAHE*)CLAHE::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createCLAHE(clipLimit, tileGridSize);
 		return (void)(aResultToken.SetValue(__retval));
@@ -1910,12 +1917,12 @@ BIF_DECL(CV_FUNC) {
 		bool random = false;
 		float lambda = 10.0f;
 		int samples = 70;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], samples, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], lambda, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)random, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], samples);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], lambda);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)random);
 		auto __retval = (CalibrateDebevec*)CalibrateDebevec::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createCalibrateDebevec(samples, lambda, random);
 		return (void)(aResultToken.SetValue(__retval));
@@ -1923,10 +1930,10 @@ BIF_DECL(CV_FUNC) {
 	case FID_createCalibrateRobertson: {
 		float threshold = 0.01f;
 		int max_iter = 30;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], max_iter, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], threshold, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], max_iter);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], threshold);
 		auto __retval = (CalibrateRobertson*)CalibrateRobertson::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createCalibrateRobertson(max_iter, threshold);
 		return (void)(aResultToken.SetValue(__retval));
@@ -1957,22 +1964,22 @@ BIF_DECL(CV_FUNC) {
 	case FID_createLineSegmentDetector: {
 		double scale = 0.8, sigma_scale = 0.6, quant = 2.0, ang_th = 22.5, log_eps = 0, density_th = 0.7;
 		int refine = cv::LSD_REFINE_STD, n_bins = 1024;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], refine, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], scale, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], sigma_scale, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], quant, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], ang_th, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], log_eps, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], density_th, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], n_bins, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], refine);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], scale);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], sigma_scale);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], quant);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], ang_th);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], log_eps);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], density_th);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], n_bins);
 		auto __retval = (LineSegmentDetector*)LineSegmentDetector::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createLineSegmentDetector(refine, scale, sigma_scale, quant, ang_th, log_eps, density_th, n_bins);
 		return (void)(aResultToken.SetValue(__retval));
@@ -1984,12 +1991,12 @@ BIF_DECL(CV_FUNC) {
 	}
 	case FID_createMergeMertens: {
 		float contrast_weight = 1.0f, saturation_weight = 1.0f, exposure_weight = 0.0f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], contrast_weight, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], saturation_weight, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], exposure_weight, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], contrast_weight);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], saturation_weight);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], exposure_weight);
 		auto __retval = (MergeMertens*)MergeMertens::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createMergeMertens(contrast_weight, saturation_weight, exposure_weight);
 		return (void)(aResultToken.SetValue(__retval));
@@ -2001,46 +2008,46 @@ BIF_DECL(CV_FUNC) {
 	}
 	case FID_createTonemap: {
 		float gamma = 1.0f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], gamma, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], gamma);
 		auto __retval = (Tonemap*)Tonemap::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemap(gamma);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_createTonemapDrago: {
 		float gamma = 1.0f, saturation = 1.0f, bias = 0.85f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], gamma, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], saturation, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], bias, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], gamma);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], saturation);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], bias);
 		auto __retval = (TonemapDrago*)TonemapDrago::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemapDrago(gamma, saturation, bias);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_createTonemapMantiuk: {
 		float gamma = 1.0f, scale = 0.7f, saturation = 1.0f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], gamma, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], scale, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], saturation, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], gamma);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], scale);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], saturation);
 		auto __retval = (TonemapMantiuk*)TonemapMantiuk::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemapMantiuk(gamma, scale, saturation);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_createTonemapReinhard: {
 		float gamma = 1.0f, intensity = 0.0f, light_adapt = 1.0f, color_adapt = 0.0f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], gamma, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], intensity, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], light_adapt, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], color_adapt, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], gamma);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], intensity);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], light_adapt);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], color_adapt);
 		auto __retval = (TonemapReinhard*)TonemapReinhard::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::createTonemapReinhard(gamma, intensity, light_adapt, color_adapt);
 		return (void)(aResultToken.SetValue(__retval));
@@ -2087,8 +2094,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, code))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], dstCn, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], dstCn);
 		cv::cvtColor(src, dst, code, dstCn);
 		return;
 	}
@@ -2115,8 +2122,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
 		cv::dct(src, dst, flags);
 		return;
 	}
@@ -2173,14 +2180,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, transVect))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], rotMatrixX, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], rotMatrixY, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], rotMatrixZ, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], eulerAngles, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], rotMatrixX);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], rotMatrixY);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], rotMatrixZ);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], eulerAngles);
 		cv::decomposeProjectionMatrix(projMatrix, cameraMatrix, rotMatrix, transVect, rotMatrixX, rotMatrixY, rotMatrixZ, eulerAngles);
 		return;
 	}
@@ -2194,8 +2201,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, code))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], dstCn, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], dstCn);
 		cv::demosaicing(src, dst, code, dstCn);
 		return;
 	}
@@ -2208,10 +2215,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, result))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], lambda, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], niters, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], lambda);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], niters);
 		cv::denoise_TVL1(observations, result, lambda, niters);
 		return;
 	}
@@ -2234,10 +2241,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], sigma_s, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], sigma_r, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], sigma_s);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], sigma_r);
 		cv::detailEnhance(src, dst, sigma_s, sigma_r);
 		return;
 	}
@@ -2256,10 +2263,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], nonzeroRows, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], nonzeroRows);
 		cv::dft(src, dst, flags, nonzeroRows);
 		return;
 	}
@@ -2275,14 +2282,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, kernel))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], anchor, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], iterations, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderType, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderValue, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], anchor);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], iterations);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderType);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderValue);
 		cv::dilate(src, dst, kernel, anchor, iterations, borderType, borderValue);
 		return;
 	}
@@ -2293,8 +2300,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, text))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], delayms, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], delayms);
 		cv::displayOverlay(winname, text, delayms);
 		return;
 	}
@@ -2305,8 +2312,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, text))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], delayms, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], delayms);
 		cv::displayStatusBar(winname, text, delayms);
 		return;
 	}
@@ -2325,8 +2332,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(4, maskSize))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], labelType, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], labelType);
 			cv::distanceTransform(src, dst, labels, distanceType, maskSize, labelType);
 			return;
 		}
@@ -2342,8 +2349,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, maskSize))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], dstType, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], dstType);
 			cv::distanceTransform(src, dst, distanceType, maskSize, dstType);
 			return;
 		}
@@ -2363,8 +2370,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, flags))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)conjB, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)conjB);
 		cv::divSpectrums(a, b, c, flags, conjB);
 		return;
 	}
@@ -2380,10 +2387,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, dst))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], scale, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], dtype, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], scale);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], dtype);
 			cv::divide(src1, src2, dst, scale, dtype);
 			return;
 		}
@@ -2398,8 +2405,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, dst))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], dtype, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], dtype);
 			cv::divide(scale, src2, dst, dtype);
 			return;
 		}
@@ -2436,16 +2443,16 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, color))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], thickness, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], lineType, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], hierarchy, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], maxLevel, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], offset, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], thickness);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], lineType);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], hierarchy);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], maxLevel);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], offset);
 		cv::drawContours(image, contours, contourIdx, color, thickness, lineType, hierarchy, maxLevel, offset);
 		return;
 	}
@@ -2466,8 +2473,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, length))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], thickness, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], thickness);
 		cv::drawFrameAxes(image, cameraMatrix, distCoeffs, rvec, tvec, length, thickness);
 		return;
 	}
@@ -2483,10 +2490,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, outImage))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], color, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], flags, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], color);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], flags);
 		cv::drawKeypoints(image, keypoints, outImage, color, (cv::DrawMatchesFlags)flags);
 		return;
 	}
@@ -2501,14 +2508,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, color))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], markerType, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], markerSize, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], thickness, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], line_type, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], markerType);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], markerSize);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], thickness);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], line_type);
 		cv::drawMarker(img, position, color, markerType, markerSize, thickness, line_type);
 		return;
 	}
@@ -2535,14 +2542,14 @@ BIF_DECL(CV_FUNC) {
 					_o_return_result;
 				if (ParamIndexToVal(5, outImg))
 					_o_return_result;
-				if (aParamCount > 6)
-					TokenToVal(*aParam[6], matchColor, true);
-				if (aParamCount > 7)
-					TokenToVal(*aParam[7], singlePointColor, true);
-				if (aParamCount > 8)
-					TokenToVal(*aParam[8], matchesMask, true);
-				if (aParamCount > 9)
-					TokenToVal(*aParam[9], flags, true);
+				if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[6], matchColor);
+				if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[7], singlePointColor);
+				if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[8], matchesMask);
+				if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[9], flags);
 				cv::drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, (cv::DrawMatchesFlags)flags);
 			}
 			else {
@@ -2552,14 +2559,14 @@ BIF_DECL(CV_FUNC) {
 					_o_return_result;
 				if (ParamIndexToVal(5, outImg))
 					_o_return_result;
-				if (aParamCount > 6)
-					TokenToVal(*aParam[6], matchColor, true);
-				if (aParamCount > 7)
-					TokenToVal(*aParam[7], singlePointColor, true);
-				if (aParamCount > 8)
-					TokenToVal(*aParam[8], matchesMask, true);
-				if (aParamCount > 9)
-					TokenToVal(*aParam[9], flags, true);
+				if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[6], matchColor);
+				if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[7], singlePointColor);
+				if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[8], matchesMask);
+				if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+					TokenToVal(*aParam[9], flags);
 				cv::drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, (cv::DrawMatchesFlags)flags);
 			}
 			return;
@@ -2586,14 +2593,14 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(6, matchesThickness))
 				_o_return_result;
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], matchColor, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], singlePointColor, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], (std::vector<uchar>&)matchesMask, true);
-			if (aParamCount > 10)
-				TokenToVal(*aParam[10], flags, true);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], matchColor);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], singlePointColor);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], (std::vector<uchar>&)matchesMask);
+			if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[10], flags);
 			cv::drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchesThickness, matchColor, singlePointColor, matchesMask, (cv::DrawMatchesFlags)flags);
 			return;
 		}
@@ -2609,12 +2616,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], sigma_s, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], sigma_r, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], sigma_s);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], sigma_r);
 		cv::edgePreservingFilter(src, dst, flags, sigma_s, sigma_r);
 		return;
 	}
@@ -2625,8 +2632,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, eigenvalues))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], eigenvectors, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], eigenvectors);
 		auto __retval = (__int64)cv::eigen(src, eigenvalues, eigenvectors);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2664,12 +2671,12 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(6, color))
 				_o_return_result;
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], thickness, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], lineType, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], shift, true);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], thickness);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], lineType);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], shift);
 			cv::ellipse(img, center, axes, angle, startAngle, endAngle, color, thickness, lineType, shift);
 			return;
 		}
@@ -2684,10 +2691,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, color))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], thickness, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], lineType, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], thickness);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], lineType);
 			cv::ellipse(img, box, color, thickness, lineType);
 			return;
 		}
@@ -2757,14 +2764,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, kernel))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], anchor, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], iterations, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderType, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderValue, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], anchor);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], iterations);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderType);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderValue);
 		cv::erode(src, dst, kernel, anchor, iterations, borderType, borderValue);
 		return;
 	}
@@ -2779,18 +2786,18 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, to))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], inliers, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], method, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], ransacReprojThreshold, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (intptr_t&)maxIters, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], confidence, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], (intptr_t&)refineIters, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], inliers);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], method);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], ransacReprojThreshold);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (intptr_t&)maxIters);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], confidence);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], (intptr_t&)refineIters);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::estimateAffine2D(from, to, inliers, method, ransacReprojThreshold, maxIters, confidence, refineIters);
 			return (void)(aResultToken.SetValue(__retval));
@@ -2827,10 +2834,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, inliers))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], ransacThreshold, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], confidence, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], ransacThreshold);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], confidence);
 			auto __retval = (__int64)cv::estimateAffine3D(src, dst, out, inliers, ransacThreshold, confidence);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -2843,11 +2850,11 @@ BIF_DECL(CV_FUNC) {
 			if (ParamIndexToVal(1, dst))
 				_o_return_result;
 			VarRef* var_scale = nullptr;
-			if (aParamCount > 2) {
-				TokenToVal(*aParam[2], var_scale, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING) {
+				TokenToVal(*aParam[2], var_scale);
 			}
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], (char&)force_rotation, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], (char&)force_rotation);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::estimateAffine3D(src, dst, &scale, force_rotation);
 			if (var_scale) g_ahkapi->VarAssign(var_scale, ExprTokenType((double)scale));
@@ -2866,18 +2873,18 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, to))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], inliers, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], method, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], ransacReprojThreshold, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], (intptr_t&)maxIters, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], confidence, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], (intptr_t&)refineIters, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], inliers);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], method);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], ransacReprojThreshold);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], (intptr_t&)maxIters);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], confidence);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], (intptr_t&)refineIters);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::estimateAffinePartial2D(from, to, inliers, method, ransacReprojThreshold, maxIters, confidence, refineIters);
 		return (void)(aResultToken.SetValue(__retval));
@@ -2894,12 +2901,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, corners))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], rise_distance, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)vertical, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], sharpness, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], rise_distance);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)vertical);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], sharpness);
 		auto __retval = cv::estimateChessboardSharpness(image, patternSize, corners, rise_distance, vertical, sharpness);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -2915,10 +2922,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, inliers))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], ransacThreshold, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], confidence, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], ransacThreshold);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], confidence);
 		auto __retval = (__int64)cv::estimateTranslation3D(src, dst, out, inliers, ransacThreshold, confidence);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -2964,12 +2971,12 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, dst))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], h, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], templateWindowSize, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], searchWindowSize, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], h);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], templateWindowSize);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], searchWindowSize);
 			cv::fastNlMeansDenoising(src, dst, h, templateWindowSize, searchWindowSize);
 			return;
 		}
@@ -2984,12 +2991,12 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, h))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], templateWindowSize, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], searchWindowSize, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], normType, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], templateWindowSize);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], searchWindowSize);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], normType);
 			cv::fastNlMeansDenoising(src, dst, h, templateWindowSize, searchWindowSize, normType);
 			return;
 		}
@@ -3005,14 +3012,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], h, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], hColor, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], templateWindowSize, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], searchWindowSize, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], h);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], hColor);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], templateWindowSize);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], searchWindowSize);
 		cv::fastNlMeansDenoisingColored(src, dst, h, hColor, templateWindowSize, searchWindowSize);
 		return;
 	}
@@ -3029,14 +3036,14 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, temporalWindowSize))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], h, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], hColor, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], templateWindowSize, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], searchWindowSize, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], h);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], hColor);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], templateWindowSize);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], searchWindowSize);
 		cv::fastNlMeansDenoisingColoredMulti(srcImgs, dst, imgToDenoiseIndex, temporalWindowSize, h, hColor, templateWindowSize, searchWindowSize);
 		return;
 	}
@@ -3054,12 +3061,12 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, temporalWindowSize))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], h, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], templateWindowSize, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], searchWindowSize, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], h);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], templateWindowSize);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], searchWindowSize);
 			cv::fastNlMeansDenoisingMulti(srcImgs, dst, imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize);
 			return;
 		}
@@ -3078,12 +3085,12 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(4, h))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], templateWindowSize, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], searchWindowSize, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], normType, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], templateWindowSize);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], searchWindowSize);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], normType);
 			cv::fastNlMeansDenoisingMulti(srcImgs, dst, imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize, normType);
 			return;
 		}
@@ -3101,10 +3108,10 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, color))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], lineType, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], shift, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], lineType);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], shift);
 		cv::fillConvexPoly(img, points, color, lineType, shift);
 		return;
 	}
@@ -3120,12 +3127,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, color))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], lineType, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], shift, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], offset, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], lineType);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], shift);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], offset);
 		cv::fillPoly(img, pts, color, lineType, shift, offset);
 		return;
 	}
@@ -3143,12 +3150,12 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, kernel))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], anchor, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], delta, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderType, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], anchor);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], delta);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderType);
 		cv::filter2D(src, dst, ddepth, kernel, anchor, delta, borderType);
 		return;
 	}
@@ -3165,8 +3172,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, possibleSolutions))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], pointsMask, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], pointsMask);
 		cv::filterHomographyDecompByVisibleRefpoints(rotations, normals, beforePoints, afterPoints, possibleSolutions, pointsMask);
 		return;
 	}
@@ -3182,8 +3189,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, maxDiff))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], buf, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], buf);
 		cv::filterSpeckles(img, newVal, maxSpeckleSize, maxDiff, buf);
 		return;
 	}
@@ -3211,8 +3218,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(2, corners))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], flags, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], flags);
 		auto __retval = (__int64)cv::findChessboardCorners(image, patternSize, corners, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3246,8 +3253,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, corners))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], flags, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], flags);
 			auto __retval = (__int64)cv::findChessboardCornersSB(image, patternSize, corners, flags);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3289,10 +3296,10 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, centers))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], flags, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], blobDetector, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], flags);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], blobDetector);
 			auto __retval = (__int64)cv::findCirclesGrid(image, patternSize, centers, flags, blobDetector);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3315,8 +3322,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(4, method))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], offset, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], offset);
 			cv::findContours(image, contours, hierarchy, mode, method, offset);
 		}
 		else {
@@ -3324,8 +3331,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(3, method))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], offset, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], offset);
 			cv::findContours(image, contours, mode, method, offset);
 		}
 		return;
@@ -3342,16 +3349,16 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, cameraMatrix))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], method, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], prob, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], threshold, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], maxIters, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], mask, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], method);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], prob);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], threshold);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], maxIters);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], mask);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findEssentialMat(points1, points2, cameraMatrix, method, prob, threshold, maxIters, mask);
 			return (void)(aResultToken.SetValue(__retval));
@@ -3366,20 +3373,20 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, points2))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], focal, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], pp, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], method, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], prob, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], threshold, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], maxIters, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], mask, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], focal);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], pp);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], method);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], prob);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], threshold);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], maxIters);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], mask);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findEssentialMat(points1, points2, focal, pp, method, prob, threshold, maxIters, mask);
 			return (void)(aResultToken.SetValue(__retval));
@@ -3401,14 +3408,14 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(5, distCoeffs2))
 				_o_return_result;
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], method, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], prob, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], threshold, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], mask, true);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], method);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], prob);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], threshold);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], mask);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findEssentialMat(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, method, prob, threshold, mask);
 			return (void)(aResultToken.SetValue(__retval));
@@ -3458,8 +3465,8 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(5, maxIters))
 				_o_return_result;
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], mask, true);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], mask);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findFundamentalMat(points1, points2, method, ransacReprojThreshold, confidence, maxIters, mask);
 			return (void)(aResultToken.SetValue(__retval));
@@ -3473,14 +3480,14 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, points2))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], method, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], ransacReprojThreshold, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], confidence, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], mask, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], method);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], ransacReprojThreshold);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], confidence);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], mask);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findFundamentalMat(points1, points2, method, ransacReprojThreshold, confidence, mask);
 			return (void)(aResultToken.SetValue(__retval));
@@ -3514,16 +3521,16 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, dstPoints))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], method, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], ransacReprojThreshold, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], mask, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], maxIters, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], confidence, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], method);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], ransacReprojThreshold);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], mask);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], maxIters);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], confidence);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::findHomography(srcPoints, dstPoints, method, ransacReprojThreshold, mask, maxIters, confidence);
 			return (void)(aResultToken.SetValue(__retval));
@@ -3592,12 +3599,12 @@ BIF_DECL(CV_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(2, warpMatrix))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], motionType, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], criteria, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], inputMask, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], motionType);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], criteria);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], inputMask);
 			auto __retval = cv::findTransformECC(templateImage, inputImage, warpMatrix, motionType, criteria, inputMask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -3673,15 +3680,15 @@ BIF_DECL(CV_FUNC) {
 		if (ParamIndexToVal(3, newVal))
 			_o_return_result;
 		VarRef* var_rect = nullptr;
-		if (aParamCount > 4) {
-			TokenToVal(*aParam[4], var_rect, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[4], var_rect);
 		}
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], loDiff, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], upDiff, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], flags, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], loDiff);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], upDiff);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], flags);
 		auto __retval = (__int64)cv::floodFill(image, mask, seedPoint, newVal, &rect, loDiff, upDiff, flags);
 		if (var_rect) {
 			ValToResult(rect, aResultToken);
@@ -3707,8 +3714,8 @@ BIF_DECL(CV_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, dst))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], flags, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], flags);
 		cv::gemm(src1, src2, alpha, src3, beta, dst, flags);
 		return;
 	}
@@ -3747,10 +3754,10 @@ BIF_DECL(CV_FUNC2) {
 		cv::Size imgsize = cv::Size();
 		if (ParamIndexToVal(0, cameraMatrix))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], imgsize, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)centerPrincipalPoint, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], imgsize);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)centerPrincipalPoint);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getDefaultNewCameraMatrix(cameraMatrix, imgsize, centerPrincipalPoint);
 		return (void)(aResultToken.SetValue(__retval));
@@ -3769,10 +3776,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(4, ksize))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], (char&)normalize, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], ktype, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], (char&)normalize);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], ktype);
 		cv::getDerivKernels(kx, ky, dx, dy, ksize, normalize, ktype);
 		return;
 	}
@@ -3782,8 +3789,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, pixelHeight))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], thickness, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], thickness);
 		auto __retval = cv::getFontScaleFromHeight(fontFace, pixelHeight, thickness);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -3801,10 +3808,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(4, gamma))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], psi, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], ktype, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], psi);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], ktype);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getGaborKernel(ksize, sigma, theta, lambd, gamma, psi, ktype);
 		return (void)(aResultToken.SetValue(__retval));
@@ -3816,8 +3823,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, sigma))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], ktype, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], ktype);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getGaussianKernel(ksize, sigma, ktype);
 		return (void)(aResultToken.SetValue(__retval));
@@ -3862,14 +3869,14 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, alpha))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], newImgSize, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], newImgSize);
 		VarRef* var_validPixROI = nullptr;
-		if (aParamCount > 5) {
-			TokenToVal(*aParam[5], var_validPixROI, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[5], var_validPixROI);
 		}
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], (char&)centerPrincipalPoint, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], (char&)centerPrincipalPoint);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getOptimalNewCameraMatrix(cameraMatrix, distCoeffs, imageSize, alpha, newImgSize, &validPixROI, centerPrincipalPoint);
 		if (var_validPixROI) {
@@ -3886,8 +3893,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], solveMethod, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], solveMethod);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getPerspectiveTransform(src, dst, solveMethod);
 		return (void)(aResultToken.SetValue(__retval));
@@ -3906,8 +3913,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, patch))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], patchType, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], patchType);
 		cv::getRectSubPix(image, patchSize, center, patch, patchType);
 		return;
 	}
@@ -3932,8 +3939,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, ksize))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], anchor, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], anchor);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::getStructuringElement(shape, ksize, anchor);
 		return (void)(aResultToken.SetValue(__retval));
@@ -4044,14 +4051,14 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(4, minDistance))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], mask, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], blockSize, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], (char&)useHarrisDetector, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], k, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], mask);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], blockSize);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], (char&)useHarrisDetector);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], k);
 			cv::goodFeaturesToTrack(image, corners, maxCorners, qualityLevel, minDistance, mask, blockSize, useHarrisDetector, k);
 			return;
 		}
@@ -4077,10 +4084,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(7, gradientSize))
 				_o_return_result;
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], (char&)useHarrisDetector, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], k, true);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], (char&)useHarrisDetector);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], k);
 			cv::goodFeaturesToTrack(image, corners, maxCorners, qualityLevel, minDistance, mask, blockSize, gradientSize, useHarrisDetector, k);
 			return;
 		}
@@ -4104,14 +4111,14 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(6, cornersQuality))
 				_o_return_result;
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], blockSize, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], gradientSize, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], (char&)useHarrisDetector, true);
-			if (aParamCount > 10)
-				TokenToVal(*aParam[10], k, true);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], blockSize);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], gradientSize);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], (char&)useHarrisDetector);
+			if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[10], k);
 			cv::goodFeaturesToTrack(image, corners, maxCorners, qualityLevel, minDistance, mask, cornersQuality, blockSize, gradientSize, useHarrisDetector, k);
 			return;
 		}
@@ -4135,8 +4142,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, iterCount))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], mode, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], mode);
 		cv::grabCut(img, mask, rect, bgdModel, fgdModel, iterCount, mode);
 		return;
 	}
@@ -4155,8 +4162,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, groupThreshold))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], eps, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], eps);
 		cv::groupRectangles(rectList, weights, groupThreshold, eps);
 		ValToResult(rectList, aResultToken);
 		g_ahkapi->VarAssign(var_rectList, aResultToken);
@@ -4202,8 +4209,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
 		cv::idct(src, dst, flags);
 		return;
 	}
@@ -4215,10 +4222,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], nonzeroRows, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], nonzeroRows);
 		cv::idft(src, dst, flags, nonzeroRows);
 		return;
 	}
@@ -4232,10 +4239,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], alpha, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], beta, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], alpha);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], beta);
 		cv::illuminationChange(src, mask, dst, alpha, beta);
 		return;
 	}
@@ -4244,8 +4251,8 @@ BIF_DECL(CV_FUNC2) {
 		int flags = cv::IMREAD_ANYCOLOR;
 		if (ParamIndexToVal(0, filename))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], flags, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], flags);
 		auto __retval = (__int64)cv::imcount(filename, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4272,8 +4279,8 @@ BIF_DECL(CV_FUNC2) {
 		VarRef* var_buf = nullptr;
 		if (ParamIndexToVal(2, var_buf))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], params, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], params);
 		auto __retval = (__int64)cv::imencode(ext, img, buf, params);
 		ValToResult(buf, aResultToken);
 		g_ahkapi->VarAssign(var_buf, aResultToken);
@@ -4285,8 +4292,8 @@ BIF_DECL(CV_FUNC2) {
 		int flags = cv::IMREAD_COLOR;
 		if (ParamIndexToVal(0, filename))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], flags, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], flags);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::imread(filename, flags);
 		return (void)(aResultToken.SetValue(__retval));
@@ -4301,8 +4308,8 @@ BIF_DECL(CV_FUNC2) {
 			VarRef* var_mats = nullptr;
 			if (ParamIndexToVal(1, var_mats))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], flags, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], flags);
 			auto __retval = (__int64)cv::imreadmulti(filename, mats, flags);
 			ValToResult(mats, aResultToken);
 			g_ahkapi->VarAssign(var_mats, aResultToken);
@@ -4322,8 +4329,8 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(3, count))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], flags, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], flags);
 			auto __retval = (__int64)cv::imreadmulti(filename, mats, start, count, flags);
 			ValToResult(mats, aResultToken);
 			g_ahkapi->VarAssign(var_mats, aResultToken);
@@ -4351,8 +4358,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, img))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], params, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], params);
 		auto __retval = (__int64)cv::imwrite(filename, img, params);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4364,8 +4371,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, img))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], params, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], params);
 		auto __retval = (__int64)cv::imwritemulti(filename, img, params);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4393,8 +4400,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, imageSize))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], aspectRatio, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], aspectRatio);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::initCameraMatrix2D(objectPoints, imagePoints, imageSize, aspectRatio);
 		return (void)(aResultToken.SetValue(__retval));
@@ -4491,10 +4498,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(3, tilted))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], sdepth, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], sqdepth, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], sdepth);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], sqdepth);
 			cv::integral(src, sum, sqsum, tilted, sdepth, sqdepth);
 			return;
 		}
@@ -4506,8 +4513,8 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(1, sum))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], sdepth, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], sdepth);
 			cv::integral(src, sum, sdepth);
 			return;
 		}
@@ -4521,10 +4528,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(2, sqsum))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], sdepth, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], sqdepth, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], sdepth);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], sqdepth);
 			cv::integral(src, sum, sqsum, sdepth, sqdepth);
 			return;
 		}
@@ -4541,8 +4548,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, p12))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)handleNested, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)handleNested);
 		auto __retval = (double)cv::intersectConvexConvex(p1, p2, p12, handleNested);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4554,8 +4561,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
 		auto __retval = cv::invert(src, dst, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4594,8 +4601,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, flags))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], centers, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], centers);
 		auto __retval = cv::kmeans(data, K, bestLabels, criteria, attempts, flags, centers);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4612,12 +4619,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, color))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], thickness, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], lineType, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], shift, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], thickness);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], lineType);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], shift);
 		cv::line(img, pt1, pt2, color, thickness, lineType, shift);
 		return;
 	}
@@ -4722,8 +4729,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, method))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], mask, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], mask);
 		cv::matchTemplate(image, templ, result, method, mask);
 		return;
 	}
@@ -4743,8 +4750,8 @@ BIF_DECL(CV_FUNC2) {
 		cv::_InputArray src, mask = cv::noArray();
 		if (ParamIndexToVal(0, src))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], mask, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], mask);
 		auto __retval = cv::mean(src, mask);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -4776,8 +4783,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, stddev))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
 		cv::meanStdDev(src, mean, stddev, mask);
 		return;
 	}
@@ -4862,19 +4869,19 @@ BIF_DECL(CV_FUNC2) {
 		if (ParamIndexToVal(1, var_minVal))
 			_o_return_result;
 		VarRef* var_maxVal = nullptr;
-		if (aParamCount > 2) {
-			TokenToVal(*aParam[2], var_maxVal, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[2], var_maxVal);
 		}
 		VarRef* var_minLoc = nullptr;
-		if (aParamCount > 3) {
-			TokenToVal(*aParam[3], var_minLoc, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[3], var_minLoc);
 		}
 		VarRef* var_maxLoc = nullptr;
-		if (aParamCount > 4) {
-			TokenToVal(*aParam[4], var_maxLoc, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[4], var_maxLoc);
 		}
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], mask, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], mask);
 		cv::minMaxLoc(src, &minVal, &maxVal, &minLoc, &maxLoc, mask);
 		g_ahkapi->VarAssign(var_minVal, ExprTokenType((double)minVal));
 		if (var_maxVal) g_ahkapi->VarAssign(var_maxVal, ExprTokenType((double)maxVal));
@@ -4917,14 +4924,14 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, kernel))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], anchor, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], iterations, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderType, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], borderValue, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], anchor);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], iterations);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderType);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], borderValue);
 		cv::morphologyEx(src, dst, op, kernel, anchor, iterations, borderType, borderValue);
 		return;
 	}
@@ -4953,8 +4960,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, flags))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)conjB, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)conjB);
 		cv::mulSpectrums(a, b, c, flags, conjB);
 		return;
 	}
@@ -4970,12 +4977,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, (char&)aTa))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], delta, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], scale, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], dtype, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], delta);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], scale);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], dtype);
 		cv::mulTransposed(src, dst, aTa, delta, scale, dtype);
 		return;
 	}
@@ -4990,10 +4997,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], scale, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], dtype, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], scale);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], dtype);
 		cv::multiply(src1, src2, dst, scale, dtype);
 		return;
 	}
@@ -5002,8 +5009,8 @@ BIF_DECL(CV_FUNC2) {
 		int flags = cv::WINDOW_AUTOSIZE;
 		if (ParamIndexToVal(0, winname))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], flags, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], flags);
 		cv::namedWindow(winname, flags);
 		return;
 	}
@@ -5013,10 +5020,10 @@ BIF_DECL(CV_FUNC2) {
 			int normType = cv::NORM_L2;
 			if (ParamIndexToVal(0, src1))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], normType, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], mask, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], normType);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], mask);
 			auto __retval = cv::norm(src1, normType, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -5027,10 +5034,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(1, src2))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], normType, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], mask, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], normType);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], mask);
 			auto __retval = cv::norm(src1, src2, normType, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -5046,16 +5053,16 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], alpha, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], beta, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], norm_type, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], dtype, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], mask, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], alpha);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], beta);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], norm_type);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], dtype);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], mask);
 		cv::normalize(src, dst, alpha, beta, norm_type, dtype, mask);
 		return;
 	}
@@ -5064,8 +5071,8 @@ BIF_DECL(CV_FUNC2) {
 		double val = 0;
 		if (ParamIndexToVal(0, a))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], val, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], val);
 		cv::patchNaNs(a, val);
 		return;
 	}
@@ -5079,12 +5086,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst2))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], sigma_s, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], sigma_r, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], shade_factor, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], sigma_s);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], sigma_r);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], shade_factor);
 		cv::pencilSketch(src, dst1, dst2, sigma_s, sigma_r, shade_factor);
 		return;
 	}
@@ -5110,8 +5117,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, angle))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)angleInDegrees, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)angleInDegrees);
 		cv::phase(x, y, angle, angleInDegrees);
 		return;
 	}
@@ -5122,11 +5129,11 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, src2))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], window, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], window);
 		VarRef* var_response = nullptr;
-		if (aParamCount > 3) {
-			TokenToVal(*aParam[3], var_response, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[3], var_response);
 		}
 		auto __retval = cv::phaseCorrelate(src1, src2, window, &response);
 		if (var_response) g_ahkapi->VarAssign(var_response, ExprTokenType((double)response));
@@ -5157,8 +5164,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, y))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)angleInDegrees, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)angleInDegrees);
 		cv::polarToCart(magnitude, angle, x, y, angleInDegrees);
 		return;
 	}
@@ -5180,12 +5187,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, color))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], thickness, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], lineType, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], shift, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], thickness);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], lineType);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], shift);
 		cv::polylines(img, pts, isClosed, color, thickness, lineType, shift);
 		return;
 	}
@@ -5212,8 +5219,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, ksize))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], borderType, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], borderType);
 		cv::preCornerDetect(src, dst, ksize, borderType);
 		return;
 	}
@@ -5233,10 +5240,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, imagePoints))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], jacobian, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], aspectRatio, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], jacobian);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], aspectRatio);
 		cv::projectPoints(objectPoints, rvec, tvec, cameraMatrix, distCoeffs, imagePoints, jacobian, aspectRatio);
 		return;
 	}
@@ -5260,12 +5267,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, color))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], thickness, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], lineType, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], (char&)bottomLeftOrigin, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], thickness);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], lineType);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], (char&)bottomLeftOrigin);
 		cv::putText(img, text, org, fontFace, fontScale, color, thickness, lineType, bottomLeftOrigin);
 		return;
 	}
@@ -5278,10 +5285,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], dstsize, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], borderType, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], dstsize);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], borderType);
 		cv::pyrDown(src, dst, dstsize, borderType);
 		return;
 	}
@@ -5300,10 +5307,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, sr))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], maxLevel, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], termcrit, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], maxLevel);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], termcrit);
 		cv::pyrMeanShiftFiltering(src, dst, sp, sr, maxLevel, termcrit);
 		return;
 	}
@@ -5316,10 +5323,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], dstsize, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], borderType, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], dstsize);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], borderType);
 		cv::pyrUp(src, dst, dstsize, borderType);
 		return;
 	}
@@ -5329,10 +5336,10 @@ BIF_DECL(CV_FUNC2) {
 		double iterFactor = 1.;
 		if (ParamIndexToVal(0, dst))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], iterFactor, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], rng, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], iterFactor);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], rng);
 		cv::randShuffle(dst, iterFactor, rng);
 		return;
 	}
@@ -5393,14 +5400,14 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(8, t))
 				_o_return_result;
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], method, true);
-			if (aParamCount > 10)
-				TokenToVal(*aParam[10], prob, true);
-			if (aParamCount > 11)
-				TokenToVal(*aParam[11], threshold, true);
-			if (aParamCount > 12)
-				TokenToVal(*aParam[12], mask, true);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], method);
+			if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[10], prob);
+			if (aParamCount > 11 && aParam[11]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[11], threshold);
+			if (aParamCount > 12 && aParam[12]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[12], mask);
 			auto __retval = (__int64)cv::recoverPose(points1, points2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, E, R, t, method, prob, threshold, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -5420,8 +5427,8 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(5, t))
 				_o_return_result;
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], mask, true);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], mask);
 			auto __retval = (__int64)cv::recoverPose(E, points1, points2, cameraMatrix, R, t, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -5441,12 +5448,12 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(4, t))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], focal, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], pp, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], mask, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], focal);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], pp);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], mask);
 			auto __retval = (__int64)cv::recoverPose(E, points1, points2, R, t, focal, pp, mask);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -5469,10 +5476,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(6, distanceThresh))
 				_o_return_result;
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], mask, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], triangulatedPoints, true);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], mask);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], triangulatedPoints);
 			auto __retval = (__int64)cv::recoverPose(E, points1, points2, cameraMatrix, R, t, distanceThresh, mask, triangulatedPoints);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -5493,12 +5500,12 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(3, color))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], thickness, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], lineType, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], shift, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], thickness);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], lineType);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], shift);
 			cv::rectangle(img, pt1, pt2, color, thickness, lineType, shift);
 			return;
 		}
@@ -5513,12 +5520,12 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(2, color))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], thickness, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], lineType, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], shift, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], thickness);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], lineType);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], shift);
 			cv::rectangle(img, rec, color, thickness, lineType, shift);
 			return;
 		}
@@ -5605,8 +5612,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, rtype))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], dtype, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], dtype);
 		cv::reduce(src, dst, dim, rtype, dtype);
 		return;
 	}
@@ -5621,8 +5628,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, axis))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)lastIndex, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)lastIndex);
 		cv::reduceArgMax(src, dst, axis, lastIndex);
 		return;
 	}
@@ -5637,8 +5644,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, axis))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)lastIndex, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)lastIndex);
 		cv::reduceArgMin(src, dst, axis, lastIndex);
 		return;
 	}
@@ -5657,10 +5664,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(4, interpolation))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderMode, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderValue, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderMode);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderValue);
 		cv::remap(src, dst, map1, map2, interpolation, borderMode, borderValue);
 		return;
 	}
@@ -5690,10 +5697,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, Q))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)handleMissingValues, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], ddepth, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)handleMissingValues);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], ddepth);
 		cv::reprojectImageTo3D(disparity, _3dImage, Q, handleMissingValues, ddepth);
 		return;
 	}
@@ -5709,12 +5716,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dsize))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], fx, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], fy, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], interpolation, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], fx);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], fy);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], interpolation);
 		cv::resize(src, dst, dsize, fx, fy, interpolation);
 		return;
 	}
@@ -5824,10 +5831,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(1, img))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], (char&)showCrosshair, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], (char&)fromCenter, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], (char&)showCrosshair);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], (char&)fromCenter);
 			auto __retval = cv::selectROI(windowName, img, showCrosshair, fromCenter);
 			return ValToResult(__retval, aResultToken);
 		}
@@ -5836,10 +5843,10 @@ BIF_DECL(CV_FUNC2) {
 			cv::_InputArray img;
 			if (ParamIndexToVal(0, img))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], (char&)showCrosshair, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], (char&)fromCenter, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], (char&)showCrosshair);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], (char&)fromCenter);
 			auto __retval = cv::selectROI(img, showCrosshair, fromCenter);
 			return ValToResult(__retval, aResultToken);
 		}
@@ -5858,10 +5865,10 @@ BIF_DECL(CV_FUNC2) {
 		VarRef* var_boundingBoxes = nullptr;
 		if (ParamIndexToVal(2, var_boundingBoxes))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)showCrosshair, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)fromCenter, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)showCrosshair);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)fromCenter);
 		cv::selectROIs(windowName, img, boundingBoxes, showCrosshair, fromCenter);
 		ValToResult(boundingBoxes, aResultToken);
 		g_ahkapi->VarAssign(var_boundingBoxes, aResultToken);
@@ -5884,12 +5891,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(4, kernelY))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], anchor, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], delta, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], borderType, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], anchor);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], delta);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], borderType);
 		cv::sepFilter2D(src, dst, ddepth, kernelX, kernelY, anchor, delta, borderType);
 		return;
 	}
@@ -5898,8 +5905,8 @@ BIF_DECL(CV_FUNC2) {
 		cv::Scalar s = cv::Scalar(1);
 		if (ParamIndexToVal(0, mtx))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], s, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], s);
 		cv::setIdentity(mtx, s);
 		return;
 	}
@@ -6029,8 +6036,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], flags, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], flags);
 		auto __retval = (__int64)cv::solve(src1, src2, dst, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -6094,10 +6101,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, tvec))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], (char&)useExtrinsicGuess, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], flags, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], (char&)useExtrinsicGuess);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], flags);
 		auto __retval = (__int64)cv::solvePnP(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec, useExtrinsicGuess, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -6118,16 +6125,16 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, tvecs))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], (char&)useExtrinsicGuess, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], flags, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], rvec, true);
-		if (aParamCount > 9)
-			TokenToVal(*aParam[9], tvec, true);
-		if (aParamCount > 10)
-			TokenToVal(*aParam[10], reprojectionError, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], (char&)useExtrinsicGuess);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], flags);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], rvec);
+		if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[9], tvec);
+		if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[10], reprojectionError);
 		auto __retval = (__int64)cv::solvePnPGeneric(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvecs, tvecs, useExtrinsicGuess, (cv::SolvePnPMethod)flags, rvec, tvec, reprojectionError);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -6151,18 +6158,18 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(5, tvec))
 				_o_return_result;
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], (char&)useExtrinsicGuess, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], iterationsCount, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], reprojectionError, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], confidence, true);
-			if (aParamCount > 10)
-				TokenToVal(*aParam[10], inliers, true);
-			if (aParamCount > 11)
-				TokenToVal(*aParam[11], flags, true);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], (char&)useExtrinsicGuess);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], iterationsCount);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], reprojectionError);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], confidence);
+			if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[10], inliers);
+			if (aParamCount > 11 && aParam[11]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[11], flags);
 			auto __retval = (__int64)cv::solvePnPRansac(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec, useExtrinsicGuess, iterationsCount, reprojectionError, confidence, inliers, flags);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -6185,8 +6192,8 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(6, inliers))
 				_o_return_result;
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], params, true);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], params);
 			auto __retval = (__int64)cv::solvePnPRansac(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec, inliers, params);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -6210,8 +6217,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, tvec))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], criteria, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], criteria);
 		cv::solvePnPRefineLM(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec, criteria);
 		return;
 	}
@@ -6233,10 +6240,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, tvec))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], criteria, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], VVSlambda, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], criteria);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], VVSlambda);
 		cv::solvePnPRefineVVS(objectPoints, imagePoints, cameraMatrix, distCoeffs, rvec, tvec, criteria, VVSlambda);
 		return;
 	}
@@ -6248,8 +6255,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, roots))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], maxIters, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], maxIters);
 		auto __retval = cv::solvePoly(coeffs, roots, maxIters);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -6289,10 +6296,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dy))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], ksize, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], borderType, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], ksize);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], borderType);
 		cv::spatialGradient(src, dx, dy, ksize, borderType);
 		return;
 	}
@@ -6321,12 +6328,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, ksize))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], anchor, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], (char&)normalize, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderType, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], anchor);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], (char&)normalize);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderType);
 		cv::sqrBoxFilter(src, dst, ddepth, ksize, anchor, normalize, borderType);
 		return;
 	}
@@ -6379,10 +6386,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(12, perViewErrors))
 				_o_return_result;
-			if (aParamCount > 13)
-				TokenToVal(*aParam[13], flags, true);
-			if (aParamCount > 14)
-				TokenToVal(*aParam[14], criteria, true);
+			if (aParamCount > 13 && aParam[13]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[13], flags);
+			if (aParamCount > 14 && aParam[14]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[14], criteria);
 			auto __retval = cv::stereoCalibrate(objectPoints, imagePoints1, imagePoints2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize, R, T, E, F, perViewErrors, flags, criteria);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -6418,10 +6425,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(11, F))
 				_o_return_result;
-			if (aParamCount > 12)
-				TokenToVal(*aParam[12], flags, true);
-			if (aParamCount > 13)
-				TokenToVal(*aParam[13], criteria, true);
+			if (aParamCount > 12 && aParam[12]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[12], flags);
+			if (aParamCount > 13 && aParam[13]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[13], criteria);
 			auto __retval = cv::stereoCalibrate(objectPoints, imagePoints1, imagePoints2, cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize, R, T, E, F, flags, criteria);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -6459,19 +6466,19 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(11, Q))
 			_o_return_result;
-		if (aParamCount > 12)
-			TokenToVal(*aParam[12], flags, true);
-		if (aParamCount > 13)
-			TokenToVal(*aParam[13], alpha, true);
-		if (aParamCount > 14)
-			TokenToVal(*aParam[14], newImageSize, true);
+		if (aParamCount > 12 && aParam[12]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[12], flags);
+		if (aParamCount > 13 && aParam[13]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[13], alpha);
+		if (aParamCount > 14 && aParam[14]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[14], newImageSize);
 		VarRef* var_validPixROI1 = nullptr;
-		if (aParamCount > 15) {
-			TokenToVal(*aParam[15], var_validPixROI1, true);
+		if (aParamCount > 15 && aParam[15]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[15], var_validPixROI1);
 		}
 		VarRef* var_validPixROI2 = nullptr;
-		if (aParamCount > 16) {
-			TokenToVal(*aParam[16], var_validPixROI2, true);
+		if (aParamCount > 16 && aParam[16]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[16], var_validPixROI2);
 		}
 		cv::stereoRectify(cameraMatrix1, distCoeffs1, cameraMatrix2, distCoeffs2, imageSize, R, T, R1, R2, P1, P2, Q, flags, alpha, newImageSize, &validPixROI1, &validPixROI2);
 		if (var_validPixROI1) {
@@ -6503,8 +6510,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(5, H2))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], threshold, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], threshold);
 		auto __retval = (__int64)cv::stereoRectifyUncalibrated(points1, points2, F, imgSize, H1, H2, threshold);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -6516,10 +6523,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], sigma_s, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], sigma_r, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], sigma_s);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], sigma_r);
 		cv::stylization(src, dst, sigma_s, sigma_r);
 		return;
 	}
@@ -6533,10 +6540,10 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mask, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], dtype, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mask);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], dtype);
 		cv::subtract(src1, src2, dst, mask, dtype);
 		return;
 	}
@@ -6558,12 +6565,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, dst))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], low_threshold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], high_threshold, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], kernel_size, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], low_threshold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], high_threshold);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], kernel_size);
 		cv::textureFlattening(src, mask, dst, low_threshold, high_threshold, kernel_size);
 		return;
 	}
@@ -6641,8 +6648,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, distCoeffs))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], newCameraMatrix, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], newCameraMatrix);
 		cv::undistort(src, dst, cameraMatrix, distCoeffs, newCameraMatrix);
 		return;
 	}
@@ -6658,10 +6665,10 @@ BIF_DECL(CV_FUNC2) {
 				_o_return_result;
 			if (ParamIndexToVal(3, distCoeffs))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], R, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], P, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], R);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], P);
 			cv::undistortPoints(src, dst, cameraMatrix, distCoeffs, R, P);
 			return;
 		}
@@ -6709,8 +6716,8 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, numberOfDisparities))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], disp12MaxDisp, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], disp12MaxDisp);
 		cv::validateDisparity(disparity, cost, minDisparity, numberOfDisparities, disp12MaxDisp);
 		return;
 	}
@@ -6726,15 +6733,15 @@ BIF_DECL(CV_FUNC2) {
 	}
 	case FID_waitKey: {
 		int delay = 0;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], delay, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], delay);
 		auto __retval = (__int64)cv::waitKey(delay);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case FID_waitKeyEx: {
 		int delay = 0;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], delay, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], delay);
 		auto __retval = (__int64)cv::waitKeyEx(delay);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -6752,12 +6759,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, dsize))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], flags, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderMode, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderValue, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], flags);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderMode);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderValue);
 		cv::warpAffine(src, dst, M, dsize, flags, borderMode, borderValue);
 		return;
 	}
@@ -6775,12 +6782,12 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(3, dsize))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], flags, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], borderMode, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], borderValue, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], flags);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], borderMode);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], borderValue);
 		cv::warpPerspective(src, dst, M, dsize, flags, borderMode, borderValue);
 		return;
 	}
@@ -6827,16 +6834,16 @@ BIF_DECL(CV_FUNC2) {
 			_o_return_result;
 		if (ParamIndexToVal(2, distType))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], cost, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], cost);
 		VarRef* var_lowerBound = nullptr;
-		if (aParamCount > 4) {
-			TokenToVal(*aParam[4], var_lowerBound, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING) {
+			TokenToVal(*aParam[4], var_lowerBound);
 			if (var_lowerBound)
 				TokenToVal(VarRefToToken(var_lowerBound), *lowerBound, true);
 		}
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], flow, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], flow);
 		auto __retval = (double)cv::wrapperEMD(signature1, signature2, distType, cost, lowerBound, flow);
 		if (var_lowerBound) {
 			g_ahkapi->VarAssign(var_lowerBound, ExprTokenType((double)*lowerBound));
@@ -6992,8 +6999,8 @@ BIF_DECL(CV_DETAIL_FUNC) {
 			VarRef* var_features = nullptr;
 			if (ParamIndexToVal(2, var_features))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], masks, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], masks);
 			cv::detail::computeImageFeatures(featuresFinder, images, features, masks);
 			ValToResult(features, aResultToken);
 			g_ahkapi->VarAssign(var_features, aResultToken);
@@ -7007,8 +7014,8 @@ BIF_DECL(CV_DETAIL_FUNC) {
 			VarRef* var_features = nullptr;
 			if (ParamIndexToVal(2, var_features))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], mask, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], mask);
 			cv::detail::computeImageFeatures(featuresFinder, image, features, mask);
 			ValToResult(features, aResultToken);
 			g_ahkapi->VarAssign(var_features, aResultToken);
@@ -7259,10 +7266,10 @@ BIF_DECL(CV_DNN_FUNC) {
 		VarRef* var_indices = nullptr;
 		if (ParamIndexToVal(4, var_indices))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], eta, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], top_k, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], eta);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], top_k);
 		cv::dnn::NMSBoxes(bboxes, scores, score_threshold, nms_threshold, indices, eta, top_k);
 		ValToResult(indices, aResultToken);
 		g_ahkapi->VarAssign(var_indices, aResultToken);
@@ -7286,10 +7293,10 @@ BIF_DECL(CV_DNN_FUNC) {
 		VarRef* var_indices = nullptr;
 		if (ParamIndexToVal(4, var_indices))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], eta, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], top_k, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], eta);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], top_k);
 		cv::dnn::NMSBoxes(bboxes, scores, score_threshold, nms_threshold, indices, eta, top_k);
 		ValToResult(indices, aResultToken);
 		g_ahkapi->VarAssign(var_indices, aResultToken);
@@ -7305,18 +7312,18 @@ BIF_DECL(CV_DNN_FUNC) {
 		int ddepth = CV_32F;
 		if (ParamIndexToVal(0, image))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], scalefactor, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], size, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mean, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)swapRB, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], (char&)crop, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], ddepth, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], scalefactor);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], size);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mean);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)swapRB);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], (char&)crop);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], ddepth);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::dnn::blobFromImage(image, scalefactor, size, mean, swapRB, crop, ddepth);
 		return (void)(aResultToken.SetValue(__retval));
@@ -7330,18 +7337,18 @@ BIF_DECL(CV_DNN_FUNC) {
 		int ddepth = CV_32F;
 		if (ParamIndexToVal(0, images))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], scalefactor, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], size, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mean, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)swapRB, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], (char&)crop, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], ddepth, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], scalefactor);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], size);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mean);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)swapRB);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], (char&)crop);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], ddepth);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::dnn::blobFromImages(images, scalefactor, size, mean, swapRB, crop, ddepth);
 		return (void)(aResultToken.SetValue(__retval));
@@ -7368,10 +7375,10 @@ BIF_DECL(CV_DNN_FUNC) {
 			cv::String model, config = "", framework = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], framework, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], framework);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNet(model, config, framework));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7383,8 +7390,8 @@ BIF_DECL(CV_DNN_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, bufferModel))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], bufferConfig, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], bufferConfig);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNet(framework, bufferModel, bufferConfig));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7397,8 +7404,8 @@ BIF_DECL(CV_DNN_FUNC) {
 			cv::String prototxt, caffeModel = cv::String();
 			if (ParamIndexToVal(0, prototxt))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], caffeModel, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], caffeModel);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromCaffe(prototxt, caffeModel));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7407,8 +7414,8 @@ BIF_DECL(CV_DNN_FUNC) {
 			std::vector<uchar> bufferProto, bufferModel = std::vector<uchar>();
 			if (ParamIndexToVal(0, bufferProto))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], bufferModel, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], bufferModel);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromCaffe(bufferProto, bufferModel));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7421,8 +7428,8 @@ BIF_DECL(CV_DNN_FUNC) {
 			cv::String cfgFile, darknetModel = cv::String();
 			if (ParamIndexToVal(0, cfgFile))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], darknetModel, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], darknetModel);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromDarknet(cfgFile, darknetModel));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7431,8 +7438,8 @@ BIF_DECL(CV_DNN_FUNC) {
 			std::vector<uchar> bufferCfg, bufferModel = std::vector<uchar>();
 			if (ParamIndexToVal(0, bufferCfg))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], bufferModel, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], bufferModel);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromDarknet(bufferCfg, bufferModel));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7489,8 +7496,8 @@ BIF_DECL(CV_DNN_FUNC) {
 			cv::String model, config = cv::String();
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromTensorflow(model, config));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7499,8 +7506,8 @@ BIF_DECL(CV_DNN_FUNC) {
 			std::vector<uchar> bufferModel, bufferConfig = std::vector<uchar>();
 			if (ParamIndexToVal(0, bufferModel))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], bufferConfig, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], bufferConfig);
 			auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromTensorflow(bufferModel, bufferConfig));
 			return (void)(aResultToken.SetValue(__retval));
@@ -7513,10 +7520,10 @@ BIF_DECL(CV_DNN_FUNC) {
 		cv::String model;
 		if (ParamIndexToVal(0, model))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)isBinary, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)evaluate, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)isBinary);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)evaluate);
 		auto __retval = (dnn_Net*)dnn_Net::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::dnn::Net>(cv::dnn::readNetFromTorch(model, isBinary, evaluate));
 		return (void)(aResultToken.SetValue(__retval));
@@ -7534,8 +7541,8 @@ BIF_DECL(CV_DNN_FUNC) {
 		cv::String filename;
 		if (ParamIndexToVal(0, filename))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)isBinary, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)isBinary);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::dnn::readTorchBlob(filename, isBinary);
 		return (void)(aResultToken.SetValue(__retval));
@@ -7547,8 +7554,8 @@ BIF_DECL(CV_DNN_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dst))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], layersTypes, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], layersTypes);
 		cv::dnn::shrinkCaffeModel(src, dst, layersTypes);
 		return;
 	}
@@ -7573,12 +7580,12 @@ BIF_DECL(CV_DNN_FUNC) {
 		VarRef* var_indices = nullptr;
 		if (ParamIndexToVal(5, var_indices))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], (intptr_t&)top_k, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], sigma, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], method, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], (intptr_t&)top_k);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], sigma);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], method);
 		cv::dnn::softNMSBoxes(bboxes, scores, updated_scores, score_threshold, nms_threshold, indices, top_k, sigma, (cv::dnn::SoftNMSMethod)method);
 		ValToResult(updated_scores, aResultToken);
 		g_ahkapi->VarAssign(var_updated_scores, aResultToken);
@@ -7627,10 +7634,10 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(6, tvecs))
 			_o_return_result;
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], flags, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], criteria, true);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], flags);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], criteria);
 		auto __retval = cv::fisheye::calibrate(objectPoints, imagePoints, image_size, K, D, rvecs, tvecs, flags, criteria);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7646,8 +7653,8 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, D))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], alpha, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], alpha);
 		cv::fisheye::distortPoints(undistorted, distorted, K, D, alpha);
 		return;
 	}
@@ -7666,12 +7673,12 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(4, P))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], balance, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], new_size, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], fov_scale, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], balance);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], new_size);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], fov_scale);
 		cv::fisheye::estimateNewCameraMatrixForUndistortRectify(K, D, image_size, R, P, balance, new_size, fov_scale);
 		return;
 	}
@@ -7715,10 +7722,10 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(5, D))
 			_o_return_result;
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], alpha, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], jacobian, true);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], alpha);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], jacobian);
 		cv::fisheye::projectPoints(objectPoints, imagePoints, rvec, tvec, K, D, alpha, jacobian);
 		return;
 	}
@@ -7750,10 +7757,10 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(9, T))
 			_o_return_result;
-		if (aParamCount > 10)
-			TokenToVal(*aParam[10], flags, true);
-		if (aParamCount > 11)
-			TokenToVal(*aParam[11], criteria, true);
+		if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[10], flags);
+		if (aParamCount > 11 && aParam[11]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[11], criteria);
 		auto __retval = cv::fisheye::stereoCalibrate(objectPoints, imagePoints1, imagePoints2, K1, D1, K2, D2, imageSize, R, T, flags, criteria);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -7789,12 +7796,12 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(12, flags))
 			_o_return_result;
-		if (aParamCount > 13)
-			TokenToVal(*aParam[13], newImageSize, true);
-		if (aParamCount > 14)
-			TokenToVal(*aParam[14], balance, true);
-		if (aParamCount > 15)
-			TokenToVal(*aParam[15], fov_scale, true);
+		if (aParamCount > 13 && aParam[13]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[13], newImageSize);
+		if (aParamCount > 14 && aParam[14]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[14], balance);
+		if (aParamCount > 15 && aParam[15]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[15], fov_scale);
 		cv::fisheye::stereoRectify(K1, D1, K2, D2, imageSize, R, tvec, R1, R2, P1, P2, Q, flags, newImageSize, balance, fov_scale);
 		return;
 	}
@@ -7810,10 +7817,10 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, D))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], Knew, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], new_size, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], Knew);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], new_size);
 		cv::fisheye::undistortImage(distorted, undistorted, K, D, Knew, new_size);
 		return;
 	}
@@ -7828,10 +7835,10 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, D))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], R, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], P, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], R);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], P);
 		cv::fisheye::undistortPoints(distorted, undistorted, K, D, R, P);
 		return;
 	}
@@ -7866,8 +7873,8 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, src2))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], ddepth, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], ddepth);
 		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::add(*src1, *src2, ddepth));
 		return (void)(aResultToken.SetValue(__retval));
@@ -7880,8 +7887,8 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, c))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], ddepth, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], ddepth);
 		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::addC(*src1, *c, ddepth));
 		return (void)(aResultToken.SetValue(__retval));
@@ -7928,14 +7935,14 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(3, minDistance))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], mask, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], blockSize, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], (char&)useHarrisDetector, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], k, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], mask);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], blockSize);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], (char&)useHarrisDetector);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], k);
 		auto __retval = cv::gapi::goodFeaturesToTrack(*image, maxCorners, qualityLevel, minDistance, mask, blockSize, useHarrisDetector, k);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -8012,10 +8019,10 @@ BIF_DECL(CV_GAPI_FUNC) {
 				_o_return_result;
 			if (ParamIndexToVal(1, inSz))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], confidenceThreshold, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], filterLabel, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], confidenceThreshold);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], filterLabel);
 			auto __retval = cv::gapi::parseSSD(*in, *inSz, confidenceThreshold, filterLabel);
 			return ValToResult(__retval, aResultToken);
 		}
@@ -8050,12 +8057,12 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, inSz))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], confidenceThreshold, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], nmsThreshold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], anchors, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], confidenceThreshold);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], nmsThreshold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], anchors);
 		auto __retval = cv::gapi::parseYolo(*in, *inSz, confidenceThreshold, nmsThreshold, anchors);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -8069,12 +8076,12 @@ BIF_DECL(CV_GAPI_FUNC) {
 			_o_return_result;
 		if (ParamIndexToVal(1, dsize))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], fx, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], fy, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], interpolation, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], fx);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], fy);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], interpolation);
 		auto __retval = (GMat*)GMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::GMat>(cv::gapi::resize(*src, dsize, fx, fy, interpolation));
 		return (void)(aResultToken.SetValue(__retval));
@@ -8377,8 +8384,8 @@ BIF_DECL(CV_PARALLEL_FUNC) {
 		cv::String backendName;
 		if (ParamIndexToVal(0, backendName))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)propagateNumThreads, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)propagateNumThreads);
 		auto __retval = (__int64)cv::parallel::setParallelForBackend(backendName, propagateNumThreads);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8409,10 +8416,10 @@ BIF_DECL(CV_SAMPLES_FUNC) {
 		cv::String relative_path;
 		if (ParamIndexToVal(0, relative_path))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)required, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)silentMode, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)required);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)silentMode);
 		auto __retval = cv::samples::findFile(relative_path, required, silentMode);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -8421,8 +8428,8 @@ BIF_DECL(CV_SAMPLES_FUNC) {
 		cv::String relative_path;
 		if (ParamIndexToVal(0, relative_path))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)silentMode, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)silentMode);
 		auto __retval = cv::samples::findFileOrKeep(relative_path, silentMode);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -8628,8 +8635,8 @@ BIF_DECL(CV_UTILS_FUNC) {
 			int value;
 			if (ParamIndexToVal(0, value))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], point, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], point);
 			auto __retval = cv::utils::testOverloadResolution(value, point);
 			return ValToResult(__retval, aResultToken);
 		}
@@ -8658,10 +8665,10 @@ BIF_DECL(CV_UTILS_FUNC) {
 		int positional_argument, lambda = 2, from = 3;
 		if (ParamIndexToVal(0, positional_argument))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], lambda, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], from, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], lambda);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], from);
 		auto __retval = cv::utils::testReservedKeywordConversion(positional_argument, lambda, from);
 		return ValToResult(__retval, aResultToken);
 	}

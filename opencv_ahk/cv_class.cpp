@@ -192,8 +192,8 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 				_o_return_result;
 			if (ParamIndexToVal(2, s))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], (char&)p, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], (char&)p);
 			new (&mC) cv::GMatDesc(d, c, s, p);
 			return;
 		}
@@ -374,20 +374,20 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 				_o_return_result;
 			if (ParamIndexToVal(4, _nbins))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], _derivAperture, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], _winSigma, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], _histogramNormType, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], _L2HysThreshold, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], (char&)_gammaCorrection, true);
-			if (aParamCount > 10)
-				TokenToVal(*aParam[10], _nlevels, true);
-			if (aParamCount > 11)
-				TokenToVal(*aParam[11], (char&)_signedGradient, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], _derivAperture);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], _winSigma);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], _histogramNormType);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], _L2HysThreshold);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], (char&)_gammaCorrection);
+			if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[10], _nlevels);
+			if (aParamCount > 11 && aParam[11]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[11], (char&)_signedGradient);
 			new (&mC) cv::HOGDescriptor(_winSize, _blockSize, _blockStride, _cellSize, _nbins, _derivAperture, _winSigma, (cv::HOGDescriptor::HistogramNormType)_histogramNormType, _L2HysThreshold, _gammaCorrection, _nlevels, _signedGradient);
 			return;
 		}
@@ -415,12 +415,12 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		VarRef* var_descriptors = nullptr;
 		if (ParamIndexToVal(1, var_descriptors))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], winStride, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], padding, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], locations, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], winStride);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], padding);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], locations);
 		mC.compute(img, descriptors, winStride, padding, locations);
 		ValToResult(descriptors, aResultToken);
 		g_ahkapi->VarAssign(var_descriptors, aResultToken);
@@ -437,10 +437,10 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 			_o_return_result;
 		if (ParamIndexToVal(2, angleOfs))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], paddingTL, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], paddingBR, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], paddingTL);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], paddingBR);
 		mC.computeGradient(img, grad, angleOfs, paddingTL, paddingBR);
 		return;
 	}
@@ -458,14 +458,14 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		VarRef* var_weights = nullptr;
 		if (ParamIndexToVal(2, var_weights))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], hitThreshold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], winStride, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], padding, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], searchLocations, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], hitThreshold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], winStride);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], padding);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], searchLocations);
 		mC.detect(img, foundLocations, weights, hitThreshold, winStride, padding, searchLocations);
 		ValToResult(foundLocations, aResultToken);
 		g_ahkapi->VarAssign(var_foundLocations, aResultToken);
@@ -490,18 +490,18 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		VarRef* var_foundWeights = nullptr;
 		if (ParamIndexToVal(2, var_foundWeights))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], hitThreshold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], winStride, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], padding, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], scale, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], finalThreshold, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], (char&)useMeanshiftGrouping, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], hitThreshold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], winStride);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], padding);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], scale);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], finalThreshold);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], (char&)useMeanshiftGrouping);
 		mC.detectMultiScale(img, foundLocations, foundWeights, hitThreshold, winStride, padding, scale, finalThreshold, useMeanshiftGrouping);
 		ValToResult(foundLocations, aResultToken);
 		g_ahkapi->VarAssign(var_foundLocations, aResultToken);
@@ -531,8 +531,8 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		cv::String filename, objname = cv::String();
 		if (ParamIndexToVal(0, filename))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], objname, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], objname);
 		auto __retval = (__int64)mC.load(filename, objname);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -540,8 +540,8 @@ void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		cv::String filename, objname = cv::String();
 		if (ParamIndexToVal(0, filename))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], objname, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], objname);
 		mC.save(filename, objname);
 		return;
 	}
@@ -1544,22 +1544,22 @@ void dnn_DictValue::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	}
 	case M_getIntValue: {
 		int idx = -1;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], idx, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], idx);
 		auto __retval = (__int64)mC.getIntValue(idx);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getRealValue: {
 		int idx = -1;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], idx, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], idx);
 		auto __retval = mC.getRealValue(idx);
 		return (void)(aResultToken.SetValue(__retval));
 	}
 	case M_getStringValue: {
 		int idx = -1;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], idx, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], idx);
 		auto __retval = mC.getStringValue(idx);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -1613,8 +1613,8 @@ void gapi_streaming_queue_capacity::Invoke(ResultToken& aResultToken, int aID, i
 		new (&mC) cv::gapi::streaming::queue_capacity;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
 		size_t cap = 1;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], (intptr_t&)cap, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], (intptr_t&)cap);
 		new (&mC) cv::gapi::streaming::queue_capacity(cap);
 		return;
 	}
@@ -1648,12 +1648,12 @@ void gapi_wip_draw_Circle::Invoke(ResultToken& aResultToken, int aID, int aFlags
 			_o_return_result;
 		if (ParamIndexToVal(2, color_))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], thick_, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], lt_, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], shift_, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], thick_);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], lt_);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], shift_);
 		new (&mC) cv::gapi::wip::draw::Circle(center_, radius_, color_, thick_, lt_, shift_);
 		return;
 	}
@@ -1791,12 +1791,12 @@ void gapi_wip_draw_Line::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 			_o_return_result;
 		if (ParamIndexToVal(2, color_))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], thick_, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], lt_, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], shift_, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], thick_);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], lt_);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], shift_);
 		new (&mC) cv::gapi::wip::draw::Line(pt1_, pt2_, color_, thick_, lt_, shift_);
 		return;
 	}
@@ -1917,12 +1917,12 @@ void gapi_wip_draw_Poly::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 			_o_return_result;
 		if (ParamIndexToVal(1, color_))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], thick_, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], lt_, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], shift_, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], thick_);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], lt_);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], shift_);
 		new (&mC) cv::gapi::wip::draw::Poly(points_, color_, thick_, lt_, shift_);
 		return;
 	}
@@ -2062,12 +2062,12 @@ void gapi_wip_draw_Text::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 			_o_return_result;
 		if (ParamIndexToVal(4, color_))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], thick_, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], lt_, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], (char&)bottom_left_origin_, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], thick_);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], lt_);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], (char&)bottom_left_origin_);
 		new (&mC) cv::gapi::wip::draw::Text(text_, org_, ff_, fs_, color_, thick_, lt_, bottom_left_origin_);
 		return;
 	}
@@ -2497,20 +2497,20 @@ void AKAZE::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		float threshold = 0.001f;
 		int descriptor_type = cv::AKAZE::DESCRIPTOR_MLDB, descriptor_size = 0, descriptor_channels = 3, nOctaves = 4, nOctaveLayers = 4, diffusivity = cv::KAZE::DIFF_PM_G2;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], descriptor_type, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], descriptor_size, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], descriptor_channels, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], threshold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], nOctaves, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], nOctaveLayers, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], diffusivity, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], descriptor_type);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], descriptor_size);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], descriptor_channels);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], threshold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], nOctaves);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], nOctaveLayers);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], diffusivity);
 		mC = cv::AKAZE::create((cv::AKAZE::DescriptorType)descriptor_type, descriptor_size, descriptor_channels, threshold, nOctaves, nOctaveLayers, (cv::KAZE::DiffusivityType)diffusivity);
 		return;
 	}
@@ -2611,14 +2611,14 @@ void AffineFeature::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		int maxTilt = 5, minTilt = 0;
 		if (ParamIndexToVal(0, backend))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], maxTilt, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], minTilt, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], tiltStep, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], rotateStepBase, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], maxTilt);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], minTilt);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], tiltStep);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], rotateStepBase);
 		mC = cv::AffineFeature::create(backend, maxTilt, minTilt, tiltStep, rotateStepBase);
 		return;
 	}
@@ -2657,12 +2657,12 @@ void AgastFeatureDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool nonmaxSuppression = true;
 		int threshold = 10, type = cv::AgastFeatureDetector::OAST_9_16;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], threshold, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)nonmaxSuppression, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], type, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], threshold);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)nonmaxSuppression);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], type);
 		mC = cv::AgastFeatureDetector::create(threshold, nonmaxSuppression, (cv::AgastFeatureDetector::DetectorType)type);
 		return;
 	}
@@ -2747,8 +2747,8 @@ void Algorithm::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		cv::String name = cv::String();
 		if (ParamIndexToVal(0, fs))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], name, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], name);
 		mC->write(fs, name);
 		return;
 	}
@@ -2945,10 +2945,10 @@ void BFMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool crossCheck = false;
 		int normType = cv::NORM_L2;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], normType, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)crossCheck, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], normType);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)crossCheck);
 		mC = new cv::BFMatcher(normType, crossCheck);
 		return;
 	}
@@ -3025,12 +3025,12 @@ void BOWKMeansTrainer::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			int clusterCount, attempts = 3, flags = cv::KMEANS_PP_CENTERS;
 			if (ParamIndexToVal(0, clusterCount))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], termcrit, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], attempts, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], flags, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], termcrit);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], attempts);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], flags);
 			mC = new cv::BOWKMeansTrainer(clusterCount, termcrit, attempts, flags);
 			return;
 		}
@@ -3111,12 +3111,12 @@ void BRISK::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 		if (!MatchTypes("i?if")) {
 			float patternScale = 1.0f;
 			int thresh = 30, octaves = 3;
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], thresh, true);
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], octaves, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], patternScale, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], thresh);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], octaves);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], patternScale);
 			mC = cv::BRISK::create(thresh, octaves, patternScale);
 			return;
 		}
@@ -3128,12 +3128,12 @@ void BRISK::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 				_o_return_result;
 			if (ParamIndexToVal(1, numberList))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], dMax, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], dMin, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], indexChange, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], dMax);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], dMin);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], indexChange);
 			mC = cv::BRISK::create(radiusList, numberList, dMax, dMin, indexChange);
 			return;
 		}
@@ -3150,12 +3150,12 @@ void BRISK::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 				_o_return_result;
 			if (ParamIndexToVal(3, numberList))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], dMax, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], dMin, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], indexChange, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], dMax);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], dMin);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], indexChange);
 			mC = cv::BRISK::create(thresh, octaves, radiusList, numberList, dMax, dMin, indexChange);
 			return;
 		}
@@ -3203,8 +3203,8 @@ void BackgroundSubtractor::Invoke(ResultToken& aResultToken, int aID, int aFlags
 			_o_return_result;
 		if (ParamIndexToVal(1, fgmask))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], learningRate, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], learningRate);
 		mC->apply(image, fgmask, learningRate);
 		return;
 	}
@@ -3328,8 +3328,8 @@ void BackgroundSubtractorMOG2::Invoke(ResultToken& aResultToken, int aID, int aF
 			_o_return_result;
 		if (ParamIndexToVal(1, fgmask))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], learningRate, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], learningRate);
 		mC->apply(image, fgmask, learningRate);
 		return;
 	}
@@ -3677,16 +3677,16 @@ void CascadeClassifier::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 			VarRef* var_objects = nullptr;
 			if (ParamIndexToVal(1, var_objects))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], scaleFactor, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], minNeighbors, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], flags, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], minSize, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], maxSize, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], scaleFactor);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], minNeighbors);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], flags);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], minSize);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], maxSize);
 			mC->detectMultiScale(image, objects, scaleFactor, minNeighbors, flags, minSize, maxSize);
 			ValToResult(objects, aResultToken);
 			g_ahkapi->VarAssign(var_objects, aResultToken);
@@ -3708,16 +3708,16 @@ void CascadeClassifier::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 			VarRef* var_numDetections = nullptr;
 			if (ParamIndexToVal(2, var_numDetections))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], scaleFactor, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], minNeighbors, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], flags, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], minSize, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], maxSize, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], scaleFactor);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], minNeighbors);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], flags);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], minSize);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], maxSize);
 			mC->detectMultiScale(image, objects, numDetections, scaleFactor, minNeighbors, flags, minSize, maxSize);
 			ValToResult(objects, aResultToken);
 			g_ahkapi->VarAssign(var_objects, aResultToken);
@@ -3747,18 +3747,18 @@ void CascadeClassifier::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 			VarRef* var_levelWeights = nullptr;
 			if (ParamIndexToVal(3, var_levelWeights))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], scaleFactor, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], minNeighbors, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], flags, true);
-			if (aParamCount > 7)
-				TokenToVal(*aParam[7], minSize, true);
-			if (aParamCount > 8)
-				TokenToVal(*aParam[8], maxSize, true);
-			if (aParamCount > 9)
-				TokenToVal(*aParam[9], (char&)outputRejectLevels, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], scaleFactor);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], minNeighbors);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], flags);
+			if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[7], minSize);
+			if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[8], maxSize);
+			if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[9], (char&)outputRejectLevels);
 			mC->detectMultiScale(image, objects, rejectLevels, levelWeights, scaleFactor, minNeighbors, flags, minSize, maxSize, outputRejectLevels);
 			ValToResult(objects, aResultToken);
 			g_ahkapi->VarAssign(var_objects, aResultToken);
@@ -3816,8 +3816,8 @@ void DISOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 		new (&mC) cv::Ptr<cv::DISOpticalFlow>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int preset = cv::DISOpticalFlow::PRESET_FAST;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], preset, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], preset);
 		mC = cv::DISOpticalFlow::create(preset);
 		return;
 	}
@@ -4062,8 +4062,8 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	}
 	case M_clone: {
 		bool emptyTrainData = false;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], (char&)emptyTrainData, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], (char&)emptyTrainData);
 		auto __retval = (DescriptorMatcher*)DescriptorMatcher::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->clone(emptyTrainData);
 		return (void)(aResultToken.SetValue(__retval));
@@ -4095,10 +4095,10 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 				_o_return_result;
 			if (ParamIndexToVal(3, k))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], mask, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (char&)compactResult, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], mask);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (char&)compactResult);
 			mC->knnMatch(queryDescriptors, trainDescriptors, matches, k, mask, compactResult);
 			ValToResult(matches, aResultToken);
 			g_ahkapi->VarAssign(var_matches, aResultToken);
@@ -4117,10 +4117,10 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 				_o_return_result;
 			if (ParamIndexToVal(2, k))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], masks, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], (char&)compactResult, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], masks);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], (char&)compactResult);
 			mC->knnMatch(queryDescriptors, matches, k, masks, compactResult);
 			ValToResult(matches, aResultToken);
 			g_ahkapi->VarAssign(var_matches, aResultToken);
@@ -4141,8 +4141,8 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 			VarRef* var_matches = nullptr;
 			if (ParamIndexToVal(2, var_matches))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], mask, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], mask);
 			mC->match(queryDescriptors, trainDescriptors, matches, mask);
 			ValToResult(matches, aResultToken);
 			g_ahkapi->VarAssign(var_matches, aResultToken);
@@ -4157,8 +4157,8 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 			VarRef* var_matches = nullptr;
 			if (ParamIndexToVal(1, var_matches))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], masks, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], masks);
 			mC->match(queryDescriptors, matches, masks);
 			ValToResult(matches, aResultToken);
 			g_ahkapi->VarAssign(var_matches, aResultToken);
@@ -4183,10 +4183,10 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 				_o_return_result;
 			if (ParamIndexToVal(3, maxDistance))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], mask, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (char&)compactResult, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], mask);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (char&)compactResult);
 			mC->radiusMatch(queryDescriptors, trainDescriptors, matches, maxDistance, mask, compactResult);
 			ValToResult(matches, aResultToken);
 			g_ahkapi->VarAssign(var_matches, aResultToken);
@@ -4205,10 +4205,10 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 				_o_return_result;
 			if (ParamIndexToVal(2, maxDistance))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], masks, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], (char&)compactResult, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], masks);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], (char&)compactResult);
 			mC->radiusMatch(queryDescriptors, matches, maxDistance, masks, compactResult);
 			ValToResult(matches, aResultToken);
 			g_ahkapi->VarAssign(var_matches, aResultToken);
@@ -4253,8 +4253,8 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 			cv::String name = cv::String();
 			if (ParamIndexToVal(0, fs))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], name, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], name);
 			mC->write(fs, name);
 			return;
 		}
@@ -4282,16 +4282,16 @@ void FaceDetectorYN::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 			_o_return_result;
 		if (ParamIndexToVal(2, input_size))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], score_threshold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], nms_threshold, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], top_k, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], backend_id, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], target_id, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], score_threshold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], nms_threshold);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], top_k);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], backend_id);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], target_id);
 		mC = cv::FaceDetectorYN::create(model, config, input_size, score_threshold, nms_threshold, top_k, backend_id, target_id);
 		return;
 	}
@@ -4366,10 +4366,10 @@ void FaceRecognizerSF::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			_o_return_result;
 		if (ParamIndexToVal(1, config))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], backend_id, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], target_id, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], backend_id);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], target_id);
 		mC = cv::FaceRecognizerSF::create(model, config, backend_id, target_id);
 		return;
 	}
@@ -4402,8 +4402,8 @@ void FaceRecognizerSF::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			_o_return_result;
 		if (ParamIndexToVal(1, _face_feature2))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], dis_type, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], dis_type);
 		auto __retval = mC->match(_face_feature1, _face_feature2, dis_type);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4421,22 +4421,22 @@ void FarnebackOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFlags
 		bool fastPyramids = false;
 		double pyrScale = 0.5, polySigma = 1.1;
 		int numLevels = 5, winSize = 13, numIters = 10, polyN = 5, flags = 0;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], numLevels, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], pyrScale, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)fastPyramids, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], winSize, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], numIters, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], polyN, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], polySigma, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], flags, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], numLevels);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], pyrScale);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)fastPyramids);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], winSize);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], numIters);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], polyN);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], polySigma);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], flags);
 		mC = cv::FarnebackOpticalFlow::create(numLevels, pyrScale, fastPyramids, winSize, numIters, polyN, polySigma, flags);
 		return;
 	}
@@ -4541,12 +4541,12 @@ void FastFeatureDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool nonmaxSuppression = true;
 		int threshold = 10, type = cv::FastFeatureDetector::TYPE_9_16;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], threshold, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)nonmaxSuppression, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], type, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], threshold);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)nonmaxSuppression);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], type);
 		mC = cv::FastFeatureDetector::create(threshold, nonmaxSuppression, (cv::FastFeatureDetector::DetectorType)type);
 		return;
 	}
@@ -4639,8 +4639,8 @@ void Feature2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		VarRef* var_keypoints = nullptr;
 		if (ParamIndexToVal(1, var_keypoints))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], mask, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], mask);
 		mC->detect(image, keypoints, mask);
 		ValToResult(keypoints, aResultToken);
 		g_ahkapi->VarAssign(var_keypoints, aResultToken);
@@ -4661,8 +4661,8 @@ void Feature2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 			_o_return_result;
 		if (ParamIndexToVal(3, descriptors))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)useProvidedKeypoints, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)useProvidedKeypoints);
 		mC->detectAndCompute(image, mask, keypoints, descriptors, useProvidedKeypoints);
 		ValToResult(keypoints, aResultToken);
 		g_ahkapi->VarAssign(var_keypoints, aResultToken);
@@ -4708,8 +4708,8 @@ void Feature2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 			cv::String name = cv::String();
 			if (ParamIndexToVal(0, fs))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], name, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], name);
 			mC->write(fs, name);
 			return;
 		}
@@ -4837,8 +4837,8 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(1, flags))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], encoding, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], encoding);
 			mC = new cv::FileStorage(filename, flags, encoding);
 			return;
 		}
@@ -4869,8 +4869,8 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			_o_return_result;
 		if (ParamIndexToVal(1, flags))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], encoding, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], encoding);
 		auto __retval = (__int64)mC->open(filename, flags, encoding);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -4892,8 +4892,8 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	}
 	case M_root: {
 		int streamidx = 0;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], streamidx, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], streamidx);
 		auto __retval = (FileNode*)FileNode::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::FileNode>(mC->root(streamidx));
 		return (void)(aResultToken.SetValue(__retval));
@@ -4905,8 +4905,8 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			_o_return_result;
 		if (ParamIndexToVal(1, flags))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], typeName, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], typeName);
 		mC->startWriteStruct(name, flags, typeName);
 		return;
 	}
@@ -4967,8 +4967,8 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		cv::String comment;
 		if (ParamIndexToVal(0, comment))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)append, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)append);
 		mC->writeComment(comment, append);
 		return;
 	}
@@ -5001,18 +5001,18 @@ void GFTTDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			bool useHarrisDetector = false;
 			double qualityLevel = 0.01, minDistance = 1, k = 0.04;
 			int maxCorners = 1000, blockSize = 3;
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], maxCorners, true);
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], qualityLevel, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], minDistance, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], blockSize, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], (char&)useHarrisDetector, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], k, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], maxCorners);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], qualityLevel);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], minDistance);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], blockSize);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], (char&)useHarrisDetector);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], k);
 			mC = cv::GFTTDetector::create(maxCorners, qualityLevel, minDistance, blockSize, useHarrisDetector, k);
 			return;
 		}
@@ -5030,10 +5030,10 @@ void GFTTDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 				_o_return_result;
 			if (ParamIndexToVal(4, gradiantSize))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (char&)useHarrisDetector, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], k, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (char&)useHarrisDetector);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], k);
 			mC = cv::GFTTDetector::create(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector, k);
 			return;
 		}
@@ -5193,8 +5193,8 @@ void GeneralizedHough::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 				_o_return_result;
 			if (ParamIndexToVal(1, positions))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], votes, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], votes);
 			mC->detect(image, positions, votes);
 			return;
 		}
@@ -5209,8 +5209,8 @@ void GeneralizedHough::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 				_o_return_result;
 			if (ParamIndexToVal(3, positions))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], votes, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], votes);
 			mC->detect(edges, dx, dy, positions, votes);
 			return;
 		}
@@ -5278,8 +5278,8 @@ void GeneralizedHough::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			cv::Point templCenter = cv::Point(-1, -1);
 			if (ParamIndexToVal(0, templ))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], templCenter, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], templCenter);
 			mC->setTemplate(templ, templCenter);
 			return;
 		}
@@ -5292,8 +5292,8 @@ void GeneralizedHough::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 				_o_return_result;
 			if (ParamIndexToVal(2, dy))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], templCenter, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], templCenter);
 			mC->setTemplate(edges, dx, dy, templCenter);
 			return;
 		}
@@ -5496,18 +5496,18 @@ void KAZE::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 		bool extended = false, upright = false;
 		float threshold = 0.001f;
 		int nOctaves = 4, nOctaveLayers = 4, diffusivity = cv::KAZE::DIFF_PM_G2;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], (char&)extended, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)upright, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], threshold, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], nOctaves, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], nOctaveLayers, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], diffusivity, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], (char&)extended);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)upright);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], threshold);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], nOctaves);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], nOctaveLayers);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], diffusivity);
 		mC = cv::KAZE::create(extended, upright, threshold, nOctaves, nOctaveLayers, (cv::KAZE::DiffusivityType)diffusivity);
 		return;
 	}
@@ -5602,10 +5602,10 @@ void KalmanFilter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 				_o_return_result;
 			if (ParamIndexToVal(1, measureParams))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], controlParams, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], type, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], controlParams);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], type);
 			mC = new cv::KalmanFilter(dynamParams, measureParams, controlParams, type);
 			return;
 		}
@@ -5622,8 +5622,8 @@ void KalmanFilter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	}
 	case M_predict: {
 		cv::Mat control = cv::Mat();
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], control, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], control);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->predict(control);
 		return (void)(aResultToken.SetValue(__retval));
@@ -5652,14 +5652,14 @@ void KeyPoint::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 				_o_return_result;
 			if (ParamIndexToVal(2, size))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], angle, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], response, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], octave, true);
-			if (aParamCount > 6)
-				TokenToVal(*aParam[6], class_id, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], angle);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], response);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], octave);
+			if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[6], class_id);
 			mC = new cv::KeyPoint(x, y, size, angle, response, octave, class_id);
 			return;
 		}
@@ -5676,8 +5676,8 @@ void KeyPoint::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			VarRef* var_points2f = nullptr;
 			if (ParamIndexToVal(1, var_points2f))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], keypointIndexes, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], keypointIndexes);
 			mC->convert(keypoints, points2f, keypointIndexes);
 			ValToResult(points2f, aResultToken);
 			g_ahkapi->VarAssign(var_points2f, aResultToken);
@@ -5694,14 +5694,14 @@ void KeyPoint::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			VarRef* var_keypoints = nullptr;
 			if (ParamIndexToVal(1, var_keypoints))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], size, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], response, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], octave, true);
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], class_id, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], size);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], response);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], octave);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], class_id);
 			mC->convert(points2f, keypoints, size, response, octave, class_id);
 			ValToResult(keypoints, aResultToken);
 			g_ahkapi->VarAssign(var_keypoints, aResultToken);
@@ -5744,8 +5744,8 @@ void LineSegmentDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 			_o_return_result;
 		if (ParamIndexToVal(2, lines2))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], image, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], image);
 		auto __retval = (__int64)mC->compareSegments(size, lines1, lines2, image);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -5756,12 +5756,12 @@ void LineSegmentDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 			_o_return_result;
 		if (ParamIndexToVal(1, lines))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], width, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], prec, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], nfa, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], width);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], prec);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], nfa);
 		mC->detect(image, lines, width, prec, nfa);
 		return;
 	}
@@ -5788,24 +5788,24 @@ void MSER::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		double max_variation = 0.25, min_diversity = .2, area_threshold = 1.01, min_margin = 0.003;
 		int delta = 5, min_area = 60, max_area = 14400, max_evolution = 200, edge_blur_size = 5;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], delta, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], min_area, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], max_area, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], max_variation, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], min_diversity, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], max_evolution, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], area_threshold, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], min_margin, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], edge_blur_size, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], delta);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], min_area);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], max_area);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], max_variation);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], min_diversity);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], max_evolution);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], area_threshold);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], min_margin);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], edge_blur_size);
 		mC = cv::MSER::create(delta, min_area, max_area, max_variation, min_diversity, max_evolution, area_threshold, min_margin, edge_blur_size);
 		return;
 	}
@@ -6080,8 +6080,8 @@ void Moments::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 			cv::_InputArray array;
 			if (ParamIndexToVal(0, array))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], (char&)binaryImage, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], (char&)binaryImage);
 			mC = new cv::Moments;
 			*mC = cv::moments(array, binaryImage);
 		}
@@ -6148,24 +6148,24 @@ void ORB::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		float scaleFactor = 1.2f;
 		int nfeatures = 500, nlevels = 8, edgeThreshold = 31, firstLevel = 0, WTA_K = 2, scoreType = cv::ORB::HARRIS_SCORE, patchSize = 31, fastThreshold = 20;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], nfeatures, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], scaleFactor, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], nlevels, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], edgeThreshold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], firstLevel, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], WTA_K, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], scoreType, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], patchSize, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], fastThreshold, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], nfeatures);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], scaleFactor);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], nlevels);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], edgeThreshold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], firstLevel);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], WTA_K);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], scoreType);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], patchSize);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], fastThreshold);
 		mC = cv::ORB::create(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, (cv::ORB::ScoreType)scoreType, patchSize, fastThreshold);
 		return;
 	}
@@ -6422,8 +6422,8 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 			_o_return_result;
 		if (ParamIndexToVal(1, points))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], straight_qrcode, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], straight_qrcode);
 		auto __retval = mC->decode(img, points, straight_qrcode);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -6434,8 +6434,8 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 			_o_return_result;
 		if (ParamIndexToVal(1, points))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], straight_qrcode, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], straight_qrcode);
 		auto __retval = mC->decodeCurved(img, points, straight_qrcode);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -6450,8 +6450,8 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 		VarRef* var_decoded_info = nullptr;
 		if (ParamIndexToVal(2, var_decoded_info))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], straight_qrcode, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], straight_qrcode);
 		auto __retval = (__int64)mC->decodeMulti(img, points, decoded_info, straight_qrcode);
 		ValToResult(decoded_info, aResultToken);
 		g_ahkapi->VarAssign(var_decoded_info, aResultToken);
@@ -6473,10 +6473,10 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 		cv::_OutputArray points = cv::noArray(), straight_qrcode = cv::noArray();
 		if (ParamIndexToVal(0, img))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], points, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], straight_qrcode, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], points);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], straight_qrcode);
 		auto __retval = mC->detectAndDecode(img, points, straight_qrcode);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -6485,10 +6485,10 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 		cv::_OutputArray points = cv::noArray(), straight_qrcode = cv::noArray();
 		if (ParamIndexToVal(0, img))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], points, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], straight_qrcode, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], points);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], straight_qrcode);
 		auto __retval = mC->detectAndDecodeCurved(img, points, straight_qrcode);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -6501,10 +6501,10 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 		VarRef* var_decoded_info = nullptr;
 		if (ParamIndexToVal(1, var_decoded_info))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], points, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], straight_qrcode, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], points);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], straight_qrcode);
 		auto __retval = (__int64)mC->detectAndDecodeMulti(img, decoded_info, points, straight_qrcode);
 		ValToResult(decoded_info, aResultToken);
 		g_ahkapi->VarAssign(var_decoded_info, aResultToken);
@@ -6547,8 +6547,8 @@ void QRCodeEncoder::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		new (&mC) cv::Ptr<cv::QRCodeEncoder>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::QRCodeEncoder::Params parameters = cv::QRCodeEncoder::Params();
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], parameters, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], parameters);
 		mC = cv::QRCodeEncoder::create(parameters);
 		return;
 	}
@@ -6586,16 +6586,16 @@ void SIFT::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 		if (0 <= aParamCount && aParamCount <= 5) {
 			double contrastThreshold = 0.04, edgeThreshold = 10, sigma = 1.6;
 			int nfeatures = 0, nOctaveLayers = 3;
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], nfeatures, true);
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], nOctaveLayers, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], contrastThreshold, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], edgeThreshold, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], sigma, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], nfeatures);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], nOctaveLayers);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], contrastThreshold);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], edgeThreshold);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], sigma);
 			mC = cv::SIFT::create(nfeatures, nOctaveLayers, contrastThreshold, edgeThreshold, sigma);
 			return;
 		}
@@ -6636,8 +6636,8 @@ void SimpleBlobDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 		new (&mC) cv::Ptr<cv::SimpleBlobDetector>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::SimpleBlobDetector::Params parameters = cv::SimpleBlobDetector::Params();
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], parameters, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], parameters);
 		mC = cv::SimpleBlobDetector::create(parameters);
 		return;
 	}
@@ -6666,8 +6666,8 @@ void SparseOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 			_o_return_result;
 		if (ParamIndexToVal(4, status))
 			_o_return_result;
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], err, true);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], err);
 		mC->calc(prevImg, nextImg, prevPts, nextPts, status, err);
 		return;
 	}
@@ -6688,16 +6688,16 @@ void SparsePyrLKOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFla
 			;
 			double minEigThreshold = 1e-4;
 			int maxLevel = 3, flags = 0;
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], winSize, true);
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], maxLevel, true);
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], crit, true);
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], flags, true);
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], minEigThreshold, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], winSize);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], maxLevel);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], crit);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], flags);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], minEigThreshold);
 			mC = cv::SparsePyrLKOpticalFlow::create(winSize, maxLevel, crit, flags, minEigThreshold);
 			return;
 		}
@@ -6771,10 +6771,10 @@ void StereoBM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		new (&mC) cv::Ptr<cv::StereoBM>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int numDisparities = 0, blockSize = 21;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], numDisparities, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], blockSize, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], numDisparities);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], blockSize);
 		mC = cv::StereoBM::create(numDisparities, blockSize);
 		return;
 	}
@@ -6963,28 +6963,28 @@ void StereoSGBM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		new (&mC) cv::Ptr<cv::StereoSGBM>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int minDisparity = 0, numDisparities = 16, blockSize = 3, P1 = 0, P2 = 0, disp12MaxDiff = 0, preFilterCap = 0, uniquenessRatio = 0, speckleWindowSize = 0, speckleRange = 0, mode = cv::StereoSGBM::MODE_SGBM;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], minDisparity, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], numDisparities, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], blockSize, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], P1, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], P2, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], disp12MaxDiff, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], preFilterCap, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], uniquenessRatio, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], speckleWindowSize, true);
-		if (aParamCount > 9)
-			TokenToVal(*aParam[9], speckleRange, true);
-		if (aParamCount > 10)
-			TokenToVal(*aParam[10], mode, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], minDisparity);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], numDisparities);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], blockSize);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], P1);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], P2);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], disp12MaxDiff);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], preFilterCap);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], uniquenessRatio);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], speckleWindowSize);
+		if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[9], speckleRange);
+		if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[10], mode);
 		mC = cv::StereoSGBM::create(minDisparity, numDisparities, blockSize, P1, P2, disp12MaxDiff, preFilterCap, uniquenessRatio, speckleWindowSize, speckleRange, mode);
 		return;
 	}
@@ -7055,8 +7055,8 @@ void Stitcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		new (&mC) cv::Ptr<cv::Stitcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int mode = cv::Stitcher::PANORAMA;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], mode, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], mode);
 		mC = cv::Stitcher::create((cv::Stitcher::Mode)mode);
 		return;
 	}
@@ -7089,8 +7089,8 @@ void Stitcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		cv::_InputArray images, masks = cv::noArray();
 		if (ParamIndexToVal(0, images))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], masks, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], masks);
 		auto __retval = mC->estimateTransform(images, masks);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -7218,8 +7218,8 @@ void Subdiv2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			if (ParamIndexToVal(0, edge))
 				_o_return_result;
 			VarRef* var_dstpt = nullptr;
-			if (aParamCount > 1) {
-				TokenToVal(*aParam[1], var_dstpt, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING) {
+				TokenToVal(*aParam[1], var_dstpt);
 			}
 			auto __retval = (__int64)mC->edgeDst(edge, &dstpt);
 			if (var_dstpt) {
@@ -7239,8 +7239,8 @@ void Subdiv2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			if (ParamIndexToVal(0, edge))
 				_o_return_result;
 			VarRef* var_orgpt = nullptr;
-			if (aParamCount > 1) {
-				TokenToVal(*aParam[1], var_orgpt, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING) {
+				TokenToVal(*aParam[1], var_orgpt);
 			}
 			auto __retval = (__int64)mC->edgeOrg(edge, &orgpt);
 			if (var_orgpt) {
@@ -7259,8 +7259,8 @@ void Subdiv2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			if (ParamIndexToVal(0, pt))
 				_o_return_result;
 			VarRef* var_nearestPt = nullptr;
-			if (aParamCount > 1) {
-				TokenToVal(*aParam[1], var_nearestPt, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING) {
+				TokenToVal(*aParam[1], var_nearestPt);
 			}
 			auto __retval = (__int64)mC->findNearest(pt, &nearestPt);
 			if (var_nearestPt) {
@@ -7321,8 +7321,8 @@ void Subdiv2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 			if (ParamIndexToVal(0, vertex))
 				_o_return_result;
 			VarRef* var_firstEdge = nullptr;
-			if (aParamCount > 1) {
-				TokenToVal(*aParam[1], var_firstEdge, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING) {
+				TokenToVal(*aParam[1], var_firstEdge);
 			}
 			auto __retval = mC->getVertex(vertex, &firstEdge);
 			if (var_firstEdge) g_ahkapi->VarAssign(var_firstEdge, ExprTokenType((__int64)firstEdge));
@@ -7670,8 +7670,8 @@ void TrackerDaSiamRPN::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 		new (&mC) cv::Ptr<cv::TrackerDaSiamRPN>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::TrackerDaSiamRPN::Params parameters = cv::TrackerDaSiamRPN::Params();
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], parameters, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], parameters);
 		mC = cv::TrackerDaSiamRPN::create(parameters);
 		return;
 	}
@@ -7691,8 +7691,8 @@ void TrackerGOTURN::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 		new (&mC) cv::Ptr<cv::TrackerGOTURN>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::TrackerGOTURN::Params parameters = cv::TrackerGOTURN::Params();
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], parameters, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], parameters);
 		mC = cv::TrackerGOTURN::create(parameters);
 		return;
 	}
@@ -7708,8 +7708,8 @@ void TrackerMIL::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		new (&mC) cv::Ptr<cv::TrackerMIL>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		cv::TrackerMIL::Params parameters = cv::TrackerMIL::Params();
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], parameters, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], parameters);
 		mC = cv::TrackerMIL::create(parameters);
 		return;
 	}
@@ -7827,8 +7827,8 @@ void VideoCapture::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			int apiPreference = cv::CAP_ANY;
 			if (ParamIndexToVal(0, filename))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], apiPreference, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], apiPreference);
 			mC = new cv::VideoCapture(filename, apiPreference);
 			return;
 		}
@@ -7849,8 +7849,8 @@ void VideoCapture::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			int index, apiPreference = cv::CAP_ANY;
 			if (ParamIndexToVal(0, index))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], apiPreference, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], apiPreference);
 			mC = new cv::VideoCapture(index, apiPreference);
 			return;
 		}
@@ -7898,8 +7898,8 @@ void VideoCapture::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			int apiPreference = cv::CAP_ANY;
 			if (ParamIndexToVal(0, filename))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], apiPreference, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], apiPreference);
 			auto __retval = (__int64)mC->open(filename, apiPreference);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7920,8 +7920,8 @@ void VideoCapture::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			int index, apiPreference = cv::CAP_ANY;
 			if (ParamIndexToVal(0, index))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], apiPreference, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], apiPreference);
 			auto __retval = (__int64)mC->open(index, apiPreference);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -7956,8 +7956,8 @@ void VideoCapture::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		int flag = 0;
 		if (ParamIndexToVal(0, image))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], flag, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], flag);
 		auto __retval = (__int64)mC->retrieve(image, flag);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -8007,8 +8007,8 @@ void VideoWriter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(3, frameSize))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], (char&)isColor, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], (char&)isColor);
 			mC = new cv::VideoWriter(filename, fourcc, fps, frameSize, isColor);
 			return;
 		}
@@ -8028,8 +8028,8 @@ void VideoWriter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(4, frameSize))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (char&)isColor, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (char&)isColor);
 			mC = new cv::VideoWriter(filename, apiPreference, fourcc, fps, frameSize, isColor);
 			return;
 		}
@@ -8119,8 +8119,8 @@ void VideoWriter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(3, frameSize))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], (char&)isColor, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], (char&)isColor);
 			auto __retval = (__int64)mC->open(filename, fourcc, fps, frameSize, isColor);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8140,8 +8140,8 @@ void VideoWriter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(4, frameSize))
 				_o_return_result;
-			if (aParamCount > 5)
-				TokenToVal(*aParam[5], (char&)isColor, true);
+			if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[5], (char&)isColor);
 			auto __retval = (__int64)mC->open(filename, apiPreference, fourcc, fps, frameSize, isColor);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -8536,8 +8536,8 @@ void cuda_Event::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		new (&mC) cv::Ptr<cv::cuda::Event>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int flags = cv::cuda::Event::CreateFlags::DEFAULT;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], flags, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], flags);
 		mC = new cv::cuda::Event((cv::cuda::Event::CreateFlags)flags);
 		return;
 	}
@@ -8556,8 +8556,8 @@ void cuda_Event::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	}
 	case M_record: {
 		cv::cuda::Stream _stream = cv::cuda::Stream::Null(), * stream = &_stream;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], stream, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], stream);
 		mC->record(*stream);
 		return;
 	}
@@ -8578,8 +8578,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o?")) {
 			cv::cuda::GpuMat::Allocator* allocator = cv::cuda::GpuMat::defaultAllocator();
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], allocator, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], allocator);
 			new (&mC) cv::cuda::GpuMat(allocator);
 			return;
 		}
@@ -8592,8 +8592,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(2, type))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], allocator, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], allocator);
 			new (&mC) cv::cuda::GpuMat(rows, cols, type, allocator);
 			return;
 		}
@@ -8605,8 +8605,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(1, type))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], allocator, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], allocator);
 			new (&mC) cv::cuda::GpuMat(size, type, allocator);
 			return;
 		}
@@ -8622,8 +8622,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(3, s))
 				_o_return_result;
-			if (aParamCount > 4)
-				TokenToVal(*aParam[4], allocator, true);
+			if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[4], allocator);
 			new (&mC) cv::cuda::GpuMat(rows, cols, type, s, allocator);
 			return;
 		}
@@ -8638,8 +8638,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(2, s))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], allocator, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], allocator);
 			new (&mC) cv::cuda::GpuMat(size, type, s, allocator);
 			return;
 		}
@@ -8677,8 +8677,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			cv::cuda::GpuMat::Allocator* allocator = cv::cuda::GpuMat::defaultAllocator();
 			if (ParamIndexToVal(0, arr))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], allocator, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], allocator);
 			new (&mC) cv::cuda::GpuMat(arr, allocator);
 			return;
 		}
@@ -8705,8 +8705,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		int type = -1;
 		if (ParamIndexToVal(0, m))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], type, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], type);
 		mC.assignTo(*m, type);
 		return;
 	}
@@ -8783,8 +8783,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			if (ParamIndexToVal(2, alpha))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], beta, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], beta);
 			mC.convertTo(dst, rtype, alpha, beta);
 			return;
 		}
@@ -8953,8 +8953,8 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 		int cn, rows = 0;
 		if (ParamIndexToVal(0, cn))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], rows, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], rows);
 		auto __retval = (cuda_GpuMat*)cuda_GpuMat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC.reshape(cn, rows);
 		return (void)(aResultToken.SetValue(__retval));
@@ -9116,8 +9116,8 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o?")) {
 			int alloc_type = cv::cuda::HostMem::AllocType::PAGE_LOCKED;
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], alloc_type, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], alloc_type);
 			new (&mC) cv::cuda::HostMem((cv::cuda::HostMem::AllocType)alloc_type);
 			return;
 		}
@@ -9129,8 +9129,8 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 				_o_return_result;
 			if (ParamIndexToVal(2, type))
 				_o_return_result;
-			if (aParamCount > 3)
-				TokenToVal(*aParam[3], alloc_type, true);
+			if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[3], alloc_type);
 			new (&mC) cv::cuda::HostMem(rows, cols, type, (cv::cuda::HostMem::AllocType)alloc_type);
 			return;
 		}
@@ -9141,8 +9141,8 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 				_o_return_result;
 			if (ParamIndexToVal(1, type))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], alloc_type, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], alloc_type);
 			new (&mC) cv::cuda::HostMem(size, type, (cv::cuda::HostMem::AllocType)alloc_type);
 			return;
 		}
@@ -9151,8 +9151,8 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			int alloc_type = cv::cuda::HostMem::AllocType::PAGE_LOCKED;
 			if (ParamIndexToVal(0, arr))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], alloc_type, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], alloc_type);
 			new (&mC) cv::cuda::HostMem(arr, (cv::cuda::HostMem::AllocType)alloc_type);
 			return;
 		}
@@ -9208,8 +9208,8 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		int cn, rows = 0;
 		if (ParamIndexToVal(0, cn))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], rows, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], rows);
 		auto __retval = (cuda_HostMem*)cuda_HostMem::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC.reshape(cn, rows);
 		return (void)(aResultToken.SetValue(__retval));
@@ -9389,14 +9389,14 @@ void detail_AffineBestOf2NearestMatcher::Invoke(ResultToken& aResultToken, int a
 		bool full_affine = false, try_use_gpu = false;
 		float match_conf = 0.3f;
 		int num_matches_thresh1 = 6;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], (char&)full_affine, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)try_use_gpu, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], match_conf, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], num_matches_thresh1, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], (char&)full_affine);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)try_use_gpu);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], match_conf);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], num_matches_thresh1);
 		mC = new cv::detail::AffineBestOf2NearestMatcher(full_affine, try_use_gpu, match_conf, num_matches_thresh1);
 		return;
 	}
@@ -9414,14 +9414,14 @@ void detail_BestOf2NearestMatcher::Invoke(ResultToken& aResultToken, int aID, in
 		bool try_use_gpu = false;
 		float match_conf = 0.3f;
 		int num_matches_thresh1 = 6, num_matches_thresh2 = 6;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], (char&)try_use_gpu, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], match_conf, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], num_matches_thresh1, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], num_matches_thresh2, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], (char&)try_use_gpu);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], match_conf);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], num_matches_thresh1);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], num_matches_thresh2);
 		mC = new cv::detail::BestOf2NearestMatcher(try_use_gpu, match_conf, num_matches_thresh1, num_matches_thresh2);
 		return;
 	}
@@ -9443,16 +9443,16 @@ void detail_BestOf2NearestRangeMatcher::Invoke(ResultToken& aResultToken, int aI
 		bool try_use_gpu = false;
 		float match_conf = 0.3f;
 		int range_width = 5, num_matches_thresh1 = 6, num_matches_thresh2 = 6;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], range_width, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)try_use_gpu, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], match_conf, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], num_matches_thresh1, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], num_matches_thresh2, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], range_width);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)try_use_gpu);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], match_conf);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], num_matches_thresh1);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], num_matches_thresh2);
 		mC = new cv::detail::BestOf2NearestRangeMatcher(range_width, try_use_gpu, match_conf, num_matches_thresh1, num_matches_thresh2);
 		return;
 	}
@@ -9473,8 +9473,8 @@ void detail_Blender::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 			_o_invalid_param;
 		if (ParamIndexToVal(0, type))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)try_gpu, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)try_gpu);
 		mC = cv::detail::Blender::createDefault(type, try_gpu);
 		return;
 	}
@@ -9532,12 +9532,12 @@ void detail_BlocksChannelsCompensator::Invoke(ResultToken& aResultToken, int aID
 		new (&mC) cv::Ptr<cv::detail::BlocksChannelsCompensator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int bl_width = 32, bl_height = 32, nr_feeds = 1;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], bl_width, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], bl_height, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], nr_feeds, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], bl_width);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], bl_height);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], nr_feeds);
 		mC = new cv::detail::BlocksChannelsCompensator(bl_width, bl_height, nr_feeds);
 		return;
 	}
@@ -9665,10 +9665,10 @@ void detail_BlocksGainCompensator::Invoke(ResultToken& aResultToken, int aID, in
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (0 <= aParamCount && aParamCount <= 2) {
 			int bl_width = 32, bl_height = 32;
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], bl_width, true);
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], bl_height, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], bl_width);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], bl_height);
 			mC = new cv::detail::BlocksGainCompensator(bl_width, bl_height);
 			return;
 		}
@@ -9829,8 +9829,8 @@ void detail_ChannelsCompensator::Invoke(ResultToken& aResultToken, int aID, int 
 		new (&mC) cv::Ptr<cv::detail::ChannelsCompensator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int nr_feeds = 1;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], nr_feeds, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], nr_feeds);
 		mC = new cv::detail::ChannelsCompensator(nr_feeds);
 		return;
 	}
@@ -10024,8 +10024,8 @@ void detail_FeatherBlender::Invoke(ResultToken& aResultToken, int aID, int aFlag
 		new (&mC) cv::Ptr<cv::detail::FeatherBlender>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		float sharpness = 0.02f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], sharpness, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], sharpness);
 		mC = new cv::detail::FeatherBlender(sharpness);
 		return;
 	}
@@ -10127,8 +10127,8 @@ void detail_FeaturesMatcher::Invoke(ResultToken& aResultToken, int aID, int aFla
 			VarRef* var_pairwise_matches = nullptr;
 			if (ParamIndexToVal(1, var_pairwise_matches))
 				_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], mask, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], mask);
 			(*mC)(features, pairwise_matches, mask);
 			ValToResult(pairwise_matches, aResultToken);
 			g_ahkapi->VarAssign(var_pairwise_matches, aResultToken);
@@ -10234,10 +10234,10 @@ void detail_GraphCutSeamFinder::Invoke(ResultToken& aResultToken, int aID, int a
 		float terminal_cost = 10000.f, bad_region_penalty = 1000.f;
 		if (ParamIndexToVal(0, cost_type))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], terminal_cost, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], bad_region_penalty, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], terminal_cost);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], bad_region_penalty);
 		mC = new cv::detail::GraphCutSeamFinder(cost_type, terminal_cost, bad_region_penalty);
 		return;
 	}
@@ -10265,8 +10265,8 @@ void detail_HomographyBasedEstimator::Invoke(ResultToken& aResultToken, int aID,
 		new (&mC) cv::Ptr<cv::detail::HomographyBasedEstimator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		bool is_focals_estimated = false;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], (char&)is_focals_estimated, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], (char&)is_focals_estimated);
 		mC = new cv::detail::HomographyBasedEstimator(is_focals_estimated);
 		return;
 	}
@@ -10282,12 +10282,12 @@ void detail_MultiBandBlender::Invoke(ResultToken& aResultToken, int aID, int aFl
 		new (&mC) cv::Ptr<cv::detail::MultiBandBlender>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		int try_gpu = false, num_bands = 5, weight_type = CV_32F;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], try_gpu, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], num_bands, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], weight_type, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], try_gpu);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], num_bands);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], weight_type);
 		mC = new cv::detail::MultiBandBlender(try_gpu, num_bands, weight_type);
 		return;
 	}
@@ -10583,8 +10583,8 @@ void dnn_ClassificationModel::Invoke(ResultToken& aResultToken, int aID, int aFl
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::ClassificationModel(model, config);
 			return;
 		}
@@ -10630,8 +10630,8 @@ void dnn_DetectionModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::DetectionModel(model, config);
 			return;
 		}
@@ -10662,10 +10662,10 @@ void dnn_DetectionModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 		VarRef* var_boxes = nullptr;
 		if (ParamIndexToVal(3, var_boxes))
 			_o_return_result;
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], confThreshold, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], nmsThreshold, true);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], confThreshold);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], nmsThreshold);
 		mC->detect(frame, classIds, confidences, boxes, confThreshold, nmsThreshold);
 		ValToResult(classIds, aResultToken);
 		g_ahkapi->VarAssign(var_classIds, aResultToken);
@@ -10706,8 +10706,8 @@ void dnn_KeypointsModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::KeypointsModel(model, config);
 			return;
 		}
@@ -10726,8 +10726,8 @@ void dnn_KeypointsModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 		float thresh = 0.5;
 		if (ParamIndexToVal(0, frame))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], thresh, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], thresh);
 		auto __retval = mC->estimate(frame, thresh);
 		return ValToResult(__retval, aResultToken);
 	}
@@ -10776,8 +10776,8 @@ void dnn_Model::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::Model(model, config);
 			return;
 		}
@@ -10824,16 +10824,16 @@ void dnn_Model::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		cv::Scalar mean = cv::Scalar();
 		cv::Size size = cv::Size();
 		double scale = 1.0;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], scale, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], size, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], mean, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)swapRB, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], (char&)crop, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], scale);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], size);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], mean);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)swapRB);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], (char&)crop);
 		mC->setInputParams(scale, size, mean, swapRB, crop);
 		return;
 	}
@@ -10945,8 +10945,8 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	case M_forward: {
 		if (!MatchTypes("s?")) {
 			cv::String outputName = cv::String();
-			if (aParamCount > 0)
-				TokenToVal(*aParam[0], outputName, true);
+			if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[0], outputName);
 			auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 			__retval->mC = mC->forward(outputName);
 			return (void)(aResultToken.SetValue(__retval));
@@ -10956,8 +10956,8 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 			cv::String outputName = cv::String();
 			if (ParamIndexToVal(0, outputBlobs))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], outputName, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], outputName);
 			mC->forward(outputBlobs, outputName);
 			return;
 		}
@@ -10989,8 +10989,8 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	}
 	case M_forwardAsync: {
 		cv::String outputName = cv::String();
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], outputName, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], outputName);
 		auto __retval = (AsyncArray*)AsyncArray::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::AsyncArray>(mC->forwardAsync(outputName));
 		return (void)(aResultToken.SetValue(__retval));
@@ -11235,8 +11235,8 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 		int numParam = 0;
 		if (ParamIndexToVal(0, layer))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], numParam, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], numParam);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getParam(layer, numParam);
 		return (void)(aResultToken.SetValue(__retval));
@@ -11311,12 +11311,12 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 		double scalefactor = 1.0;
 		if (ParamIndexToVal(0, blob))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], name, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], scalefactor, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], mean, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], name);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], scalefactor);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], mean);
 		mC->setInput(blob, name, scalefactor, mean);
 		return;
 	}
@@ -11379,8 +11379,8 @@ void dnn_SegmentationModel::Invoke(ResultToken& aResultToken, int aID, int aFlag
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::SegmentationModel(model, config);
 			return;
 		}
@@ -11511,8 +11511,8 @@ void dnn_TextDetectionModel_DB::Invoke(ResultToken& aResultToken, int aID, int a
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::TextDetectionModel_DB(model, config);
 			return;
 		}
@@ -11593,8 +11593,8 @@ void dnn_TextDetectionModel_EAST::Invoke(ResultToken& aResultToken, int aID, int
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::TextDetectionModel_EAST(model, config);
 			return;
 		}
@@ -11649,8 +11649,8 @@ void dnn_TextRecognitionModel::Invoke(ResultToken& aResultToken, int aID, int aF
 			cv::String model, config = "";
 			if (ParamIndexToVal(0, model))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], config, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], config);
 			mC = new cv::dnn::TextRecognitionModel(model, config);
 			return;
 		}
@@ -11696,8 +11696,8 @@ void dnn_TextRecognitionModel::Invoke(ResultToken& aResultToken, int aID, int aF
 		int beamSize, vocPruneSize = 0;
 		if (ParamIndexToVal(0, beamSize))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], vocPruneSize, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], vocPruneSize);
 		mC->setDecodeOptsCTCPrefixBeamSearch(beamSize, vocPruneSize);
 		aResultToken.SetValue(this);
 		AddRef();
@@ -11744,8 +11744,8 @@ void flann_Index::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 				_o_return_result;
 			//if (ParamIndexToVal(1, params))
 				//_o_return_result;
-			if (aParamCount > 2)
-				TokenToVal(*aParam[2], distType, true);
+			if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[2], distType);
 			mC = new cv::flann::Index(features, params, (cvflann::flann_distance_t)distType);
 			return;
 		}
@@ -11760,8 +11760,8 @@ void flann_Index::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			_o_return_result;
 		//if (ParamIndexToVal(1, params))
 			//_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], distType, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], distType);
 		mC->build(features, params, (cvflann::flann_distance_t)distType);
 		return;
 	}
@@ -11908,8 +11908,8 @@ void gapi_ie_PyParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 			_o_return_result;
 		if (ParamIndexToVal(1, data))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], hint, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], hint);
 		auto __retval = (gapi_ie_PyParams*)gapi_ie_PyParams::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::makePtr<cv::gapi::ie::PyParams>(mC->constInput(layer_name, data, (cv::gapi::ie::TraitAs)hint));
 		return (void)(aResultToken.SetValue(__retval));
@@ -12006,10 +12006,10 @@ void ml_ANN_MLP::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		int type;
 		if (ParamIndexToVal(0, type))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], param1, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], param2, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], param1);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], param2);
 		mC->setActivationFunction(type, param1, param2);
 		return;
 	}
@@ -12109,10 +12109,10 @@ void ml_ANN_MLP::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 		int method;
 		if (ParamIndexToVal(0, method))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], param1, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], param2, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], param1);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], param2);
 		mC->setTrainMethod(method, param1, param2);
 		return;
 	}
@@ -12146,8 +12146,8 @@ void ml_Boost::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 		cv::String filepath, nodeName = cv::String();
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], nodeName, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], nodeName);
 		auto __retval = (ml_Boost*)ml_Boost::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
@@ -12228,8 +12228,8 @@ void ml_DTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		cv::String filepath, nodeName = cv::String();
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], nodeName, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], nodeName);
 		auto __retval = (ml_DTrees*)ml_DTrees::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
@@ -12348,8 +12348,8 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 		cv::String filepath, nodeName = cv::String();
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], nodeName, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], nodeName);
 		auto __retval = (ml_EM*)ml_EM::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
@@ -12360,10 +12360,10 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 		int flags = 0;
 		if (ParamIndexToVal(0, samples))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], results, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], results);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
 		auto __retval = (double)mC->predict(samples, results, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12405,16 +12405,16 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 			_o_return_result;
 		if (ParamIndexToVal(1, means0))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], covs0, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], weights0, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], logLikelihoods, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], labels, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], probs, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], covs0);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], weights0);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], logLikelihoods);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], labels);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], probs);
 		auto __retval = (__int64)mC->trainE(samples, means0, covs0, weights0, logLikelihoods, labels, probs);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12423,12 +12423,12 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 		cv::_OutputArray logLikelihoods = cv::noArray(), labels = cv::noArray(), probs = cv::noArray();
 		if (ParamIndexToVal(0, samples))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], logLikelihoods, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], labels, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], probs, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], logLikelihoods);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], labels);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], probs);
 		auto __retval = (__int64)mC->trainEM(samples, logLikelihoods, labels, probs);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12439,12 +12439,12 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 			_o_return_result;
 		if (ParamIndexToVal(1, probs0))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], logLikelihoods, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], labels, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], probs, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], logLikelihoods);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], labels);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], probs);
 		auto __retval = (__int64)mC->trainM(samples, probs0, logLikelihoods, labels, probs);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12472,10 +12472,10 @@ void ml_KNearest::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 			_o_return_result;
 		if (ParamIndexToVal(2, results))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], neighborResponses, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], dist, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], neighborResponses);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], dist);
 		auto __retval = (double)mC->findNearest(samples, k, results, neighborResponses, dist);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12578,8 +12578,8 @@ void ml_LogisticRegression::Invoke(ResultToken& aResultToken, int aID, int aFlag
 		cv::String filepath, nodeName = cv::String();
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], nodeName, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], nodeName);
 		auto __retval = (ml_LogisticRegression*)ml_LogisticRegression::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
@@ -12590,10 +12590,10 @@ void ml_LogisticRegression::Invoke(ResultToken& aResultToken, int aID, int aFlag
 		int flags = 0;
 		if (ParamIndexToVal(0, samples))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], results, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], results);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
 		auto __retval = (double)mC->predict(samples, results, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12657,8 +12657,8 @@ void ml_NormalBayesClassifier::Invoke(ResultToken& aResultToken, int aID, int aF
 		cv::String filepath, nodeName = cv::String();
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], nodeName, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], nodeName);
 		auto __retval = (ml_NormalBayesClassifier*)ml_NormalBayesClassifier::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
@@ -12673,8 +12673,8 @@ void ml_NormalBayesClassifier::Invoke(ResultToken& aResultToken, int aID, int aF
 			_o_return_result;
 		if (ParamIndexToVal(2, outputProbs))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], flags, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], flags);
 		auto __retval = (double)mC->predictProb(inputs, outputs, outputProbs, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -12690,12 +12690,12 @@ void ml_ParamGrid::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		new (&mC) cv::Ptr<cv::ml::ParamGrid>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		double minVal = 0., maxVal = 0., logstep = 1.;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], minVal, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], maxVal, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], logstep, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], minVal);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], maxVal);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], logstep);
 		mC = cv::ml::ParamGrid::create(minVal, maxVal, logstep);
 		return;
 	}
@@ -12751,8 +12751,8 @@ void ml_RTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		cv::String filepath, nodeName = cv::String();
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], nodeName, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], nodeName);
 		auto __retval = (ml_RTrees*)ml_RTrees::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
@@ -12952,22 +12952,22 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 			_o_return_result;
 		if (ParamIndexToVal(2, responses))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], kFold, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], Cgrid, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], gammaGrid, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], pGrid, true);
-		if (aParamCount > 7)
-			TokenToVal(*aParam[7], nuGrid, true);
-		if (aParamCount > 8)
-			TokenToVal(*aParam[8], coeffGrid, true);
-		if (aParamCount > 9)
-			TokenToVal(*aParam[9], degreeGrid, true);
-		if (aParamCount > 10)
-			TokenToVal(*aParam[10], (char&)balanced, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], kFold);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], Cgrid);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], gammaGrid);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], pGrid);
+		if (aParamCount > 7 && aParam[7]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[7], nuGrid);
+		if (aParamCount > 8 && aParam[8]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[8], coeffGrid);
+		if (aParamCount > 9 && aParam[9]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[9], degreeGrid);
+		if (aParamCount > 10 && aParam[10]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[10], (char&)balanced);
 		auto __retval = (__int64)mC->trainAuto(samples, layout, responses, kFold, Cgrid, gammaGrid, pGrid, nuGrid, coeffGrid, degreeGrid, balanced);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13022,8 +13022,8 @@ void ml_SVMSGD::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 		cv::String filepath, nodeName = cv::String();
 		if (ParamIndexToVal(0, filepath))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], nodeName, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], nodeName);
 		auto __retval = (ml_SVMSGD*)ml_SVMSGD::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->load(filepath, nodeName);
 		return (void)(aResultToken.SetValue(__retval));
@@ -13051,10 +13051,10 @@ void ml_SVMSGD::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	}
 	case M_setOptimalParameters: {
 		int svmsgdType = cv::ml::SVMSGD::ASGD, marginType = cv::ml::SVMSGD::SOFT_MARGIN;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], svmsgdType, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], marginType, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], svmsgdType);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], marginType);
 		mC->setOptimalParameters(svmsgdType, marginType);
 		return;
 	}
@@ -13121,10 +13121,10 @@ void ml_StatModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		int flags = 0;
 		if (ParamIndexToVal(0, samples))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], results, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], flags, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], results);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], flags);
 		auto __retval = (double)mC->predict(samples, results, flags);
 		return (void)(aResultToken.SetValue(__retval));
 	}
@@ -13134,8 +13134,8 @@ void ml_StatModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			int flags = 0;
 			if (ParamIndexToVal(0, trainData))
 				_o_return_result;
-			if (aParamCount > 1)
-				TokenToVal(*aParam[1], flags, true);
+			if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+				TokenToVal(*aParam[1], flags);
 			auto __retval = (__int64)mC->train(trainData, flags);
 			return (void)(aResultToken.SetValue(__retval));
 		}
@@ -13173,14 +13173,14 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 			_o_return_result;
 		if (ParamIndexToVal(2, responses))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], varIdx, true);
-		if (aParamCount > 4)
-			TokenToVal(*aParam[4], sampleIdx, true);
-		if (aParamCount > 5)
-			TokenToVal(*aParam[5], sampleWeights, true);
-		if (aParamCount > 6)
-			TokenToVal(*aParam[6], varType, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], varIdx);
+		if (aParamCount > 4 && aParam[4]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[4], sampleIdx);
+		if (aParamCount > 5 && aParam[5]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[5], sampleWeights);
+		if (aParamCount > 6 && aParam[6]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[6], varType);
 		mC = cv::ml::TrainData::create(samples, layout, responses, varIdx, sampleIdx, sampleWeights, varType);
 		return;
 	}
@@ -13357,12 +13357,12 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	case M_getTrainSamples: {
 		bool compressSamples = true, compressVars = true;
 		int layout = cv::ml::ROW_SAMPLE;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], layout, true);
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)compressSamples, true);
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)compressVars, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], layout);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)compressSamples);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)compressVars);
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = mC->getTrainSamples(layout, compressSamples, compressVars);
 		return (void)(aResultToken.SetValue(__retval));
@@ -13402,8 +13402,8 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		int count;
 		if (ParamIndexToVal(0, count))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)shuffle, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)shuffle);
 		mC->setTrainTestSplit(count, shuffle);
 		return;
 	}
@@ -13412,8 +13412,8 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 		double ratio;
 		if (ParamIndexToVal(0, ratio))
 			_o_return_result;
-		if (aParamCount > 1)
-			TokenToVal(*aParam[1], (char&)shuffle, true);
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[1], (char&)shuffle);
 		mC->setTrainTestSplitRatio(ratio, shuffle);
 		return;
 	}
@@ -13763,8 +13763,8 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 			_o_return_result;
 		if (ParamIndexToVal(2, gradient_magnitude))
 			_o_return_result;
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], image, true);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], image);
 		auto __retval = (segmentation_IntelligentScissorsMB*)segmentation_IntelligentScissorsMB::sPrototype->New(g_invalidparam, 1);
 		mC->applyImageFeatures(non_edge, gradient_direction, gradient_magnitude, image);
 		aResultToken.SetValue(this);
@@ -13786,8 +13786,8 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 			_o_return_result;
 		if (ParamIndexToVal(1, contour))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], (char&)backward, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], (char&)backward);
 		mC->getContour(targetPt, contour, backward);
 		return;
 	}
@@ -13799,10 +13799,10 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 			_o_return_result;
 		if (ParamIndexToVal(1, threshold2))
 			_o_return_result;
-		if (aParamCount > 2)
-			TokenToVal(*aParam[2], apertureSize, true);
-		if (aParamCount > 3)
-			TokenToVal(*aParam[3], (char&)L2gradient, true);
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[2], apertureSize);
+		if (aParamCount > 3 && aParam[3]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[3], (char&)L2gradient);
 		mC->setEdgeFeatureCannyParameters(threshold1, threshold2, apertureSize, L2gradient);
 		aResultToken.SetValue(this);
 		AddRef();
@@ -13810,8 +13810,8 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 	}
 	case M_setEdgeFeatureZeroCrossingParameters: {
 		float gradient_magnitude_min_value = 0.0f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], gradient_magnitude_min_value, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], gradient_magnitude_min_value);
 		mC->setEdgeFeatureZeroCrossingParameters(gradient_magnitude_min_value);
 		aResultToken.SetValue(this);
 		AddRef();
@@ -13819,8 +13819,8 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 	}
 	case M_setGradientMagnitudeMaxLimit: {
 		float gradient_magnitude_threshold_max = 0.0f;
-		if (aParamCount > 0)
-			TokenToVal(*aParam[0], gradient_magnitude_threshold_max, true);
+		if (aParamCount > 0 && aParam[0]->symbol != SYM_MISSING)
+			TokenToVal(*aParam[0], gradient_magnitude_threshold_max);
 		mC->setGradientMagnitudeMaxLimit(gradient_magnitude_threshold_max);
 		aResultToken.SetValue(this);
 		AddRef();

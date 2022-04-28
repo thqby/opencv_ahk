@@ -47,7 +47,7 @@ public:
 		}
 		case M___New: {
 			new (&mC) std::vector<T>;
-			mFlags = cv::_InputOutputArray(mC).getFlags();
+			mFlags = cv::_InputArray(mC).getFlags();
 			mPtr = &mC;
 			if (aParamCount == 0 || aParam[0] == g_invalid)return;
 			if (aParamCount == 1) {
