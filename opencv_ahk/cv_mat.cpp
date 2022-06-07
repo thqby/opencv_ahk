@@ -64,6 +64,22 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 			}
 			new (&mC) cv::Mat(obj1, roi);
 		}
+		else if (aParamCount == 1) {
+			ExprTokenType t;
+			if (aParam[0]->symbol == SYM_VAR)
+				g_ahkapi->VarToToken(aParam[0]->var, t);
+			else t = *aParam[0];
+			if (t.symbol == SYM_INTEGER && (void*)t.value_int64 > (void*)65536) {
+				try {
+					mC = *(cv::Mat*)(t.value_int64);
+				}
+				catch (const std::exception&) {
+					aResultToken.result = g_ahkapi->Error(_T("invalid cv::Mat pointer"));
+				}
+			}
+			else if ((__result = TokenToVal(t, mC)) != CONDITION_TRUE)
+				_o_return_result;				
+		}
 		else
 			aResultToken.result = g_ahkapi->Error(_T("invalid param count"));
 		return;
@@ -513,6 +529,22 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 				_o_return_result;
 			}
 			new (&mC) cv::UMat(obj1, roi);
+		}
+		else if (aParamCount == 1) {
+			ExprTokenType t;
+			if (aParam[0]->symbol == SYM_VAR)
+				g_ahkapi->VarToToken(aParam[0]->var, t);
+			else t = *aParam[0];
+			if (t.symbol == SYM_INTEGER && (void*)t.value_int64 > (void*)65536) {
+				try {
+					mC = *(cv::UMat*)(t.value_int64);
+				}
+				catch (const std::exception&) {
+					aResultToken.result = g_ahkapi->Error(_T("invalid cv::UMat pointer"));
+				}
+			}
+			else if ((__result = TokenToVal(t, mC)) != CONDITION_TRUE)
+				_o_return_result;
 		}
 		else
 			aResultToken.result = g_ahkapi->Error(_T("invalid param count"));
