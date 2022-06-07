@@ -604,6 +604,8 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 		param.SetValue(_T("cv"));
 		Object* _cv = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Module, params, 1);
 		ExprTokenType o{};
+		if (api->Script_GetVar(_T("Array"), param))
+			api->Object_SetProp(_cv, _T("Array"), param, true);
 
 		// init classes
 		{
