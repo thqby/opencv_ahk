@@ -24,25 +24,22 @@
     <ClInclude Include="cv_ahk.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="cv_mat.h">
+    <ClInclude Include="cv_class.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="cv_func.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="util.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="cv_class.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="cvobj.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
+    <ClInclude Include="cv_mat.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="TextDraw.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,25 +53,22 @@
     <ClCompile Include="cv_ahk.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="cv_mat.cpp">
+    <ClCompile Include="cv_class.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="cv_func.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="util.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="cv_class.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="cvobj.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector.cpp">
+    <ClCompile Include="cv_mat.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="TextDraw.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,6 @@
 #include "util.h"
 #include "cv_class.h"
 #include <ahkapi.h>
-#include "cvobj.h"
 #include "Vector.h"
 #include "TextDraw.h"
 
@@ -152,9 +151,11 @@ BIFn(eigen, 2, 3, CV_FUNC),
 BIFn(eigenNonSymmetric, 3, 3, CV_FUNC),
 BIFn(ellipse, 3, 10, CV_FUNC),
 BIFn(ellipse2Poly, 7, 7, CV_FUNC),
+#ifdef HAS_GAPI
 BIFn(empty_array_desc, 0, 0, CV_FUNC),
 BIFn(empty_gopaque_desc, 0, 0, CV_FUNC),
 BIFn(empty_scalar_desc, 0, 0, CV_FUNC),
+#endif
 BIFn(equalizeHist, 2, 2, CV_FUNC),
 BIFn(erode, 3, 7, CV_FUNC),
 BIFn(estimateAffine2D, 2, 8, CV_FUNC),
@@ -450,6 +451,7 @@ BIFi(undistortPoints, 4, 6, CV_FISHEYE_FUNC, FID_undistortPoints),
 };
 
 
+#ifdef HAS_GAPI
 FuncEntry CV_GAPI_Funcs[] = {
 BIFn(BGR2RGB, 1, 1, CV_GAPI_FUNC),
 BIFn(RGB2Gray, 1, 1, CV_GAPI_FUNC),
@@ -497,6 +499,7 @@ BIFi(kernels, 0, 0, CV_GAPI_RENDER_OCV_FUNC, FID_ocv_kernels),
 FuncEntry CV_GAPI_STREAMING_Funcs[] = {
 BIFn(size, 1, 1, CV_GAPI_STREAMING_FUNC),
 };
+#endif
 
 /*
 FuncEntry CV_GAPI_WIP_Funcs[] = {
@@ -601,6 +604,11 @@ BIFn(isBackendBuiltIn, 1, 1, CV_VIDEOIO_REGISTRY_FUNC),
 extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 	if (g_ahkapi = api) {
 		ExprTokenType param, * params[] = { &param };
+		constexpr auto v = sizeof(Object) == 3 * sizeof(void *) + 8 ? '0' : '1';
+		if (!g_ahkapi->Script_GetVar(_T("A_AhkVersion"), param) || param.symbol != SYM_STRING || param.marker[2] != v) {
+			g_ahkapi->Error(_T("Ahk version mismatch."));
+			return nullptr;
+		}
 		param.SetValue(_T("cv"));
 		Object* _cv = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Module, params, 1);
 		ExprTokenType o{};
@@ -663,10 +671,12 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(FileStorage);
 			ADDCLASS(FlannBasedMatcher, DescriptorMatcher::sPrototype);
 			ADDCLASS(GFTTDetector, Feature2D::sPrototype);
+#ifdef HAS_GAPI
 			ADDCLASS(GFrame);
 			ADDCLASS(GMat);
 			ADDCLASS(GScalar);
 			ADDCLASS(GStreamingCompiled);
+#endif
 			ADDCLASS(GeneralizedHough, Algorithm::sPrototype);
 			DELLASTCLASS;
 			ADDCLASS(GeneralizedHoughBallard, GeneralizedHough::sPrototype);
@@ -768,8 +778,10 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(dnn_TextDetectionModel_EAST, dnn_TextDetectionModel::sPrototype);
 			ADDCLASS(dnn_TextRecognitionModel, dnn_Model::sPrototype);
 			ADDCLASS(flann_Index);
+#ifdef HAS_GAPI
 			ADDCLASS(gapi_GKernelPackage);
 			ADDCLASS(gapi_ie_PyParams);
+#endif
 			ADDCLASS(ml_StatModel, Algorithm::sPrototype);
 			DELLASTCLASS;
 			ADDCLASS(ml_ANN_MLP, ml_StatModel::sPrototype);
@@ -788,10 +800,12 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(ocl_OpenCLExecutionContext);
 			ADDCLASS(segmentation_IntelligentScissorsMB);
 			ADDCLASS(CirclesGridFinderParameters);
+#ifdef HAS_GAPI
 			ADDCLASS(GArrayDesc);
 			ADDCLASS(GMatDesc);
 			ADDCLASS(GOpaqueDesc);
 			ADDCLASS(GScalarDesc);
+#endif
 			ADDCLASS(HOGDescriptor);
 			ADDCLASS(QRCodeEncoder_Params);
 			ADDCLASS(SimpleBlobDetector_Params);
@@ -805,6 +819,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(detail_ProjectorBase);
 			ADDCLASS(detail_SphericalProjector);
 			ADDCLASS(dnn_DictValue);
+#ifdef HAS_GAPI
 			ADDCLASS(gapi_GNetPackage);
 			ADDCLASS(gapi_GNetParam);
 			ADDCLASS(gapi_streaming_queue_capacity);
@@ -815,11 +830,13 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDCLASS(gapi_wip_draw_Poly);
 			ADDCLASS(gapi_wip_draw_Rect);
 			ADDCLASS(gapi_wip_draw_Text);
+#endif
 
 			ADDCLASS(RNG);
+#ifdef HAS_GAPI
 			ADDCLASS(GOpaque_Size);
 			ADDCLASS(GOpaque_Rect);
-
+#endif
 			for (; del_count > 0;) {
 				ResultToken result;
 				--del_count;
@@ -895,6 +912,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDFUNCS(DETAIL_Funcs, "detail");
 			ADDFUNCS(DNN_Funcs, "dnn");
 			ADDFUNCS(FISHEYE_Funcs, "fisheye");
+#ifdef HAS_GAPI
 			ADDFUNCS(GAPI_Funcs, "gapi");
 			ADDFUNCS(GAPI_CORE_CPU_Funcs, "gapi_core_cpu");
 			ADDFUNCS(GAPI_CORE_FLUID_Funcs, "gapi_core_fluid");
@@ -902,6 +920,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			ADDFUNCS(GAPI_IE_Funcs, "gapi_ie");
 			ADDFUNCS(GAPI_RENDER_OCV_Funcs, "gapi_render_ocv");
 			ADDFUNCS(GAPI_STREAMING_Funcs, "gapi_streaming");
+#endif
 			//ADDFUNCS(GAPI_WIP_Funcs, "gapi_wip");
 			//ADDFUNCS(GAPI_WIP_DRAW_Funcs, "gapi_wip_draw");
 			ADDFUNCS(IPP_Funcs, "ipp");
@@ -1931,6 +1950,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[1], GEMM_1_T, cv::GEMM_1_T);
 			SETOWNPROP(objs[1], GEMM_2_T, cv::GEMM_2_T);
 			SETOWNPROP(objs[1], GEMM_3_T, cv::GEMM_3_T);
+#ifdef HAS_GAPI
 			objs[2] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[1], GFluidKernel, objs[2]);
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
@@ -1945,6 +1965,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[2], GMAT, cv::GShape::GMAT);
 			SETOWNPROP(objs[2], GOPAQUE, cv::GShape::GOPAQUE);
 			SETOWNPROP(objs[2], GSCALAR, cv::GShape::GSCALAR);
+#endif
 			SETOWNPROP(objs[1], HISTCMP_BHATTACHARYYA, cv::HISTCMP_BHATTACHARYYA);
 			SETOWNPROP(objs[1], HISTCMP_CHISQR, cv::HISTCMP_CHISQR);
 			SETOWNPROP(objs[1], HISTCMP_CHISQR_ALT, cv::HISTCMP_CHISQR_ALT);
@@ -2090,6 +2111,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[2], MAGIC_VAL, cv::Mat::MAGIC_VAL);
 			SETOWNPROP(objs[2], SUBMATRIX_FLAG, cv::Mat::SUBMATRIX_FLAG);
 			SETOWNPROP(objs[2], TYPE_MASK, cv::Mat::TYPE_MASK);
+#ifdef HAS_GAPI
 			objs[2] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[1], MediaFormat, objs[2]);
 			SETOWNPROP(objs[2], BGR, cv::MediaFormat::BGR);
@@ -2100,6 +2122,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP2(objs[2], Access, objs[3]);
 			SETOWNPROP(objs[3], R, cv::MediaFrame::Access::R);
 			SETOWNPROP(objs[3], W, cv::MediaFrame::Access::W);
+#endif
 			SETOWNPROP(objs[1], NEIGH_FLANN_KNN, cv::NEIGH_FLANN_KNN);
 			SETOWNPROP(objs[1], NEIGH_FLANN_RADIUS, cv::NEIGH_FLANN_RADIUS);
 			SETOWNPROP(objs[1], NEIGH_GRID, cv::NEIGH_GRID);
@@ -2209,12 +2232,14 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[1], RETR_LIST, cv::RETR_LIST);
 			SETOWNPROP(objs[1], RETR_TREE, cv::RETR_TREE);
 			SETOWNPROP(objs[1], RHO, cv::RHO);
+#ifdef HAS_GAPI
 			objs[2] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[1], RMat, objs[2]);
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[2], Access, objs[3]);
 			SETOWNPROP(objs[3], R, cv::RMat::Access::R);
 			SETOWNPROP(objs[3], W, cv::RMat::Access::W);
+#endif
 			objs[2] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[1], RNG, objs[2]);
 			SETOWNPROP(objs[2], NORMAL, cv::RNG::NORMAL);
@@ -2450,6 +2475,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[2], WARP_SHUFFLE_FUNCTIONS, cv::cuda::WARP_SHUFFLE_FUNCTIONS);
 			objs[2] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[1], detail, objs[2]);
+#ifdef HAS_GAPI
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[2], ArgKind, objs[3]);
 			SETOWNPROP(objs[3], GARRAY, cv::detail::ArgKind::GARRAY);
@@ -2461,6 +2487,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[3], GSCALAR, cv::detail::ArgKind::GSCALAR);
 			SETOWNPROP(objs[3], OPAQUE, cv::detail::ArgKind::OPAQUE_VAL);
 			SETOWNPROP(objs[3], OPAQUE_VAL, cv::detail::ArgKind::OPAQUE_VAL);
+#endif
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[2], Blender, objs[3]);
 			SETOWNPROP(objs[3], FEATHER, cv::detail::Blender::FEATHER);
@@ -2481,6 +2508,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP2(objs[2], GraphCutSeamFinderBase, objs[3]);
 			SETOWNPROP(objs[3], COST_COLOR, cv::detail::GraphCutSeamFinderBase::COST_COLOR);
 			SETOWNPROP(objs[3], COST_COLOR_GRAD, cv::detail::GraphCutSeamFinderBase::COST_COLOR_GRAD);
+#ifdef HAS_GAPI
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[2], OpaqueKind, objs[3]);
 			SETOWNPROP(objs[3], CV_BOOL, cv::detail::OpaqueKind::CV_BOOL);
@@ -2498,6 +2526,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[3], CV_STRING, cv::detail::OpaqueKind::CV_STRING);
 			SETOWNPROP(objs[3], CV_UINT64, cv::detail::OpaqueKind::CV_UINT64);
 			SETOWNPROP(objs[3], CV_UNKNOWN, cv::detail::OpaqueKind::CV_UNKNOWN);
+#endif
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[2], SeamFinder, objs[3]);
 			SETOWNPROP(objs[3], DP_SEAM, cv::detail::SeamFinder::DP_SEAM);
@@ -2573,6 +2602,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[2], FLANN_INDEX_TYPE_BOOL, cv::flann::FLANN_INDEX_TYPE_BOOL);
 			SETOWNPROP(objs[2], FLANN_INDEX_TYPE_STRING, cv::flann::FLANN_INDEX_TYPE_STRING);
 			SETOWNPROP(objs[2], LAST_VALUE_FLANN_INDEX_TYPE, cv::flann::LAST_VALUE_FLANN_INDEX_TYPE);
+#ifdef HAS_GAPI
 			objs[2] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[1], gapi, objs[2]);
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
@@ -2640,6 +2670,7 @@ extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 			SETOWNPROP(objs[5], DX11, cv::gapi::wip::onevpl::AccelType::DX11);
 			SETOWNPROP(objs[5], HOST, cv::gapi::wip::onevpl::AccelType::HOST);
 			SETOWNPROP(objs[5], LAST_VALUE, cv::gapi::wip::onevpl::AccelType::LAST_VALUE);
+#endif
 			objs[2] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);
 			SETOWNPROP2(objs[1], ml, objs[2]);
 			objs[3] = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Object);

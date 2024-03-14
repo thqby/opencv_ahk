@@ -10,7 +10,7 @@ void CirclesGridFinderParameters::Invoke(ResultToken& aResultToken, int aID, int
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~CirclesGridFinderParameters(); mBase = nullptr; return;
+	case M___Delete: return;
 	case M___New: new (&mC) cv::CirclesGridFinderParameters; return;
 	case P_densityNeighborhoodSize: {
 		if (aFlags & IT_SET) {
@@ -165,11 +165,12 @@ void CirclesGridFinderParameters::Invoke(ResultToken& aResultToken, int aID, int
 	}
 }
 
+#ifdef HAS_GAPI
 void GArrayDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GArrayDesc(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::GArrayDesc; return;
 	}
 }
@@ -178,7 +179,7 @@ void GMatDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GMatDesc(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::GMatDesc;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -337,7 +338,7 @@ void GOpaqueDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GOpaqueDesc(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::GOpaqueDesc; return;
 	}
 }
@@ -346,16 +347,17 @@ void GScalarDesc::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GScalarDesc(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::GScalarDesc; return;
 	}
 }
+#endif
 
 void HOGDescriptor::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~HOGDescriptor(); mBase = nullptr; return;
+	case M___Delete: mC.~HOGDescriptor(); return;
 	case M___New: {
 		new (&mC) cv::HOGDescriptor;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -689,7 +691,7 @@ void QRCodeEncoder_Params::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~QRCodeEncoder_Params(); mBase = nullptr; return;
+	case M___Delete: return;
 	case M___New: new (&mC) cv::QRCodeEncoder::Params; return;
 	case P_version: {
 		if (aFlags & IT_SET) {
@@ -738,7 +740,7 @@ void SimpleBlobDetector_Params::Invoke(ResultToken& aResultToken, int aID, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~SimpleBlobDetector_Params(); mBase = nullptr; return;
+	case M___Delete: return;
 	case M___New: new (&mC) cv::SimpleBlobDetector::Params; return;
 	case P_thresholdStep: {
 		if (aFlags & IT_SET) {
@@ -937,7 +939,7 @@ void TrackerDaSiamRPN_Params::Invoke(ResultToken& aResultToken, int aID, int aFl
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TrackerDaSiamRPN_Params(); mBase = nullptr; return;
+	case M___Delete: return;
 	case M___New: new (&mC) cv::TrackerDaSiamRPN::Params; return;
 	case P_model: {
 		if (aFlags & IT_SET) {
@@ -996,7 +998,7 @@ void TrackerGOTURN_Params::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TrackerGOTURN_Params(); mBase = nullptr; return;
+	case M___Delete: mC.modelBin; return;
 	case M___New: new (&mC) cv::TrackerGOTURN::Params; return;
 	case P_modelTxt: {
 		if (aFlags & IT_SET) {
@@ -1025,7 +1027,7 @@ void TrackerMIL_Params::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TrackerMIL_Params(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::TrackerMIL::Params; return;
 	case P_samplerInitInRadius: {
 		if (aFlags & IT_SET) {
@@ -1104,7 +1106,7 @@ void UsacParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~UsacParams(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::UsacParams; return;
 	case P_confidence: {
 		if (aFlags & IT_SET) {
@@ -1223,7 +1225,7 @@ void detail_CameraParams::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_CameraParams(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::detail::CameraParams; return;
 	case M_K: {
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
@@ -1299,7 +1301,7 @@ void detail_ImageFeatures::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_ImageFeatures(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::detail::ImageFeatures; return;
 	case M_getKeypoints: {
 		auto __retval = mC.getKeypoints();
@@ -1353,7 +1355,7 @@ void detail_MatchesInfo::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_MatchesInfo(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::detail::MatchesInfo; return;
 	case M_getInliers: {
 		auto __retval = mC.getInliers();
@@ -1421,7 +1423,7 @@ void detail_ProjectorBase::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_ProjectorBase(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::detail::ProjectorBase; return;
 	case M_setCameraParams: {
 		cv::_InputArray K, R, T;
@@ -1479,7 +1481,7 @@ void detail_SphericalProjector::Invoke(ResultToken& aResultToken, int aID, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_SphericalProjector(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::detail::SphericalProjector; return;
 	case M_mapBackward: {
 		float u, v, x, y;
@@ -1514,7 +1516,7 @@ void dnn_DictValue::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_DictValue(); mBase = nullptr; return;
+	case M___Delete: mC.~DictValue(); return;
 	case M___New: {
 		new (&mC) cv::dnn::DictValue;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -1578,11 +1580,12 @@ void dnn_DictValue::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	}
 }
 
+#ifdef HAS_GAPI
 void gapi_GNetPackage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_GNetPackage(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::gapi::GNetPackage;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -1599,7 +1602,7 @@ void gapi_GNetParam::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_GNetParam(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::gapi::GNetParam; return;
 	}
 }
@@ -1608,7 +1611,7 @@ void gapi_streaming_queue_capacity::Invoke(ResultToken& aResultToken, int aID, i
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_streaming_queue_capacity(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::gapi::streaming::queue_capacity;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -1635,7 +1638,7 @@ void gapi_wip_draw_Circle::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_wip_draw_Circle(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Circle;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -1724,7 +1727,7 @@ void gapi_wip_draw_Image::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_wip_draw_Image(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Image;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -1778,7 +1781,7 @@ void gapi_wip_draw_Line::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_wip_draw_Line(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Line;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -1867,7 +1870,7 @@ void gapi_wip_draw_Mosaic::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_wip_draw_Mosaic(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::gapi::wip::draw::Mosaic; return;
 	case P_mos: {
 		if (aFlags & IT_SET) {
@@ -1906,7 +1909,7 @@ void gapi_wip_draw_Poly::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_wip_draw_Poly(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Poly;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -1983,7 +1986,7 @@ void gapi_wip_draw_Rect::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_wip_draw_Rect(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::gapi::wip::draw::Rect; return;
 	case P_rect: {
 		if (aFlags & IT_SET) {
@@ -2042,7 +2045,7 @@ void gapi_wip_draw_Text::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_wip_draw_Text(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::gapi::wip::draw::Text;
 		if (aParamCount == 0 || aParam[0] == g_invalid) return;
@@ -2153,6 +2156,7 @@ void gapi_wip_draw_Text::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	}
 	}
 }
+#endif
 
 thread_local IAhkApi::Prototype* CirclesGridFinderParameters::sPrototype = nullptr;
 ObjectMember CirclesGridFinderParameters::sMember[] = {
@@ -2175,6 +2179,7 @@ Object_Property_get_set(squareSize),
 Object_Property_get_set(maxRectifiedDistance),
 };
 int CirclesGridFinderParameters::sMemberCount = _countof(sMember);
+#ifdef HAS_GAPI
 thread_local IAhkApi::Prototype* GArrayDesc::sPrototype = nullptr;
 ObjectMember GArrayDesc::sMember[] = {
 Object_Method(__New, 0, NA),
@@ -2210,6 +2215,7 @@ Object_Method(__New, 0, NA),
 Object_Method(__Delete, 0, 0),
 };
 int GScalarDesc::sMemberCount = _countof(sMember);
+#endif
 thread_local IAhkApi::Prototype* HOGDescriptor::sPrototype = nullptr;
 ObjectMember HOGDescriptor::sMember[] = {
 Object_Method(__New, 0, NA),
@@ -2388,6 +2394,8 @@ Object_Method(isReal, 0, 0),
 Object_Method(isString, 0, 0),
 };
 int dnn_DictValue::sMemberCount = _countof(sMember);
+
+#ifdef HAS_GAPI
 thread_local IAhkApi::Prototype* gapi_GNetPackage::sPrototype = nullptr;
 ObjectMember gapi_GNetPackage::sMember[] = {
 Object_Method(__New, 0, NA),
@@ -2485,13 +2493,13 @@ Object_Property_get_set(lt),
 Object_Property_get_set(bottom_left_origin),
 };
 int gapi_wip_draw_Text::sMemberCount = _countof(sMember);
-
+#endif
 
 void AKAZE::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~AKAZE(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AKAZE>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -2602,7 +2610,7 @@ void AffineFeature::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~AffineFeature(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AffineFeature>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -2651,7 +2659,7 @@ void AgastFeatureDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~AgastFeatureDetector(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AgastFeatureDetector>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -2710,7 +2718,7 @@ void Algorithm::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~Algorithm(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Algorithm>;
 		mC = new cv::Algorithm;
@@ -2780,7 +2788,7 @@ void AlignMTB::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~AlignMTB(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AlignMTB>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -2889,7 +2897,7 @@ void AsyncArray::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~AsyncArray(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::AsyncArray>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -2939,7 +2947,7 @@ void BFMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~BFMatcher(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BFMatcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -2959,7 +2967,7 @@ void BOWImgDescriptorExtractor::Invoke(ResultToken& aResultToken, int aID, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~BOWImgDescriptorExtractor(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BOWImgDescriptorExtractor>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3015,7 +3023,7 @@ void BOWKMeansTrainer::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~BOWKMeansTrainer(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BOWKMeansTrainer>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3104,7 +3112,7 @@ void BRISK::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~BRISK(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BRISK>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3222,7 +3230,7 @@ void BackgroundSubtractorKNN::Invoke(ResultToken& aResultToken, int aID, int aFl
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~BackgroundSubtractorKNN(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BackgroundSubtractorKNN>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3313,7 +3321,7 @@ void BackgroundSubtractorMOG2::Invoke(ResultToken& aResultToken, int aID, int aF
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~BackgroundSubtractorMOG2(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::BackgroundSubtractorMOG2>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3472,7 +3480,7 @@ void BaseCascadeClassifier::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~BaseCascadeClassifier(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::BaseCascadeClassifier>; return;
 	}
 }
@@ -3481,7 +3489,7 @@ void CLAHE::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~CLAHE(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::CLAHE>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3550,7 +3558,7 @@ void CalibrateDebevec::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~CalibrateDebevec(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::CalibrateDebevec>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3597,7 +3605,7 @@ void CalibrateRobertson::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~CalibrateRobertson(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::CalibrateRobertson>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3638,7 +3646,7 @@ void CascadeClassifier::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~CascadeClassifier(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::CascadeClassifier>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3811,7 +3819,7 @@ void DISOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~DISOpticalFlow(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::DISOpticalFlow>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -3938,7 +3946,7 @@ void DMatch::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~DMatch(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::DMatch>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4028,7 +4036,7 @@ void DescriptorMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~DescriptorMatcher(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::DescriptorMatcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4268,7 +4276,7 @@ void FaceDetectorYN::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~FaceDetectorYN(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FaceDetectorYN>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4356,7 +4364,7 @@ void FaceRecognizerSF::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~FaceRecognizerSF(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FaceRecognizerSF>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4414,7 +4422,7 @@ void FarnebackOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~FarnebackOpticalFlow(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FarnebackOpticalFlow>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4535,7 +4543,7 @@ void FastFeatureDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~FastFeatureDetector(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FastFeatureDetector>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4594,7 +4602,7 @@ void Feature2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~Feature2D(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Feature2D>;
 		mC = new cv::Feature2D;
@@ -4723,7 +4731,7 @@ void FileNode::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~FileNode(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FileNode>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4822,7 +4830,7 @@ void FileStorage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~FileStorage(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FileStorage>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4979,7 +4987,7 @@ void FlannBasedMatcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~FlannBasedMatcher(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::FlannBasedMatcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -4993,7 +5001,7 @@ void GFTTDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GFTTDetector(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GFTTDetector>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5113,11 +5121,12 @@ void GFTTDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	}
 }
 
+#ifdef HAS_GAPI
 void GFrame::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GFrame(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GFrame>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5131,7 +5140,7 @@ void GMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GMat(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GMat>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5145,7 +5154,7 @@ void GScalar::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GScalar(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GScalar>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5159,7 +5168,7 @@ void GStreamingCompiled::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GStreamingCompiled(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GStreamingCompiled>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5180,6 +5189,7 @@ void GStreamingCompiled::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	}
 	}
 }
+#endif
 
 void GeneralizedHough::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
@@ -5307,7 +5317,7 @@ void GeneralizedHoughBallard::Invoke(ResultToken& aResultToken, int aID, int aFl
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GeneralizedHoughBallard(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GeneralizedHoughBallard>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5343,7 +5353,7 @@ void GeneralizedHoughGuil::Invoke(ResultToken& aResultToken, int aID, int aFlags
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~GeneralizedHoughGuil(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::GeneralizedHoughGuil>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5489,7 +5499,7 @@ void KAZE::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~KAZE(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::KAZE>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5588,7 +5598,7 @@ void KalmanFilter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~KalmanFilter(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::KalmanFilter>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5635,7 +5645,7 @@ void KeyPoint::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~KeyPoint(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::KeyPoint>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5727,7 +5737,7 @@ void LineSegmentDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~LineSegmentDetector(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::LineSegmentDetector>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5782,7 +5792,7 @@ void MSER::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~MSER(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::MSER>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5885,7 +5895,7 @@ void MergeDebevec::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~MergeDebevec(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::MergeDebevec>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -5950,7 +5960,7 @@ void MergeMertens::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~MergeMertens(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::MergeMertens>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6025,7 +6035,7 @@ void MergeRobertson::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~MergeRobertson(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::MergeRobertson>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6069,7 +6079,7 @@ void Moments::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~Moments(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Moments>; 
 		if (aParamCount == 1 && aParam[0] == g_invalid) return;
@@ -6142,7 +6152,7 @@ void ORB::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ORB(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ORB>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6279,7 +6289,7 @@ void PyRotationWarper::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~PyRotationWarper(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::PyRotationWarper>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6408,7 +6418,7 @@ void QRCodeDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~QRCodeDetector(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::QRCodeDetector>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6542,7 +6552,7 @@ void QRCodeEncoder::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~QRCodeEncoder(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::QRCodeEncoder>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6579,7 +6589,7 @@ void SIFT::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~SIFT(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::SIFT>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6631,7 +6641,7 @@ void SimpleBlobDetector::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~SimpleBlobDetector(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::SimpleBlobDetector>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6678,7 +6688,7 @@ void SparsePyrLKOpticalFlow::Invoke(ResultToken& aResultToken, int aID, int aFla
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~SparsePyrLKOpticalFlow(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::SparsePyrLKOpticalFlow>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6766,7 +6776,7 @@ void StereoBM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~StereoBM(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::StereoBM>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -6958,7 +6968,7 @@ void StereoSGBM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~StereoSGBM(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::StereoSGBM>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7050,7 +7060,7 @@ void Stitcher::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~Stitcher(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Stitcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7193,7 +7203,7 @@ void Subdiv2D::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~Subdiv2D(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Subdiv2D>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7422,7 +7432,7 @@ void TickMeter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TickMeter(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TickMeter>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7480,7 +7490,7 @@ void Tonemap::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~Tonemap(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::Tonemap>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7515,7 +7525,7 @@ void TonemapDrago::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TonemapDrago(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TonemapDrago>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7551,7 +7561,7 @@ void TonemapMantiuk::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TonemapMantiuk(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TonemapMantiuk>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7587,7 +7597,7 @@ void TonemapReinhard::Invoke(ResultToken& aResultToken, int aID, int aFlags, Exp
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TonemapReinhard(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TonemapReinhard>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7665,7 +7675,7 @@ void TrackerDaSiamRPN::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TrackerDaSiamRPN(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TrackerDaSiamRPN>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7686,7 +7696,7 @@ void TrackerGOTURN::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TrackerGOTURN(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TrackerGOTURN>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7703,7 +7713,7 @@ void TrackerMIL::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~TrackerMIL(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::TrackerMIL>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7720,7 +7730,7 @@ void VariationalRefinement::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~VariationalRefinement(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::VariationalRefinement>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7814,7 +7824,7 @@ void VideoCapture::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~VideoCapture(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::VideoCapture>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -7985,7 +7995,7 @@ void VideoWriter::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~VideoWriter(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::VideoWriter>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -8216,7 +8226,7 @@ void WarperCreator::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~WarperCreator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::WarperCreator>; return;
 	}
 }
@@ -8225,7 +8235,7 @@ void cuda_BufferPool::Invoke(ResultToken& aResultToken, int aID, int aFlags, Exp
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_BufferPool(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::BufferPool>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -8277,7 +8287,7 @@ void cuda_DeviceInfo::Invoke(ResultToken& aResultToken, int aID, int aFlags, Exp
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_DeviceInfo(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::DeviceInfo>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -8531,7 +8541,7 @@ void cuda_Event::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_Event(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::Event>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -8572,7 +8582,7 @@ void cuda_GpuMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_GpuMat(); mBase = nullptr; return;
+	case M___Delete: mC.~GpuMat(); return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::GpuMat>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9092,7 +9102,7 @@ void cuda_GpuMat_Allocator::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_GpuMat_Allocator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::cuda::GpuMat::Allocator>; return;
 	}
 }
@@ -9101,7 +9111,7 @@ void cuda_GpuMatND::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_GpuMatND(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::cuda::GpuMatND>; return;
 	}
 }
@@ -9110,9 +9120,9 @@ void cuda_HostMem::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_HostMem(); mBase = nullptr; return;
+	case M___Delete: mC.~HostMem(); return;
 	case M___New: {
-		new (&mC) cv::Ptr<cv::cuda::HostMem>;
+		new (&mC) cv::cuda::HostMem;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
 		if (!MatchTypes("o?")) {
 			int alloc_type = cv::cuda::HostMem::AllocType::PAGE_LOCKED;
@@ -9240,7 +9250,7 @@ void cuda_Stream::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_Stream(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::cuda::Stream>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9296,7 +9306,7 @@ void cuda_TargetArchs::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~cuda_TargetArchs(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::cuda::TargetArchs>;	return;
 	case M_has: {
 		int major, minor;
@@ -9368,7 +9378,7 @@ void detail_AffineBasedEstimator::Invoke(ResultToken& aResultToken, int aID, int
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_AffineBasedEstimator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::AffineBasedEstimator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9382,7 +9392,7 @@ void detail_AffineBestOf2NearestMatcher::Invoke(ResultToken& aResultToken, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_AffineBestOf2NearestMatcher(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::AffineBestOf2NearestMatcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9407,7 +9417,7 @@ void detail_BestOf2NearestMatcher::Invoke(ResultToken& aResultToken, int aID, in
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BestOf2NearestMatcher(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BestOf2NearestMatcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9436,7 +9446,7 @@ void detail_BestOf2NearestRangeMatcher::Invoke(ResultToken& aResultToken, int aI
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BestOf2NearestRangeMatcher(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BestOf2NearestRangeMatcher>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9463,7 +9473,7 @@ void detail_Blender::Invoke(ResultToken& aResultToken, int aID, int aFlags, Expr
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_Blender(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::Blender>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9527,7 +9537,7 @@ void detail_BlocksChannelsCompensator::Invoke(ResultToken& aResultToken, int aID
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BlocksChannelsCompensator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BlocksChannelsCompensator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9548,7 +9558,7 @@ void detail_BlocksCompensator::Invoke(ResultToken& aResultToken, int aID, int aF
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BlocksCompensator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BlocksChannelsCompensator>;
 		int bl_width = 32, bl_height = 32, nr_feeds = 1;
@@ -9659,7 +9669,7 @@ void detail_BlocksGainCompensator::Invoke(ResultToken& aResultToken, int aID, in
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BlocksGainCompensator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BlocksGainCompensator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9727,7 +9737,7 @@ void detail_BundleAdjusterAffine::Invoke(ResultToken& aResultToken, int aID, int
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BundleAdjusterAffine(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterAffine>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9741,7 +9751,7 @@ void detail_BundleAdjusterAffinePartial::Invoke(ResultToken& aResultToken, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BundleAdjusterAffinePartial(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterAffinePartial>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9796,7 +9806,7 @@ void detail_BundleAdjusterRay::Invoke(ResultToken& aResultToken, int aID, int aF
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BundleAdjusterRay(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterRay>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9810,7 +9820,7 @@ void detail_BundleAdjusterReproj::Invoke(ResultToken& aResultToken, int aID, int
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_BundleAdjusterReproj(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::BundleAdjusterReproj>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9824,7 +9834,7 @@ void detail_ChannelsCompensator::Invoke(ResultToken& aResultToken, int aID, int 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_ChannelsCompensator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::ChannelsCompensator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -9897,7 +9907,7 @@ void detail_DpSeamFinder::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_DpSeamFinder(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::DpSeamFinder>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10019,7 +10029,7 @@ void detail_FeatherBlender::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_FeatherBlender(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::FeatherBlender>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10145,7 +10155,7 @@ void detail_GainCompensator::Invoke(ResultToken& aResultToken, int aID, int aFla
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_GainCompensator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::GainCompensator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10226,7 +10236,7 @@ void detail_GraphCutSeamFinder::Invoke(ResultToken& aResultToken, int aID, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_GraphCutSeamFinder(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::GraphCutSeamFinder>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10260,7 +10270,7 @@ void detail_HomographyBasedEstimator::Invoke(ResultToken& aResultToken, int aID,
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_HomographyBasedEstimator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::HomographyBasedEstimator>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10277,7 +10287,7 @@ void detail_MultiBandBlender::Invoke(ResultToken& aResultToken, int aID, int aFl
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_MultiBandBlender(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::MultiBandBlender>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10337,7 +10347,7 @@ void detail_NoBundleAdjuster::Invoke(ResultToken& aResultToken, int aID, int aFl
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_NoBundleAdjuster(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::NoBundleAdjuster>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10351,7 +10361,7 @@ void detail_NoExposureCompensator::Invoke(ResultToken& aResultToken, int aID, in
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_NoExposureCompensator(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::NoExposureCompensator>;
 		mC = new cv::detail::NoExposureCompensator;
@@ -10398,7 +10408,7 @@ void detail_NoSeamFinder::Invoke(ResultToken& aResultToken, int aID, int aFlags,
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_NoSeamFinder(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::NoSeamFinder>;
 		mC = new cv::detail::NoSeamFinder;
@@ -10454,7 +10464,7 @@ void detail_SeamFinder::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_SeamFinder(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::SeamFinder>;
 		int type;
@@ -10490,7 +10500,7 @@ void detail_Timelapser::Invoke(ResultToken& aResultToken, int aID, int aFlags, E
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_Timelapser(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::Timelapser>;
 		int type;
@@ -10535,7 +10545,7 @@ void detail_TimelapserCrop::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_TimelapserCrop(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::detail::TimelapserCrop>; return;
 	}
 }
@@ -10544,7 +10554,7 @@ void detail_VoronoiSeamFinder::Invoke(ResultToken& aResultToken, int aID, int aF
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~detail_VoronoiSeamFinder(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::detail::VoronoiSeamFinder>;
 		mC = new cv::detail::VoronoiSeamFinder;
@@ -10575,7 +10585,7 @@ void dnn_ClassificationModel::Invoke(ResultToken& aResultToken, int aID, int aFl
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_ClassificationModel(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::ClassificationModel>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10622,7 +10632,7 @@ void dnn_DetectionModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_DetectionModel(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::DetectionModel>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10698,7 +10708,7 @@ void dnn_KeypointsModel::Invoke(ResultToken& aResultToken, int aID, int aFlags, 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_KeypointsModel(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::KeypointsModel>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10738,7 +10748,7 @@ void dnn_Layer::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_Layer(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::Layer>;
 		mC = new cv::dnn::Layer;
@@ -10768,7 +10778,7 @@ void dnn_Model::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_Model(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::Model>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -10904,7 +10914,7 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_Net(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::Net>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -11231,9 +11241,15 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 		return;
 	}
 	case M_getParam: {
-		cv::dnn::Net::LayerId layer;
+		int layer;
 		int numParam = 0;
-		if (ParamIndexToVal(0, layer))
+		if (aParam[0]->symbol == SYM_STRING) {
+			cv::String layerName;
+			if (ParamIndexToVal(0, layerName))
+				_o_return_result;
+			layer = mC->getLayerId(layerName);
+		}
+		else if (ParamIndexToVal(0, layer))
 			_o_return_result;
 		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING)
 			TokenToVal(*aParam[1], numParam);
@@ -11339,9 +11355,14 @@ void dnn_Net::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTy
 	}
 	case M_setParam: {
 		cv::Mat blob;
-		cv::dnn::Net::LayerId layer;
+		int layer;
 		int numParam;
-		if (ParamIndexToVal(0, layer))
+		if (aParam[0]->symbol == SYM_STRING) {
+			cv::String layerName;
+			if (ParamIndexToVal(0, layerName))
+				_o_return_result;
+			layer = mC->getLayerId(layerName);
+		} else if (ParamIndexToVal(0, layer))
 			_o_return_result;
 		if (ParamIndexToVal(1, numParam))
 			_o_return_result;
@@ -11371,7 +11392,7 @@ void dnn_SegmentationModel::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_SegmentationModel(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::SegmentationModel>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -11496,7 +11517,7 @@ void dnn_TextDetectionModel_DB::Invoke(ResultToken& aResultToken, int aID, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_TextDetectionModel_DB(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::TextDetectionModel_DB>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -11578,7 +11599,7 @@ void dnn_TextDetectionModel_EAST::Invoke(ResultToken& aResultToken, int aID, int
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_TextDetectionModel_EAST(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::TextDetectionModel_EAST>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -11634,7 +11655,7 @@ void dnn_TextRecognitionModel::Invoke(ResultToken& aResultToken, int aID, int aF
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~dnn_TextRecognitionModel(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::dnn::TextRecognitionModel>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -11728,7 +11749,7 @@ void flann_Index::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~flann_Index(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::flann::Index>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -11836,11 +11857,12 @@ void flann_Index::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	}
 }
 
+#ifdef HAS_GAPI
 void gapi_GKernelPackage::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_GKernelPackage(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::gapi::GKernelPackage>; return;
 	}
 }
@@ -11849,7 +11871,7 @@ void gapi_ie_PyParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~gapi_ie_PyParams(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::gapi::ie::PyParams>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -11916,12 +11938,13 @@ void gapi_ie_PyParams::Invoke(ResultToken& aResultToken, int aID, int aFlags, Ex
 	}
 	}
 }
+#endif
 
 void ml_ANN_MLP::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_ANN_MLP(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::ANN_MLP>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12123,7 +12146,7 @@ void ml_Boost::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenT
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_Boost(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::Boost>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12180,7 +12203,7 @@ void ml_DTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_DTrees(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::DTrees>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12304,7 +12327,7 @@ void ml_EM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_EM(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::EM>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12455,7 +12478,7 @@ void ml_KNearest::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTok
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_KNearest(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::KNearest>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12538,7 +12561,7 @@ void ml_LogisticRegression::Invoke(ResultToken& aResultToken, int aID, int aFlag
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_LogisticRegression(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::LogisticRegression>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12646,7 +12669,7 @@ void ml_NormalBayesClassifier::Invoke(ResultToken& aResultToken, int aID, int aF
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_NormalBayesClassifier(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::NormalBayesClassifier>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12685,7 +12708,7 @@ void ml_ParamGrid::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_ParamGrid(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::ParamGrid>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12706,7 +12729,7 @@ void ml_RTrees::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_RTrees(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::RTrees>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12785,7 +12808,7 @@ void ml_SVM::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenTyp
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_SVM(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::SVM>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -12978,7 +13001,7 @@ void ml_SVMSGD::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToken
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_SVMSGD(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::SVMSGD>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -13161,7 +13184,7 @@ void ml_TrainData::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ml_TrainData(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ml::TrainData>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -13428,7 +13451,7 @@ void ocl_Device::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprToke
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ocl_Device(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::ocl::Device>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -13730,7 +13753,7 @@ void ocl_OpenCLExecutionContext::Invoke(ResultToken& aResultToken, int aID, int 
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~ocl_OpenCLExecutionContext(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::Ptr<cv::ocl::OpenCLExecutionContext>; return;
 	}
 }
@@ -13739,7 +13762,7 @@ void segmentation_IntelligentScissorsMB::Invoke(ResultToken& aResultToken, int a
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
 	switch (aID) {
-	case M___Delete: this->~segmentation_IntelligentScissorsMB(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::segmentation::IntelligentScissorsMB>;
 		if (aParamCount == 1 && aParam[0] == g_invalid)return;
@@ -14286,6 +14309,8 @@ Object_Method(setMinDistance, 1, 1),
 Object_Method(setQualityLevel, 1, 1),
 };
 int GFTTDetector::sMemberCount = _countof(sMember);
+
+#ifdef HAS_GAPI
 thread_local IAhkApi::Prototype* GFrame::sPrototype = nullptr;
 ObjectMember GFrame::sMember[] = {
 Object_Method(__New, 0, NA),
@@ -14315,6 +14340,8 @@ Object_Method(start, 0, 0),
 Object_Method(stop, 0, 0),
 };
 int GStreamingCompiled::sMemberCount = _countof(sMember);
+#endif
+
 thread_local IAhkApi::Prototype* GeneralizedHough::sPrototype = nullptr;
 ObjectMember GeneralizedHough::sMember[] = {
 Object_Method(detect, 2, 5),
@@ -15393,6 +15420,7 @@ Object_Method(release, 0, 0),
 Object_Method(save, 1, 1),
 };
 int flann_Index::sMemberCount = _countof(sMember);
+#ifdef HAS_GAPI
 thread_local IAhkApi::Prototype* gapi_GKernelPackage::sPrototype = nullptr;
 ObjectMember gapi_GKernelPackage::sMember[] = {
 Object_Method(__New, 0, NA),
@@ -15408,6 +15436,7 @@ Object_Method(cfgNumRequests, 1, 1),
 Object_Method(constInput, 2, 3),
 };
 int gapi_ie_PyParams::sMemberCount = _countof(sMember);
+#endif
 thread_local IAhkApi::Prototype* ml_ANN_MLP::sPrototype = nullptr;
 ObjectMember ml_ANN_MLP::sMember[] = {
 Object_Method(__New, 0, NA),
@@ -15783,7 +15812,7 @@ void RNG::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	ResultType __result;
 	switch (aID)
 	{
-	case M___Delete: this->~RNG(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: {
 		new (&mC) cv::Ptr<cv::RNG>;
 		if (aParamCount == 1 && aParam[0] == g_invalid) return;
@@ -15850,10 +15879,11 @@ void RNG::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	}
 }
 
+#ifdef HAS_GAPI
 void GOpaque_Size::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	switch (aID)
 	{
-	case M___Delete: this->~GOpaque_Size(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::GOpaque<cv::Size>; return;
 	default:
 		break;
@@ -15863,12 +15893,13 @@ void GOpaque_Size::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTo
 void GOpaque_Rect::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* aParam[], int aParamCount) {
 	switch (aID)
 	{
-	case M___Delete: this->~GOpaque_Rect(); mBase = nullptr; return;
+	case M___Delete: mC = {}; return;
 	case M___New: new (&mC) cv::GOpaque<cv::Rect>; return;
 	default:
 		break;
 	}
 }
+#endif
 
 thread_local IAhkApi::Prototype* RNG::sPrototype = nullptr;
 ObjectMember RNG::sMember[] = {
@@ -15882,6 +15913,7 @@ Object_Method(gaussian, 1, 1),
 };
 int RNG::sMemberCount = _countof(sMember);
 
+#ifdef HAS_GAPI
 thread_local IAhkApi::Prototype* GOpaque_Size::sPrototype = nullptr;
 ObjectMember GOpaque_Size::sMember[] = {
 Object_Method(__New, 0, NA),
@@ -15895,3 +15927,4 @@ Object_Method(__New, 0, NA),
 Object_Method(__Delete, 0, 0),
 };
 int GOpaque_Rect::sMemberCount = _countof(sMember);
+#endif

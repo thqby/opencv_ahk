@@ -18,7 +18,6 @@ template<typename T> struct is_vector_type<std::vector<T>> { enum { VALUE = 1 };
 template<typename T>
 class Vector : public VectorBase
 {
-	~Vector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -38,7 +37,7 @@ public:
 		switch (aID)
 		{
 		case M___Delete: {
-			this->~Vector(); mBase = nullptr;
+			mC = {};
 			if (mRoot) {
 				mRoot->Release();
 				mRoot = nullptr;
@@ -149,7 +148,6 @@ int Vector<T>::sMemberCount = _countof(sMember);
 template<typename T, int n>
 class Vec : public Object
 {
-	~Vec() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -163,7 +161,7 @@ public:
 		ResultType __result;
 		switch (aID)
 		{
-		case M___Delete: this->~Vec(); mBase = nullptr; return;
+		case M___Delete: mC = {}; return;
 		case M___New: {
 			new (&mC) cv::Vec<T, n>;
 			if (aParamCount == 0 || aParam[0] == g_invalid)return;

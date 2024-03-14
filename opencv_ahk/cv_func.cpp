@@ -8,18 +8,20 @@
 #include <opencv2/core/parallel/parallel_backend.hpp>
 #include <opencv2/dnn/dnn.hpp>
 #include <opencv2/imgproc.hpp>
-#include <opencv2/gapi/imgproc.hpp>
-#include <opencv2/gapi/infer.hpp>
-#include <opencv2/gapi/infer/parsers.hpp>
 #include <opencv2/imgproc/bindings.hpp>
 #include <opencv2/stitching/detail/autocalib.hpp>
 #include <opencv2/videoio/registry.hpp>
+#ifdef HAS_GAPI
+#include <opencv2/gapi/imgproc.hpp>
+#include <opencv2/gapi/infer.hpp>
+#include <opencv2/gapi/infer/parsers.hpp>
 #include <opencv2/gapi/streaming/cap.hpp>
 #include <opencv2/gapi/render.hpp>
 #include <opencv2/gapi/render/render_types.hpp>
 #include <opencv2/gapi/ocl/core.hpp>
 #include <opencv2/gapi/cpu/core.hpp>
 #include <opencv2/gapi/fluid/core.hpp>
+#endif
 
 
 BIF_DECL(CV_FUNC) {
@@ -2727,6 +2729,7 @@ BIF_DECL(CV_FUNC) {
 		g_ahkapi->ResultTokenFree(aResultToken);
 		return;
 	}
+#ifdef HAS_GAPI
 	case FID_empty_array_desc: {
 		auto __retval = (GArrayDesc*)GArrayDesc::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = cv::empty_array_desc();
@@ -2742,6 +2745,7 @@ BIF_DECL(CV_FUNC) {
 		__retval->mC = cv::empty_scalar_desc();
 		return (void)(aResultToken.SetValue(__retval));
 	}
+#endif
 	case FID_equalizeHist: {
 		cv::_InputArray src;
 		cv::_OutputArray dst;
@@ -7846,6 +7850,7 @@ BIF_DECL(CV_FISHEYE_FUNC) {
 }
 
 
+#ifdef HAS_GAPI
 BIF_DECL(CV_GAPI_FUNC) {
 	ResultType __result;
 	UNREFERENCED_PARAMETER(__result);
@@ -8225,6 +8230,7 @@ BIF_DECL(CV_GAPI_STREAMING_FUNC) {
 	}
 	}
 }
+#endif
 
 /*
 BIF_DECL(CV_GAPI_WIP_FUNC) {

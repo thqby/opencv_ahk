@@ -4,7 +4,6 @@
 
 class CirclesGridFinderParameters : public Object
 {
-	~CirclesGridFinderParameters() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -33,9 +32,9 @@ public:
 	static int sMemberCount;
 };
 
+#ifdef HAS_GAPI
 class GArrayDesc : public Object
 {
-	~GArrayDesc() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -51,7 +50,6 @@ public:
 
 class GMatDesc : public Object
 {
-	~GMatDesc() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -78,7 +76,6 @@ public:
 
 class GOpaqueDesc : public Object
 {
-	~GOpaqueDesc() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -94,7 +91,6 @@ public:
 
 class GScalarDesc : public Object
 {
-	~GScalarDesc() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -107,10 +103,10 @@ public:
 	static ObjectMember sMember[];
 	static int sMemberCount;
 };
+#endif
 
 class HOGDescriptor : public Object
 {
-	~HOGDescriptor() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -151,7 +147,6 @@ public:
 
 class QRCodeEncoder_Params : public Object
 {
-	~QRCodeEncoder_Params() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -171,7 +166,6 @@ public:
 
 class SimpleBlobDetector_Params : public Object
 {
-	~SimpleBlobDetector_Params() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -206,7 +200,6 @@ public:
 
 class TrackerDaSiamRPN_Params : public Object
 {
-	~TrackerDaSiamRPN_Params() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -227,7 +220,6 @@ public:
 
 class TrackerGOTURN_Params : public Object
 {
-	~TrackerGOTURN_Params() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -245,7 +237,6 @@ public:
 
 class TrackerMIL_Params : public Object
 {
-	~TrackerMIL_Params() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -268,7 +259,6 @@ public:
 
 class UsacParams : public Object
 {
-	~UsacParams() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -295,7 +285,6 @@ public:
 
 class detail_CameraParams : public Object
 {
-	~detail_CameraParams() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -318,7 +307,6 @@ public:
 
 class detail_ImageFeatures : public Object
 {
-	~detail_ImageFeatures() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -339,7 +327,6 @@ public:
 
 class detail_MatchesInfo : public Object
 {
-	~detail_MatchesInfo() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -362,7 +349,6 @@ public:
 
 class detail_ProjectorBase : public Object
 {
-	~detail_ProjectorBase() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -385,7 +371,6 @@ public:
 
 class detail_SphericalProjector : public Object
 {
-	~detail_SphericalProjector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -403,7 +388,6 @@ public:
 
 class dnn_DictValue : public Object
 {
-	~dnn_DictValue() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -423,9 +407,9 @@ public:
 	static int sMemberCount;
 };
 
+#ifdef HAS_GAPI
 class gapi_GNetPackage : public Object
 {
-	~gapi_GNetPackage() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -441,7 +425,6 @@ public:
 
 class gapi_GNetParam : public Object
 {
-	~gapi_GNetParam() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -457,7 +440,6 @@ public:
 
 class gapi_streaming_queue_capacity : public Object
 {
-	~gapi_streaming_queue_capacity() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -474,7 +456,6 @@ public:
 
 class gapi_wip_draw_Circle : public Object
 {
-	~gapi_wip_draw_Circle() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -496,7 +477,6 @@ public:
 
 class gapi_wip_draw_Image : public Object
 {
-	~gapi_wip_draw_Image() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -515,7 +495,6 @@ public:
 
 class gapi_wip_draw_Line : public Object
 {
-	~gapi_wip_draw_Line() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -537,7 +516,6 @@ public:
 
 class gapi_wip_draw_Mosaic : public Object
 {
-	~gapi_wip_draw_Mosaic() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -556,7 +534,6 @@ public:
 
 class gapi_wip_draw_Poly : public Object
 {
-	~gapi_wip_draw_Poly() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -577,7 +554,6 @@ public:
 
 class gapi_wip_draw_Rect : public Object
 {
-	~gapi_wip_draw_Rect() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -598,7 +574,6 @@ public:
 
 class gapi_wip_draw_Text : public Object
 {
-	~gapi_wip_draw_Text() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -619,10 +594,10 @@ public:
 	static ObjectMember sMember[];
 	static int sMemberCount;
 };
+#endif
 
 class AKAZE : public Object
 {
-	~AKAZE() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -654,7 +629,6 @@ public:
 
 class AffineFeature : public Object
 {
-	~AffineFeature() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -674,7 +648,6 @@ public:
 
 class AgastFeatureDetector : public Object
 {
-	~AgastFeatureDetector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -698,7 +671,6 @@ public:
 
 class Algorithm : public Object
 {
-	~Algorithm() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -720,7 +692,6 @@ public:
 
 class AlignExposures : public Object
 {
-	~AlignExposures() {}
 	enum MemBerID {
 		M_process,
 	};
@@ -735,7 +706,6 @@ public:
 
 class AlignMTB : public Object
 {
-	~AlignMTB() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -761,7 +731,6 @@ public:
 
 class AsyncArray : public Object
 {
-	~AsyncArray() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -781,7 +750,6 @@ public:
 
 class BFMatcher : public Object
 {
-	~BFMatcher() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -798,7 +766,6 @@ public:
 
 class BOWImgDescriptorExtractor : public Object
 {
-	~BOWImgDescriptorExtractor() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -819,7 +786,6 @@ public:
 
 class BOWKMeansTrainer : public Object
 {
-	~BOWKMeansTrainer() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -836,7 +802,6 @@ public:
 
 class BOWTrainer : public Object
 {
-	~BOWTrainer() {}
 	enum MemBerID {
 		M_add,
 		M_clear,
@@ -855,7 +820,6 @@ public:
 
 class BRISK : public Object
 {
-	~BRISK() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -877,7 +841,6 @@ public:
 
 class BackgroundSubtractor : public Object
 {
-	~BackgroundSubtractor() {}
 	enum MemBerID {
 		M_apply,
 		M_getBackgroundImage,
@@ -893,7 +856,6 @@ public:
 
 class BackgroundSubtractorKNN : public Object
 {
-	~BackgroundSubtractorKNN() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -923,7 +885,6 @@ public:
 
 class BackgroundSubtractorMOG2 : public Object
 {
-	~BackgroundSubtractorMOG2() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -964,7 +925,6 @@ public:
 
 class BaseCascadeClassifier : public Object
 {
-	~BaseCascadeClassifier() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -980,7 +940,6 @@ public:
 
 class CLAHE : public Object
 {
-	~CLAHE() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1002,7 +961,6 @@ public:
 
 class CalibrateCRF : public Object
 {
-	~CalibrateCRF() {}
 	enum MemBerID {
 		M_process,
 	};
@@ -1017,7 +975,6 @@ public:
 
 class CalibrateDebevec : public Object
 {
-	~CalibrateDebevec() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1039,7 +996,6 @@ public:
 
 class CalibrateRobertson : public Object
 {
-	~CalibrateRobertson() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1060,7 +1016,6 @@ public:
 
 class CascadeClassifier : public Object
 {
-	~CascadeClassifier() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1084,7 +1039,6 @@ public:
 
 class DISOpticalFlow : public Object
 {
-	~DISOpticalFlow() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1121,7 +1075,6 @@ public:
 
 class DMatch : public Object
 {
-	~DMatch() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1141,7 +1094,6 @@ public:
 
 class DenseOpticalFlow : public Object
 {
-	~DenseOpticalFlow() {}
 	enum MemBerID {
 		M_calc,
 		M_collectGarbage,
@@ -1157,7 +1109,6 @@ public:
 
 class DescriptorMatcher : public Object
 {
-	~DescriptorMatcher() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1186,7 +1137,6 @@ public:
 
 class FaceDetectorYN : public Object
 {
-	~FaceDetectorYN() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1212,7 +1162,6 @@ public:
 
 class FaceRecognizerSF : public Object
 {
-	~FaceRecognizerSF() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1232,7 +1181,6 @@ public:
 
 class FarnebackOpticalFlow : public Object
 {
-	~FarnebackOpticalFlow() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1265,7 +1213,6 @@ public:
 
 class FastFeatureDetector : public Object
 {
-	~FastFeatureDetector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1289,7 +1236,6 @@ public:
 
 class Feature2D : public Object
 {
-	~Feature2D() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1315,7 +1261,6 @@ public:
 
 class FileNode : public Object
 {
-	~FileNode() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1348,7 +1293,6 @@ public:
 
 class FileStorage : public Object
 {
-	~FileStorage() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1376,7 +1320,6 @@ public:
 
 class FlannBasedMatcher : public Object
 {
-	~FlannBasedMatcher() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1393,7 +1336,6 @@ public:
 
 class GFTTDetector : public Object
 {
-	~GFTTDetector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1421,9 +1363,9 @@ public:
 	static int sMemberCount;
 };
 
+#ifdef HAS_GAPI
 class GFrame : public Object
 {
-	~GFrame() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1439,7 +1381,6 @@ public:
 
 class GMat : public Object
 {
-	~GMat() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1455,7 +1396,6 @@ public:
 
 class GScalar : public Object
 {
-	~GScalar() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1471,7 +1411,6 @@ public:
 
 class GStreamingCompiled : public Object
 {
-	~GStreamingCompiled() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1489,10 +1428,10 @@ public:
 	static ObjectMember sMember[];
 	static int sMemberCount;
 };
+#endif
 
 class GeneralizedHough : public Object
 {
-	~GeneralizedHough() {}
 	enum MemBerID {
 		M_detect,
 		M_getCannyHighThresh,
@@ -1518,7 +1457,6 @@ public:
 
 class GeneralizedHoughBallard : public Object
 {
-	~GeneralizedHoughBallard() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1538,7 +1476,6 @@ public:
 
 class GeneralizedHoughGuil : public Object
 {
-	~GeneralizedHoughGuil() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1578,7 +1515,6 @@ public:
 
 class KAZE : public Object
 {
-	~KAZE() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1608,7 +1544,6 @@ public:
 
 class KalmanFilter : public Object
 {
-	~KalmanFilter() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1626,7 +1561,6 @@ public:
 
 class KeyPoint : public Object
 {
-	~KeyPoint() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1644,7 +1578,6 @@ public:
 
 class LineSegmentDetector : public Object
 {
-	~LineSegmentDetector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1663,7 +1596,6 @@ public:
 
 class MSER : public Object
 {
-	~MSER() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1690,7 +1622,6 @@ public:
 
 class MergeDebevec : public Object
 {
-	~MergeDebevec() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1707,7 +1638,6 @@ public:
 
 class MergeExposures : public Object
 {
-	~MergeExposures() {}
 	enum MemBerID {
 		M_process,
 	};
@@ -1722,7 +1652,6 @@ public:
 
 class MergeMertens : public Object
 {
-	~MergeMertens() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1745,7 +1674,6 @@ public:
 
 class MergeRobertson : public Object
 {
-	~MergeRobertson() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1762,7 +1690,6 @@ public:
 
 class Moments : public Object
 {
-	~Moments() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1802,7 +1729,6 @@ public:
 
 class ORB : public Object
 {
-	~ORB() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1838,7 +1764,6 @@ public:
 
 class PyRotationWarper : public Object
 {
-	~PyRotationWarper() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1862,7 +1787,6 @@ public:
 
 class QRCodeDetector : public Object
 {
-	~QRCodeDetector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1888,7 +1812,6 @@ public:
 
 class QRCodeEncoder : public Object
 {
-	~QRCodeEncoder() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1907,7 +1830,6 @@ public:
 
 class SIFT : public Object
 {
-	~SIFT() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1925,7 +1847,6 @@ public:
 
 class SimpleBlobDetector : public Object
 {
-	~SimpleBlobDetector() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1943,7 +1864,6 @@ public:
 
 class SparseOpticalFlow : public Object
 {
-	~SparseOpticalFlow() {}
 	enum MemBerID {
 		M_calc,
 	};
@@ -1958,7 +1878,6 @@ public:
 
 class SparsePyrLKOpticalFlow : public Object
 {
-	~SparsePyrLKOpticalFlow() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -1985,7 +1904,6 @@ public:
 
 class StereoBM : public Object
 {
-	~StereoBM() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2018,7 +1936,6 @@ public:
 
 class StereoMatcher : public Object
 {
-	~StereoMatcher() {}
 	enum MemBerID {
 		M_compute,
 		M_getBlockSize,
@@ -2045,7 +1962,6 @@ public:
 
 class StereoSGBM : public Object
 {
-	~StereoSGBM() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2072,7 +1988,6 @@ public:
 
 class Stitcher : public Object
 {
-	~Stitcher() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2105,7 +2020,6 @@ public:
 
 class Subdiv2D : public Object
 {
-	~Subdiv2D() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2136,7 +2050,6 @@ public:
 
 class TickMeter : public Object
 {
-	~TickMeter() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2163,7 +2076,6 @@ public:
 
 class Tonemap : public Object
 {
-	~Tonemap() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2182,7 +2094,6 @@ public:
 
 class TonemapDrago : public Object
 {
-	~TonemapDrago() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2202,7 +2113,6 @@ public:
 
 class TonemapMantiuk : public Object
 {
-	~TonemapMantiuk() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2222,7 +2132,6 @@ public:
 
 class TonemapReinhard : public Object
 {
-	~TonemapReinhard() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2244,7 +2153,6 @@ public:
 
 class Tracker : public Object
 {
-	~Tracker() {}
 	enum MemBerID {
 		M_init,
 		M_update,
@@ -2260,7 +2168,6 @@ public:
 
 class TrackerDaSiamRPN : public Object
 {
-	~TrackerDaSiamRPN() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2278,7 +2185,6 @@ public:
 
 class TrackerGOTURN : public Object
 {
-	~TrackerGOTURN() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2295,7 +2201,6 @@ public:
 
 class TrackerMIL : public Object
 {
-	~TrackerMIL() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2312,7 +2217,6 @@ public:
 
 class VariationalRefinement : public Object
 {
-	~VariationalRefinement() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2342,7 +2246,6 @@ public:
 
 class VideoCapture : public Object
 {
-	~VideoCapture() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2369,7 +2272,6 @@ public:
 
 class VideoWriter : public Object
 {
-	~VideoWriter() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2393,7 +2295,6 @@ public:
 
 class WarperCreator : public Object
 {
-	~WarperCreator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2409,7 +2310,6 @@ public:
 
 class cuda_BufferPool : public Object
 {
-	~cuda_BufferPool() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2427,7 +2327,6 @@ public:
 
 class cuda_DeviceInfo : public Object
 {
-	~cuda_DeviceInfo() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2499,7 +2398,6 @@ public:
 
 class cuda_Event : public Object
 {
-	~cuda_Event() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2519,7 +2417,6 @@ public:
 
 class cuda_GpuMat : public Object
 {
-	~cuda_GpuMat() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2564,7 +2461,6 @@ public:
 
 class cuda_GpuMat_Allocator : public Object
 {
-	~cuda_GpuMat_Allocator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2580,7 +2476,6 @@ public:
 
 class cuda_GpuMatND : public Object
 {
-	~cuda_GpuMatND() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2596,7 +2491,6 @@ public:
 
 class cuda_HostMem : public Object
 {
-	~cuda_HostMem() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2626,7 +2520,6 @@ public:
 
 class cuda_Stream : public Object
 {
-	~cuda_Stream() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2647,7 +2540,6 @@ public:
 
 class cuda_TargetArchs : public Object
 {
-	~cuda_TargetArchs() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2670,7 +2562,6 @@ public:
 
 class detail_AffineBasedEstimator : public Object
 {
-	~detail_AffineBasedEstimator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2686,7 +2577,6 @@ public:
 
 class detail_AffineBestOf2NearestMatcher : public Object
 {
-	~detail_AffineBestOf2NearestMatcher() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2702,7 +2592,6 @@ public:
 
 class detail_BestOf2NearestMatcher : public Object
 {
-	~detail_BestOf2NearestMatcher() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2720,7 +2609,6 @@ public:
 
 class detail_BestOf2NearestRangeMatcher : public Object
 {
-	~detail_BestOf2NearestRangeMatcher() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2736,7 +2624,6 @@ public:
 
 class detail_Blender : public Object
 {
-	~detail_Blender() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2755,7 +2642,6 @@ public:
 
 class detail_BlocksChannelsCompensator : public Object
 {
-	~detail_BlocksChannelsCompensator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2771,7 +2657,6 @@ public:
 
 class detail_BlocksCompensator : public Object
 {
-	~detail_BlocksCompensator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2798,7 +2683,6 @@ public:
 
 class detail_BlocksGainCompensator : public Object
 {
-	~detail_BlocksGainCompensator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2817,7 +2701,6 @@ public:
 
 class detail_BundleAdjusterAffine : public Object
 {
-	~detail_BundleAdjusterAffine() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2833,7 +2716,6 @@ public:
 
 class detail_BundleAdjusterAffinePartial : public Object
 {
-	~detail_BundleAdjusterAffinePartial() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2849,7 +2731,6 @@ public:
 
 class detail_BundleAdjusterBase : public Object
 {
-	~detail_BundleAdjusterBase() {}
 	enum MemBerID {
 		M_confThresh,
 		M_refinementMask,
@@ -2869,7 +2750,6 @@ public:
 
 class detail_BundleAdjusterRay : public Object
 {
-	~detail_BundleAdjusterRay() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2885,7 +2765,6 @@ public:
 
 class detail_BundleAdjusterReproj : public Object
 {
-	~detail_BundleAdjusterReproj() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2901,7 +2780,6 @@ public:
 
 class detail_ChannelsCompensator : public Object
 {
-	~detail_ChannelsCompensator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2924,7 +2802,6 @@ public:
 
 class detail_DpSeamFinder : public Object
 {
-	~detail_DpSeamFinder() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2941,7 +2818,6 @@ public:
 
 class detail_Estimator : public Object
 {
-	~detail_Estimator() {}
 	enum MemBerID {
 		M_Call,
 	};
@@ -2956,7 +2832,6 @@ public:
 
 class detail_ExposureCompensator : public Object
 {
-	~detail_ExposureCompensator() {}
 	enum MemBerID {
 		M_apply,
 		M_createDefault,
@@ -2977,7 +2852,6 @@ public:
 
 class detail_FeatherBlender : public Object
 {
-	~detail_FeatherBlender() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -2999,7 +2873,6 @@ public:
 
 class detail_FeaturesMatcher : public Object
 {
-	~detail_FeaturesMatcher() {}
 	enum MemBerID {
 		M_collectGarbage,
 		M_isThreadSafe,
@@ -3016,7 +2889,6 @@ public:
 
 class detail_GainCompensator : public Object
 {
-	~detail_GainCompensator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3039,7 +2911,6 @@ public:
 
 class detail_GraphCutSeamFinder : public Object
 {
-	~detail_GraphCutSeamFinder() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3056,7 +2927,6 @@ public:
 
 class detail_HomographyBasedEstimator : public Object
 {
-	~detail_HomographyBasedEstimator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3072,7 +2942,6 @@ public:
 
 class detail_MultiBandBlender : public Object
 {
-	~detail_MultiBandBlender() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3093,7 +2962,6 @@ public:
 
 class detail_NoBundleAdjuster : public Object
 {
-	~detail_NoBundleAdjuster() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3109,7 +2977,6 @@ public:
 
 class detail_NoExposureCompensator : public Object
 {
-	~detail_NoExposureCompensator() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3128,7 +2995,6 @@ public:
 
 class detail_NoSeamFinder : public Object
 {
-	~detail_NoSeamFinder() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3145,7 +3011,6 @@ public:
 
 class detail_PairwiseSeamFinder : public Object
 {
-	~detail_PairwiseSeamFinder() {}
 	enum MemBerID {
 		M_find,
 	};
@@ -3160,7 +3025,6 @@ public:
 
 class detail_SeamFinder : public Object
 {
-	~detail_SeamFinder() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3177,7 +3041,6 @@ public:
 
 class detail_Timelapser : public Object
 {
-	~detail_Timelapser() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3196,7 +3059,6 @@ public:
 
 class detail_TimelapserCrop : public Object
 {
-	~detail_TimelapserCrop() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3212,7 +3074,6 @@ public:
 
 class detail_VoronoiSeamFinder : public Object
 {
-	~detail_VoronoiSeamFinder() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3229,7 +3090,6 @@ public:
 
 class dnn_ClassificationModel : public Object
 {
-	~dnn_ClassificationModel() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3246,7 +3106,6 @@ public:
 
 class dnn_DetectionModel : public Object
 {
-	~dnn_DetectionModel() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3265,7 +3124,6 @@ public:
 
 class dnn_KeypointsModel : public Object
 {
-	~dnn_KeypointsModel() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3282,7 +3140,6 @@ public:
 
 class dnn_Layer : public Object
 {
-	~dnn_Layer() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3301,7 +3158,6 @@ public:
 
 class dnn_Model : public Object
 {
-	~dnn_Model() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3326,7 +3182,6 @@ public:
 
 class dnn_Net : public Object
 {
-	~dnn_Net() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3372,7 +3227,6 @@ public:
 
 class dnn_SegmentationModel : public Object
 {
-	~dnn_SegmentationModel() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3389,7 +3243,6 @@ public:
 
 class dnn_TextDetectionModel : public Object
 {
-	~dnn_TextDetectionModel() {}
 	enum MemBerID {
 		M_detect,
 		M_detectTextRectangles,
@@ -3405,7 +3258,6 @@ public:
 
 class dnn_TextDetectionModel_DB : public Object
 {
-	~dnn_TextDetectionModel_DB() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3429,7 +3281,6 @@ public:
 
 class dnn_TextDetectionModel_EAST : public Object
 {
-	~dnn_TextDetectionModel_EAST() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3449,7 +3300,6 @@ public:
 
 class dnn_TextRecognitionModel : public Object
 {
-	~dnn_TextRecognitionModel() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3471,7 +3321,6 @@ public:
 
 class flann_Index : public Object
 {
-	~flann_Index() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3493,9 +3342,9 @@ public:
 	static int sMemberCount;
 };
 
+#ifdef HAS_GAPI
 class gapi_GKernelPackage : public Object
 {
-	~gapi_GKernelPackage() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3511,7 +3360,6 @@ public:
 
 class gapi_ie_PyParams : public Object
 {
-	~gapi_ie_PyParams() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3527,10 +3375,10 @@ public:
 	static ObjectMember sMember[];
 	static int sMemberCount;
 };
+#endif
 
 class ml_ANN_MLP : public Object
 {
-	~ml_ANN_MLP() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3578,7 +3426,6 @@ public:
 
 class ml_Boost : public Object
 {
-	~ml_Boost() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3602,7 +3449,6 @@ public:
 
 class ml_DTrees : public Object
 {
-	~ml_DTrees() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3638,7 +3484,6 @@ public:
 
 class ml_EM : public Object
 {
-	~ml_EM() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3670,7 +3515,6 @@ public:
 
 class ml_KNearest : public Object
 {
-	~ml_KNearest() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3697,7 +3541,6 @@ public:
 
 class ml_LogisticRegression : public Object
 {
-	~ml_LogisticRegression() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3729,7 +3572,6 @@ public:
 
 class ml_NormalBayesClassifier : public Object
 {
-	~ml_NormalBayesClassifier() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3748,7 +3590,6 @@ public:
 
 class ml_ParamGrid : public Object
 {
-	~ml_ParamGrid() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3765,7 +3606,6 @@ public:
 
 class ml_RTrees : public Object
 {
-	~ml_RTrees() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3792,7 +3632,6 @@ public:
 
 class ml_SVM : public Object
 {
-	~ml_SVM() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3835,7 +3674,6 @@ public:
 
 class ml_SVMSGD : public Object
 {
-	~ml_SVMSGD() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3868,7 +3706,6 @@ public:
 
 class ml_StatModel : public Object
 {
-	~ml_StatModel() {}
 	enum MemBerID {
 		M_calcError,
 		M_empty,
@@ -3889,7 +3726,6 @@ public:
 
 class ml_TrainData : public Object
 {
-	~ml_TrainData() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -3944,7 +3780,6 @@ public:
 
 class ocl_Device : public Object
 {
-	~ocl_Device() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -4031,7 +3866,6 @@ public:
 
 class ocl_OpenCLExecutionContext : public Object
 {
-	~ocl_OpenCLExecutionContext() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -4047,7 +3881,6 @@ public:
 
 class segmentation_IntelligentScissorsMB : public Object
 {
-	~segmentation_IntelligentScissorsMB() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -4071,7 +3904,6 @@ public:
 
 class RNG : public Object
 {
-	~RNG() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -4089,9 +3921,9 @@ public:
 	static int sMemberCount;
 };
 
+#ifdef HAS_GAPI
 class GOpaque_Size : public Object
 {
-	~GOpaque_Size() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -4106,7 +3938,6 @@ public:
 
 class GOpaque_Rect : public Object
 {
-	~GOpaque_Rect() {}
 	enum MemBerID {
 		M___New,
 		M___Delete,
@@ -4118,3 +3949,4 @@ public:
 	static ObjectMember sMember[];
 	static int sMemberCount;
 };
+#endif

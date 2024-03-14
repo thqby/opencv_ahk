@@ -85,7 +85,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		return;
 	}
 	case M___Delete:
-		mC.~Mat();
+		mC = {};
 		break;
 	case M_Call: {
 		auto obj = dynamic_cast<Array*>(TokenToObject(*aParam[0]));
@@ -551,7 +551,7 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 		return;
 	}
 	case M___Delete:
-		mC.~UMat();
+		mC = {};
 		break;
 	case M_Call: {
 		auto obj = dynamic_cast<Array*>(TokenToObject(*aParam[0]));

@@ -143,9 +143,11 @@ enum CV_FUNCID : UCHAR {
 	FID_eigenNonSymmetric,
 	FID_ellipse,
 	FID_ellipse2Poly,
+#ifdef HAS_GAPI
 	FID_empty_array_desc,
 	FID_empty_gopaque_desc,
 	FID_empty_scalar_desc,
+#endif
 	FID_equalizeHist,
 	FID_erode,
 	FID_estimateAffine2D,
@@ -448,6 +450,7 @@ enum CV_FISHEYE_FUNCID : UCHAR {
 };
 
 
+#ifdef HAS_GAPI
 BIF_DECL(CV_GAPI_FUNC);
 enum CV_GAPI_FUNCID : UCHAR {
 	FID_BGR2RGB,
@@ -502,6 +505,7 @@ BIF_DECL(CV_GAPI_STREAMING_FUNC);
 enum CV_GAPI_STREAMING_FUNCID : UCHAR {
 	FID_size,
 };
+#endif
 
 /*
 BIF_DECL(CV_GAPI_WIP_FUNC);

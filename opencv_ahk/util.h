@@ -28,9 +28,11 @@ ResultType TokenToVal(ExprTokenType& token, cv::detail::MatchesInfo& val, char i
 ResultType TokenToVal(ExprTokenType& token, cv::dnn::DictValue& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::dnn::Net*& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::FileNode*& val, char ignore = false);
+#ifdef HAS_GAPI
 ResultType TokenToVal(ExprTokenType& token, cv::gapi::GNetParam& val, char ignore);
 ResultType TokenToVal(ExprTokenType& token, cv::GMat*& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::GScalar*& val, char ignore = false);
+#endif
 ResultType TokenToVal(ExprTokenType& token, cv::KeyPoint& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::KeyPoint*& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::Mat& val, char ignore = false);
@@ -90,7 +92,9 @@ ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::CameraParams
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::ImageFeatures>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::detail::MatchesInfo>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::DMatch>& val, char ignore = false);
+#ifdef HAS_GAPI
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::gapi::GNetParam>& val, char ignore = false);
+#endif
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::KeyPoint>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Mat>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Point>& val, char ignore = false);
@@ -140,8 +144,10 @@ ResultType TokenToVal(ExprTokenType& token, cv::Ptr<cv::FileStorage>& val, char 
 ResultType TokenToVal(ExprTokenType& token, cv::Ptr<cv::ml::ParamGrid>& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::Ptr<cv::ml::TrainData>& val, char ignore = false);
 
+#ifdef HAS_GAPI
 ResultType TokenToVal(ExprTokenType& token, cv::GOpaque<cv::Rect>*& val, char ignore = false);
 ResultType TokenToVal(ExprTokenType& token, cv::GOpaque<cv::Size>*& val, char ignore = false);
+#endif
 
 ResultType TokenToObject(ExprTokenType& token, IObject*& val, LPTSTR type = _T("Object"));
 ResultType ObjectGetPtrSize(Object* obj, void*& ptr, size_t* size = nullptr, char ignore = false);
@@ -159,7 +165,7 @@ template<typename T>
 bool ArrayToCArr(Array* obj, T arr[], int n, char ignore = false) {
 	ExprTokenType tk{};
 	tk.symbol = SYM_STRING;
-	for (int i = 0; i < n; i++) {
+	for (UINT i = 0; i < n; i++) {
 		if (i >= obj->mLength) {
 			arr[i] = 0;
 			continue;
@@ -208,7 +214,7 @@ inline ResultType TokenToVec(ExprTokenType& token, cv::Vec<T, n>& val, char igno
 		return token.symbol == SYM_MISSING ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
 	ExprTokenType tk, num;
 	tk.symbol = SYM_STRING;
-	for (int i = 0; i < n; i++) {
+	for (UINT i = 0; i < n; i++) {
 		if (i >= arr->mLength) {
 			val.val[i] = 0;
 			continue;
@@ -248,9 +254,13 @@ void ValToResult(cv::detail::ImageFeatures& val, ResultToken& result);
 void ValToResult(cv::detail::MatchesInfo& val, ResultToken& result);
 void ValToResult(cv::DMatch& val, ResultToken& result);
 void ValToResult(cv::FileNode& val, ResultToken& result);
+
+#ifdef HAS_GAPI
 void ValToResult(cv::gapi::core::GMat2& val, ResultToken& result);
 void ValToResult(cv::gapi::core::GMat3& val, ResultToken& result);
 void ValToResult(cv::gapi::core::GMatScalar& val, ResultToken& result);
+#endif
+
 void ValToResult(cv::KeyPoint& val, ResultToken& result);
 void ValToResult(cv::Mat& val, ResultToken& result);
 void ValToResult(cv::UMat& val, ResultToken& result);

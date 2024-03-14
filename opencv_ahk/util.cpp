@@ -365,16 +365,6 @@ ResultType TokenToVal(ExprTokenType& token, cv::RotatedRect& val, char ignore) {
 	else return ignore ? CONDITION_TRUE : g_ahkapi->TypeError(_T("Array"), token);
 }
 
-ResultType TokenToVal(ExprTokenType& token, cv::gapi::GNetParam& val, char ignore) {
-	IObject* obj;
-	TokenToObject(token, obj, nullptr);
-	if (obj && obj->IsOfType(gapi_GNetParam::sPrototype))
-		val = ((gapi_GNetParam*)obj)->mC;
-	else if (!ignore)
-		return g_ahkapi->TypeError(_T("gapi::GNetParam"), token);
-	return CONDITION_TRUE;
-}
-
 ResultType TokenToVal(ExprTokenType& token, cv::TermCriteria& val, char ignore) {
 	Array* arr = dynamic_cast<Array*>(TokenToObject(token));
 	if (arr)return ArrayToBin(arr, (char*)&val, "iid", ignore);
@@ -481,6 +471,17 @@ ResultType TokenToVal(ExprTokenType& token, cv::dnn::DictValue& val, char ignore
 	return CONDITION_TRUE;
 }
 
+#ifdef HAS_GAPI
+ResultType TokenToVal(ExprTokenType &token, cv::gapi::GNetParam &val, char ignore) {
+	IObject *obj;
+	TokenToObject(token, obj, nullptr);
+	if (obj && obj->IsOfType(gapi_GNetParam::sPrototype))
+		val = ((gapi_GNetParam *)obj)->mC;
+	else if (!ignore)
+		return g_ahkapi->TypeError(_T("gapi::GNetParam"), token);
+	return CONDITION_TRUE;
+}
+
 ResultType TokenToVal(ExprTokenType& token, cv::GOpaque<cv::Rect>*& val, char ignore) {
 		IObject* obj;
 		TokenToObject(token, obj, nullptr);
@@ -500,7 +501,7 @@ ResultType TokenToVal(ExprTokenType& token, cv::GOpaque<cv::Size>*& val, char ig
 			return g_ahkapi->TypeError(_T("GOpaque_Size"), token);
 			return CONDITION_TRUE;
 }
-
+#endif
 
 ResultType ArrayToBin(Array* arr, char* pval, char* def, char ignore) {
 	char c, n;
@@ -686,11 +687,13 @@ TokenToPtr(Feature2D)
 TokenToPtr(DescriptorMatcher)
 TokenTo(FileNode)
 TokenToPtr(FileStorage)
-TokenTo(GMat)
 TokenTo(KeyPoint)
-TokenTo(GScalar)
 TokenTo(Moments)
 TokenTo(RNG)
+#ifdef HAS_GAPI
+TokenTo(GMat)
+TokenTo(GScalar)
+#endif
 
 
 #define TokenToPtr_(cls) ResultType TokenToVal(ExprTokenType& token, cv::Ptr<cv::cls>& val, char ignore)
@@ -805,9 +808,9 @@ ResultType TokenToVal(ExprTokenType& token, std::vector<cv::KeyPoint>& val, char
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::DMatch>& val, char ignore) { return TokenToVector(token, val, ignore); }
 
 ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::DMatch>>& val, char ignore) { return TokenToVector(token, val, ignore); }
-
+#ifdef HAS_GAPI
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::gapi::GNetParam>& val, char ignore) { return TokenToVector(token, val, ignore); }
-
+#endif
 ResultType TokenToVal(ExprTokenType& token, std::vector<std::vector<cv::KeyPoint>>& val, char ignore) { return TokenToVector(token, val, ignore); }
 
 ResultType TokenToVal(ExprTokenType& token, std::vector<cv::Size>& val, char ignore) { return TokenToVector(token, val, ignore); }
@@ -1077,6 +1080,7 @@ void ValToResult(cv::detail::ImageFeatures& val, ResultToken& result) {
 	t.object->Release();
 }
 
+#ifdef HAS_GAPI
 void ValToResult(cv::gapi::core::GMat2& val, ResultToken& result) {
 	auto m1 = (GMat*)GMat::sPrototype->New(nullptr, 0);
 	auto m2 = (GMat*)GMat::sPrototype->New(nullptr, 0);
@@ -1108,6 +1112,7 @@ void ValToResult(cv::gapi::core::GMatScalar& val, ResultToken& result) {
 	ExprTokenType* param[] = { &p1,&p2 };
 	result.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, 2));
 }
+#endif
 
 void ValToResult(std::vector<std::vector<cv::Vec4i>>& val, ResultToken& result) { return VectorToResult(val, result); }
 
