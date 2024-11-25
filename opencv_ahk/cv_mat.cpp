@@ -67,7 +67,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		else if (aParamCount == 1) {
 			ExprTokenType t;
 			if (aParam[0]->symbol == SYM_VAR)
-				g_ahkapi->VarToToken(aParam[0]->var, t);
+				_VarToToken(aParam[0]->var, t);
 			else t = *aParam[0];
 			if (t.symbol == SYM_INTEGER && (void*)t.value_int64 > (void*)65536) {
 				try {
@@ -436,7 +436,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		cv::Scalar sc{};
 		bool is_invalid = true;
 		if (aParam[0]->symbol == SYM_VAR)
-			g_ahkapi->VarToToken(aParam[0]->var, val);
+			_VarToToken(aParam[0]->var, val);
 		else val = *aParam[0];
 		if (val.symbol == SYM_OBJECT && val.object->Base() == Mat::sPrototype) {
 			if (aID == M_add)
@@ -533,7 +533,7 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 		else if (aParamCount == 1) {
 			ExprTokenType t;
 			if (aParam[0]->symbol == SYM_VAR)
-				g_ahkapi->VarToToken(aParam[0]->var, t);
+				_VarToToken(aParam[0]->var, t);
 			else t = *aParam[0];
 			if (t.symbol == SYM_INTEGER && (void*)t.value_int64 > (void*)65536) {
 				try {

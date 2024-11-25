@@ -13,7 +13,7 @@ int MatchParamTypes(ExprTokenType* aParam[], int aParamCount, char* def) {
 	for (i = 0; c = *def++; i++) {
 		if (i < aParamCount) {
 			if (aParam[i]->symbol == SYM_VAR)
-				g_ahkapi->VarToToken(aParam[i]->var, tmp), p = &tmp;
+				_VarToToken(aParam[i]->var, tmp), p = &tmp;
 			else p = aParam[i];
 			if ((t = typeindex[p->symbol]) == c || (t == 'o' && (c == 'v' && dynamic_cast<VarRef*>(p->object)) || (c == 'a' && dynamic_cast<Array*>(p->object)))) {
 				if (*def == '?') d++, def++;
@@ -56,7 +56,7 @@ ResultType ObjectGetPtrSize(Object* obj, void*& ptr, size_t* psize, bool) {
 
 ExprTokenType VarRefToToken(VarRef* var) {
 	ExprTokenType val;
-	g_ahkapi->VarToToken(var, val);
+	_VarToToken(var, val);
 	return val;
 }
 
@@ -137,7 +137,7 @@ ResultType TokenToVal(ExprTokenType& token, double& val, char ignore) {
 ResultType TokenToObject(ExprTokenType& token, IObject*& val, LPTSTR type) {
 	ExprTokenType vt;
 	if (token.symbol == SYM_VAR)
-		g_ahkapi->VarToToken(token.var, vt);
+		_VarToToken(token.var, vt);
 	else vt = token;
 	if (vt.symbol == SYM_OBJECT)
 		val = vt.object;

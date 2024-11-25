@@ -23,3 +23,17 @@
 extern IAhkApi* g_ahkapi;
 extern ExprTokenType g_invalid[1];
 extern ExprTokenType* g_invalidparam[1];
+
+void VarToToken(Var *aVar, ExprTokenType &aToken);
+
+#define AHK_V21
+
+#ifdef AHK_V21
+#define Token ResultToken
+#define FreeToken(tk) g_ahkapi->ResultTokenFree(tk);
+#define _VarToToken VarToToken
+#else
+#define Token ExprTokenType
+#define FreeToken(tk)
+#define _VarToToken g_ahkapi->VarToToken
+#endif // V21

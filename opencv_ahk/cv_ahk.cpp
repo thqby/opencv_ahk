@@ -598,22 +598,32 @@ BIFn(isBackendBuiltIn, 1, 1, CV_VIDEOIO_REGISTRY_FUNC),
 };
 
 
-
+void VarToToken(Var *aVar, ExprTokenType &aToken)
+{
+	ResultToken tk{};
+	g_ahkapi->VarToToken(aVar, tk);
+	aToken = *(ExprTokenType *)&tk;
+	g_ahkapi->ResultTokenFree(tk);
+}
 
 
 extern "C" __declspec(dllexport) void* opencv_init(IAhkApi* api) {
 	if (g_ahkapi = api) {
-		ExprTokenType param, * params[] = { &param };
+		Token param{};
+		ExprTokenType *params[] = { &param };
 		constexpr auto v = sizeof(Object) == 3 * sizeof(void *) + 8 ? '0' : '1';
 		if (!g_ahkapi->Script_GetVar(_T("A_AhkVersion"), param) || param.symbol != SYM_STRING || param.marker[2] != v) {
 			g_ahkapi->Error(_T("Ahk version mismatch."));
 			return nullptr;
 		}
+		FreeToken(param);
 		param.SetValue(_T("cv"));
 		Object* _cv = (Object*)g_ahkapi->Object_New(IAhkApi::ObjectType::Module, params, 1);
 		ExprTokenType o{};
-		if (api->Script_GetVar(_T("Array"), param))
+		if (api->Script_GetVar(_T("Array"), param)) {
 			api->Object_SetProp(_cv, _T("Array"), param, true);
+			FreeToken(param);
+		}
 
 		// init classes
 		{
