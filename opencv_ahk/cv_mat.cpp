@@ -449,22 +449,24 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 				me = mC / ((Mat*)val.object)->mC;
 		}
 		else {
-			if (val.symbol == SYM_OBJECT && dynamic_cast<Array*>(val.object)) {
+			if (val.symbol == SYM_OBJECT && dynamic_cast<Array *>(val.object)) {
 				ResultType result;
 				if ((result = TokenToVal(val, sc)) != CONDITION_TRUE)
 					return (void)(aResultToken.result = result);
 			}
 			else if (g_ahkapi->TokenToNumber(val, val))
-				sc = val.symbol == SYM_INTEGER ? (double)val.value_int64 : val.value_double;
+				sc = val.symbol == SYM_INTEGER ? (double)val.value_int64 : val.value_double, sc[1] = sc[2] = sc[3] = sc[0];
 			else return (void)(aResultToken.result = g_ahkapi->TypeError(val.symbol == SYM_OBJECT ? _T("Mat or Scalar") : _T("Number"), val));
 			if (aID == M_add)
 				me = mC + sc;
 			else if (aID == M_subtract)
 				me = mC - sc;
-			else if (aID == M_multiply)
-				me = mC * sc;
-			else
+			else if (aID == M_divide)
 				me = mC / sc;
+			else if (val.symbol == SYM_OBJECT)
+				return (void)(aResultToken.result = g_ahkapi->TypeError(_T("Mat or Number"), val));
+			else
+				me = mC / sc[0];
 		}
 		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
 		__retval->mC = me;
