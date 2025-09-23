@@ -1,7 +1,7 @@
 # opencv_ahk
 
 The project is opencv-ahk bindings, use [autoit-opencv](https://github.com/smbape/node-autoit-opencv-com) project to generate opencv header file data, and then rebind it to ahk_v2.
-This library dependents on opencv_world4.5.5 x64 and [ahk_v2h.beta.4(exe or dll)](https://github.com/thqby/AutoHotkey_H/releases/tag/v2.0-beta.4)
+This library dependents on opencv_world4.x x64 and [ahk_v2h(exe or dll)](https://github.com/thqby/AutoHotkey_H/releases). See this [link](https://github.com/thqby/ahk2_lib/tree/master/opencv) for ahk-side code.
 The parameter type definition is the same as that of C++ version, and some functions are not completely overloaded.
 [opencv documentation](https://docs.opencv.org/4.x/)
 
@@ -32,8 +32,8 @@ cv.findContours(thresh, contours := cv.Vector_Vector_Point(), hierarchy := cv.ve
 cv.drawContours(img, contours, -1, [0, 0, 255, 0], 2)
 cv.imshow("img", img)
 cv.waitKey()
-cv.putText(img, "hello ahk⛅", [0,50], cv.constants.FONT_HERSHEY_SIMPLEX, 1, [0, 0, 255], 2, 8, 0)
-cv.putText(img, "hello ahk⛅", [0,50], cv.constants.FONT_HERSHEY_SIMPLEX, 1, [0, 0, 255], 2, 8, 1)
+cv.putText(img, "hello ahk⛅", [0,50], cvcons.FONT_HERSHEY_SIMPLEX, 1, [0, 0, 255], 2, 8, 0)
+cv.putText(img, "hello ahk⛅", [0,50], cvcons.FONT_HERSHEY_SIMPLEX, 1, [0, 0, 255], 2, 8, 1)
 td := cv.TextDraw(,48)
 td.putText(img, 'hello ahk⛅', [0,150], [255], 1)
 td.putText(img, 'hello ahk⛅', [0,150], [255], 0)
