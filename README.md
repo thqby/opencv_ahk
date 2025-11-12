@@ -18,6 +18,14 @@ cv := ObjFromPtr(DllCall('opencv_ahk.dll\opencv_init', 'ptr', DllCall('autohotke
 ; cv := ComObject(9, DllCall("opencv_ahk.dll\opencv_init", "ptr", DllCall("autohotkey64.dll\ahkGetApi", "ptr", 1, "cdecl ptr"), "cdecl ptr"))
 ; cv.Array(0, 0, 255) ; create v2 array
 
+;; in ahk_h, you can use the following code to catch c++ exceptions that may occur at runtime.
+; func_of_cv_calls(params*) {
+; 	; Call some cv functions
+; }
+; try cv.try(func_of_cv_calls, params*)
+; catch as e
+; 	...
+
 cvcons := cv.constants
 img := cv.imread(A_ScriptDir '\1.png')
 cv.imshow('img', img)

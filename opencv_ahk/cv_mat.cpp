@@ -27,23 +27,13 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 				return;
 			}
 			if (!_data) {
-				if (aParamCount > 3) {
-					double arr[4];
-					auto a = dynamic_cast<Array*>(TokenToObject(*aParam[3]));
-					if (!a || !ArrayToCArr(a, arr, 4)) {
-						if (a)
-							__result = g_ahkapi->Error(_T("invalid param"), _T("param 4 is not an array of numbers"));
-						else __result = g_ahkapi->TypeError(_T("Array"), *aParam[3]);
-						_o_return_result;
-					}
-					cv::Scalar sc(arr[0], arr[1], arr[2], arr[3]);
-					new (&mC) cv::Mat((int)_rows, (int)_cols, (int)_type, sc);
-				}
-				else
-					new (&mC) cv::Mat((int)_rows, (int)_cols, (int)_type);
+				cv::Scalar sc{};
+				if (aParamCount > 3 && ParamIndexToVal(3, sc))
+					_o_return_result;
+				new (&mC) cv::Mat((int)_rows, (int)_cols, (int)_type, sc);
 			}
 			else {
-				if (_data < 65536) {
+				if ((UINT_PTR)_data < (UINT_PTR)65536) {
 					aResultToken.result = g_ahkapi->Error(_T("invalid memory address"));
 					return;
 				}
@@ -52,36 +42,28 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		}
 		else if (aParamCount == 2) {
 			cv::Mat obj1;
-			if ((__result = TokenToVal(*aParam[0], obj1)) != CONDITION_TRUE)
-				_o_return_result;
-			auto obj2 = dynamic_cast<Array*>(TokenToObject(*aParam[1]));
 			cv::Rect roi;
-			if (!obj2 || !ArrayToCArr(obj2, (int*)&roi, 4)) {
-				if (obj2)
-					__result = g_ahkapi->Error(_T("invalid param"), _T("param 2 is not an array of numbers"));
-				else __result = g_ahkapi->TypeError(_T("Array"), *aParam[1]);
+			if (ParamIndexToVal(0, obj1) || ParamIndexToVal(1, roi))
 				_o_return_result;
-			}
 			new (&mC) cv::Mat(obj1, roi);
 		}
 		else if (aParamCount == 1) {
 			ExprTokenType t;
-			if (aParam[0]->symbol == SYM_VAR)
-				_VarToToken(aParam[0]->var, t);
-			else t = *aParam[0];
-			if (t.symbol == SYM_INTEGER && (void*)t.value_int64 > (void*)65536) {
-				try {
-					mC = *(cv::Mat*)(t.value_int64);
+			if (g_ahkapi->TokenToNumber(*aParam[0], t)) {
+				bool r = false;
+				if (t.symbol == SYM_INTEGER && (void *)t.value_int64 > (void *)65536) {
+					try {
+						mC = *(cv::Mat *)(t.value_int64);
+						r = mC.dims == 2 || mC.dims == 0;
+					}
+					catch (const std::exception &) {}
 				}
-				catch (const std::exception&) {
+				if (!r)
 					aResultToken.result = g_ahkapi->Error(_T("invalid cv::Mat pointer"));
-				}
 			}
 			else if ((__result = TokenToVal(t, mC)) != CONDITION_TRUE)
-				_o_return_result;				
+				_o_return_result;
 		}
-		else
-			aResultToken.result = g_ahkapi->Error(_T("invalid param count"));
 		return;
 	}
 	case M___Delete:
@@ -105,87 +87,80 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	case P___Item: {
 		ExprTokenType val;
 		if (aFlags & IT_SET) {
-			if (aParamCount == 1) {
-				cv::Scalar sc{};
-				if (ParamIndexToVal(0, sc))
-					_o_return_result;
-				mC = sc;
-				return;
-			}
 			val = *aParam[0];
 			aParam++, aParamCount--;
 		}
-		if (aParamCount < mC.dims) {
-			aResultToken.result = g_ahkapi->Error(_T("invalid param count"));
-			return;
+		cv::Mat m = mC;
+		uchar *p;
+		int p1 = 0, p2 = 0, p3, pc = 0;
+		if (aParamCount && aParam[0]->symbol != SYM_MISSING) {
+			if (ParamIndexToVal(0, p1))
+				_o_return_result;
+			m = mC.row(p1), pc = 1;
 		}
-		__int64 p1, p2, p3;
-		if (ParamIndexToVal(0, p1) || ParamIndexToVal(1, p2))
-			_o_return_result;
-		uchar* p;
+		if (aParamCount > 1 && aParam[1]->symbol != SYM_MISSING) {
+			if (ParamIndexToVal(1, p2))
+				_o_return_result;
+			m = m.col(p2), pc |= 2;
+		}
+		if (aParamCount > 2 && aParam[2]->symbol != SYM_MISSING) {
+			if (ParamIndexToVal(2, p3))
+				_o_return_result;
+			pc |= 4;
+		}
+		if (pc < 4) {
+			if (aFlags & IT_SET) {
+				cv::Scalar sc{};
+				if ((__result = TokenToVal(val, sc)) != CONDITION_TRUE)
+					_o_return_result;
+				m = sc;
+				return;
+			}
+			if (!pc) {
+				AddRef();
+				return aResultToken.SetValue(this);
+			}
+			if (pc != 3) {
+				auto mat = (Mat *)Mat::sPrototype->New(nullptr, 0);
+				mat->mC = m;
+				return aResultToken.SetValue(mat);
+			}
+		}
 		auto si = mC.channels();
 		auto si1 = mC.elemSize1();
 		auto tp = mC.type() & 7;
-		if (aParamCount > 2) {
-			if (ParamIndexToVal(2, p3))
-				_o_return_result;
-			p = mC.ptr((int)p1, (int)p2) + si1 * p3;
-			si = 1;
-		}
-		else
-			p = mC.ptr((int)p1, (int)p2);
+		p = mC.ptr(p1, p2);
+		if (pc & 4)
+			p += p3 * si1, si = 1;
 		if (aFlags & IT_SET) {
 			union {
-				double* dous;
-				int* ints;
+				double dou_;
+				int int_;
 			};
-			dous = (double*)_alloca(si * si1);
-			if (si == 1) {
-				if (!g_ahkapi->TokenToNumber(val, val)) {
-					aResultToken.result = g_ahkapi->TypeError(_T("Number"), val);
-					return;
-				}
-				if (tp >= CV_32F)
-					dous[0] = val.symbol == SYM_INTEGER ? (double)val.value_int64 : val.value_double;
-				else
-					ints[0] = val.symbol == SYM_INTEGER ? (int)val.value_int64 : (int)val.value_double;
-			}
-			else {
-				Array* arr = nullptr;
-				if (!(arr = dynamic_cast<Array*>(TokenToObject(val))))
-					return (void)(aResultToken.result = g_ahkapi->TypeError(_T("Array"), val));
-				if ((tp >= CV_32F && !ArrayToCArr(arr, dous, si)) || !ArrayToCArr(arr, ints, si))
-					return (void)(aResultToken.result = g_ahkapi->Error(_T("invalid param"), _T("param 1 is not an array of numbers")));
-			}
+			if ((__result = tp >= CV_32F ? TokenToVal(val, dou_) : TokenToVal(val, int_)) != CONDITION_TRUE)
+				_o_return_result;
 			switch (tp)
 			{
 			case CV_8S:
-				for (int i = 0; i < si; i++, p += si1)
-					*(schar*)p = ints[i];
+				*(schar*)p = int_;
 				return;
 			case CV_8U:
-				for (int i = 0; i < si; i++, p += si1)
-					*(uchar*)p = ints[i];
+				*(uchar*)p = int_;
 				return;
 			case CV_16S:
-				for (int i = 0; i < si; i++, p += si1)
-					*(short*)p = ints[i];
+				*(short*)p = int_;
 				return;
 			case CV_16U:
-				for (int i = 0; i < si; i++, p += si1)
-					*(ushort*)p = ints[i];
+				*(ushort*)p = int_;
 				return;
 			case CV_32S:
-				for (int i = 0; i < si; i++, p += si1)
-					*(int*)p = ints[i];
+				*(int*)p = int_;
 				return;
 			case CV_32F:
-				for (int i = 0; i < si; i++, p += si1)
-					*(float*)p = (float)dous[i];
+				*(float*)p = (float)dou_;
 				return;
 			case CV_64F:
-				for (int i = 0; i < si; i++, p += si1)
-					*(double*)p = dous[i];
+				*(double*)p = dou_;
 				return;
 			}
 		}
@@ -223,7 +198,6 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 				aResultToken.SetValue(g_ahkapi->Object_New(IAhkApi::ObjectType::Array, param, si));
 			else
 				aResultToken.symbol = vals[0].symbol, aResultToken.value_int64 = vals[0].value_int64;
-			return;
 		}
 		return;
 	}
@@ -307,10 +281,9 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	}
 	case M_assignTo: {
 		cv::Mat m;
-		if ((__result = TokenToVal(*aParam[0], m)) == CONDITION_TRUE)
-			mC.assignTo(m, aParamCount > 1 ? (int)TokenToInt64(*aParam[1]) : -1);
-		else
-			aResultToken.result = __result;
+		if (ParamIndexToVal(0, m))
+			_o_return_result;
+		mC.assignTo(m, aParamCount > 1 ? (int)TokenToInt64(*aParam[1]) : -1);
 		return;
 	}
 	case M_mul:
@@ -346,7 +319,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 		return;
 	}
 	case M_create: {
-		__int64 _rows, _cols, _type;
+		int _rows, _cols, _type;
 		if (ParamIndexToVal(0, _rows) || ParamIndexToVal(1, _cols) || ParamIndexToVal(2, _type))
 			_o_return_result;
 		mC.create((int)_rows, (int)_cols, (int)_type);
@@ -367,27 +340,36 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	case M_rowRange:
 	case M_colRange: {
 		auto mat = (Mat*)sPrototype->New(nullptr, 0);
-		int p1 = (int)TokenToInt64(*aParam[0]);
-		int p2 = aParamCount > 1 ? (int)TokenToInt64(*aParam[1]) : 0;
-		if (aID == M_rowRange)
-			mat->mC = mC.rowRange(p1, p2);
-		else if (aID == M_colRange)
-			mat->mC = mC.colRange((int)TokenToInt64(*aParam[0]), (int)TokenToInt64(*aParam[1]));
-		else if (aID == M_row)
-			mat->mC = mC.row((int)TokenToInt64(*aParam[0]));
-		else if (aID == M_col)
-			mat->mC = mC.col((int)TokenToInt64(*aParam[0]));
-		else {
+		int p1, p2 = 0;
+		if (aID == M_diag) {
 			if (auto obj = TokenToObject(*aParam[0])) {
 				if (obj->IsOfType(Mat::sPrototype))
-					mat->mC = cv::Mat::diag(((Mat*)obj)->mC);
+					mat->mC = cv::Mat::diag(((Mat *)obj)->mC);
 				else {
+					mat->Release();
 					aResultToken.result = g_ahkapi->TypeError(_T("Mat"), *aParam[0]);
 					return;
 				}
 			}
+			else if (ParamIndexToVal(0, p1)) {
+				mat->Release();
+				_o_return_result;
+			}
+			else mat->mC = mC.diag(p1);
+		}
+		else {
+			if (ParamIndexToVal(0, p1) || aParamCount > 1 && ParamIndexToVal(1, p2)) {
+				mat->Release();
+				_o_return_result;
+			}
+			if (aID == M_row)
+				mat->mC = mC.row(p1);
+			else if (aID == M_col)
+				mat->mC = mC.col(p1); 
+			else if (aID == M_rowRange)
+				mat->mC = mC.rowRange(p1, p2);
 			else
-				mat->mC = mC.diag((int)TokenToInt64(*aParam[0]));
+				mat->mC = mC.colRange(p1, p2);
 		}
 		aResultToken.SetValue(mat);
 		return;
@@ -398,6 +380,10 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 	case M_ptr: {
 		__int64 p1 = 0, p2 = 0, p3 = 0;
 		uchar* p;
+		if (aParamCount > mC.dims) {
+			aResultToken.result = g_ahkapi->Error(_T("invalid param count"));
+			return;
+		}
 		if ((aParamCount && ParamIndexToVal(0, p1, 2)) || (aParamCount > 1 && ParamIndexToVal(1, p2, 2)) ||
 			(aParamCount > 2 && ParamIndexToVal(2, p3, 2)))
 			_o_return_result;
@@ -468,7 +454,7 @@ void Mat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType* 
 			else
 				me = mC / sc[0];
 		}
-		auto __retval = (Mat*)Mat::sPrototype->New(g_invalidparam, 1);
+		auto __retval = (Mat*)Mat::sPrototype->New(nullptr, 0);
 		__retval->mC = me;
 		return (void)aResultToken.SetValue(__retval);
 	}
@@ -651,10 +637,9 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	}
 	case M_assignTo: {
 		cv::UMat m;
-		if ((__result = TokenToVal(*aParam[0], m)) == CONDITION_TRUE)
-			mC.assignTo(m, aParamCount > 1 ? (int)TokenToInt64(*aParam[1]) : -1);
-		else
-			aResultToken.result = __result;
+		if (ParamIndexToVal(0, m))
+			_o_return_result;
+		mC.assignTo(m, aParamCount > 1 ? (int)TokenToInt64(*aParam[1]) : -1);
 		return;
 	}
 	case M_mul:
@@ -690,7 +675,7 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 		return;
 	}
 	case M_create: {
-		__int64 _rows, _cols, _type;
+		int _rows, _cols, _type;
 		if (ParamIndexToVal(0, _rows) || ParamIndexToVal(1, _cols) || ParamIndexToVal(2, _type))
 			_o_return_result;
 		mC.create((int)_rows, (int)_cols, (int)_type);
@@ -702,27 +687,36 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	case M_rowRange:
 	case M_colRange: {
 		auto mat = (UMat*)sPrototype->New(nullptr, 0);
-		int p1 = (int)TokenToInt64(*aParam[0]);
-		int p2 = aParamCount > 1 ? (int)TokenToInt64(*aParam[1]) : 0;
-		if (aID == M_rowRange)
-			mat->mC = mC.rowRange(p1, p2);
-		else if (aID == M_colRange)
-			mat->mC = mC.colRange((int)TokenToInt64(*aParam[0]), (int)TokenToInt64(*aParam[1]));
-		else if (aID == M_row)
-			mat->mC = mC.row((int)TokenToInt64(*aParam[0]));
-		else if (aID == M_col)
-			mat->mC = mC.col((int)TokenToInt64(*aParam[0]));
-		else {
+		int p1, p2 = 0;
+		if (aID == M_diag) {
 			if (auto obj = TokenToObject(*aParam[0])) {
 				if (obj->IsOfType(UMat::sPrototype))
-					mat->mC = cv::UMat::diag(((UMat*)obj)->mC);
+					mat->mC = cv::UMat::diag(((UMat *)obj)->mC);
 				else {
+					mat->Release();
 					aResultToken.result = g_ahkapi->TypeError(_T("UMat"), *aParam[0]);
 					return;
 				}
 			}
+			else if (ParamIndexToVal(0, p1)) {
+				mat->Release();
+				_o_return_result;
+			}
+			else mat->mC = mC.diag(p1);
+		}
+		else {
+			if (ParamIndexToVal(0, p1) || aParamCount > 1 && ParamIndexToVal(1, p2)) {
+				mat->Release();
+				_o_return_result;
+			}
+			if (aID == M_row)
+				mat->mC = mC.row(p1);
+			else if (aID == M_col)
+				mat->mC = mC.col(p1);
+			else if (aID == M_rowRange)
+				mat->mC = mC.rowRange(p1, p2);
 			else
-				mat->mC = mC.diag((int)TokenToInt64(*aParam[0]));
+				mat->mC = mC.colRange(p1, p2);
 		}
 		aResultToken.SetValue(mat);
 		return;
@@ -733,7 +727,7 @@ void UMat::Invoke(ResultToken& aResultToken, int aID, int aFlags, ExprTokenType*
 	case M_eye:
 	case M_ones:
 	case M_zeros: {
-		__int64 p1 = 0, p2 = 0, p3 = 0, p4 = 1;
+		int p1 = 0, p2 = 0, p3 = 0, p4 = 1;
 		if (ParamIndexToVal(0, p1) || ParamIndexToVal(1, p2) || ParamIndexToVal(2, p3))
 			_o_return_result;
 		if (aID == M_ones)

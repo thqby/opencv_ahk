@@ -11,7 +11,23 @@ IAhkApi* g_ahkapi = nullptr;
 ExprTokenType g_invalid[1] = {};
 ExprTokenType* g_invalidparam[1] = { g_invalid };
 
+BIF_DECL(CV_TRY_FUNC) {
+	if (auto obj = TokenToObject(*aParam[0])) {
+		try {
+			obj->Invoke(aResultToken, IT_CALL, nullptr, ExprTokenType{ obj }, aParam + 1, aParamCount - 1);
+		}
+		catch (std::exception &e) {
+			ResultToken tk{};
+			ValToResult(cv::String(e.what()), tk);
+			aResultToken.result = g_ahkapi->Error(tk.marker);
+			g_ahkapi->ResultTokenFree(tk);
+		}
+	}
+	else aResultToken.result = g_ahkapi->TypeError(L"Func", *aParam[0]);
+}
+
 FuncEntry CV_Funcs[] = {
+BIFi(Try, 1, 255, CV_TRY_FUNC, 0),
 BIFn(CamShift, 3, 3, CV_FUNC),
 BIFn(Canny, 4, 6, CV_FUNC),
 BIFn(GaussianBlur, 4, 6, CV_FUNC),
